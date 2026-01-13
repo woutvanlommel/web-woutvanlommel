@@ -35,10 +35,8 @@ interface MenuItem {
     <nav
       class="w-full py-6 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-white/10 transition-all duration-300"
     >
-      <div
-        class="w-full max-w-300 mx-auto flex justify-between items-center md:grid md:grid-cols-3"
-      >
-        <div class="flex justify-start h-8 items-center">
+      <div class="w-full max-w-300 mx-auto flex justify-between items-center">
+        <div class="flex justify-start w-full h-8 items-center">
           <a
             routerLink="/"
             class="text-2xl font-bold text-white relative z-50"
@@ -56,9 +54,9 @@ interface MenuItem {
             [routerLink]="item.path"
             routerLinkActive="text-primary"
             class="
-              relative text-fake-white font-medium text-xl transition-colors duration-300
+              relative text-fake-white font-medium text-[clamp(1.5rem,2vw,2rem)] transition-colors duration-300
               after:content-[''] after:absolute after:left-0 after:-bottom-1 
-              after:h-[2px] after:w-0 after:bg-primary 
+              after:h-0.5 after:w-0 after:bg-primary 
               after:transition-all after:duration-300 
               hover:after:w-full
             "
@@ -68,10 +66,10 @@ interface MenuItem {
           }
         </div>
 
-        <div class="flex justify-end items-center gap-4">
+        <div class="flex justify-end items-center gap-4 w-full">
           <a
             routerLink="/contact"
-            class="hidden md:inline-block bg-primary hover:bg-primary-600 text-white font-bold py-2 px-6 rounded-lg transition-colors"
+            class="hidden md:flex bg-primary hover:bg-primary-600 text-white font-bold py-2 px-6 rounded-lg transition-colors"
           >
             Start Project
           </a>
