@@ -1,3 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  /* --- 1. Je Specifieke Aliassen --- */
+  /* We overschrijven 'black' met jouw specifieke tint (#18181B) */
+  --color-black: #18181b;
+
+  /* Je custom namen */
+  --color-light-black: #27272a;
+  --color-fake-white: #f4f4f5;
+
+  /* --- 2. Primary Palette (Gebaseerd op Orange) --- */
+  /* Hierdoor kun je bg-primary-500, text-primary-600 etc. gebruiken */
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316; /* Jouw basis primary */
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --color-primary-950: #431407;
+
+  /* We maken ook een 'default' primary aan voor makkelijk gebruik (bv: bg-primary) */
+  --color-primary: #f97316;
+
+  /* --- 3. Secondary Palette (Gebaseerd op Zinc) --- */
+  /* Hierdoor kun je bg-secondary-400 (jouw basis) gebruiken */
+  --color-secondary-50: #fafafa;
+  --color-secondary-100: #f4f4f5; /* Dit is ook je fake-white */
+  --color-secondary-200: #e4e4e7;
+  --color-secondary-300: #d4d4d8;
+  --color-secondary-400: #a1a1aa; /* Jouw basis secondary */
+  --color-secondary-500: #71717a;
+  --color-secondary-600: #52525b;
+  --color-secondary-700: #3f3f46;
+  --color-secondary-800: #27272a; /* Dit is ook je light-black */
+  --color-secondary-900: #18181b; /* Dit is ook je black */
+  --color-secondary-950: #09090b;
+
+  --color-secondary: #a1a1aa;
+}
