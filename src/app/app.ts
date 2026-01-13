@@ -6,10 +6,10 @@ import { Navigation } from './components/navigation/navigation';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, Navigation],
-  template: ` <div class="w-full h-fit fixed top-0">
+  template: ` <div class="w-full h-fit fixed top-0 z-999">
       <app-navigation></app-navigation>
     </div>
-    <main class="w-full max-w-300 h-fit">
+    <main class="w-full h-fit">
       <router-outlet></router-outlet>
     </main>`,
 })
