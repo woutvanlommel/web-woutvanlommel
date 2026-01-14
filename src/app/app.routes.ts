@@ -1,44 +1,54 @@
 import { Routes } from '@angular/router';
+import { Home } from './pages/home/home';
+import { OverMij } from './pages/over-mij/over-mij';
+import { Diensten } from './pages/diensten/diensten';
+import { Portfolio } from './pages/portfolio/portfolio';
+import { PortfolioProjects } from './pages/portfolio-projects/portfolio-projects';
+import { Contact } from './pages/contact/contact';
+import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
   // Define your application routes here
   {
     path: '',
-    loadComponent: () => import('./pages/home/home').then((m) => m.Home),
+    component: Home,
     pathMatch: 'full',
     title: 'Wout - Full Stack Developer',
   },
   {
     path: 'over-mij',
-    loadComponent: () => import('./pages/over-mij/over-mij').then((m) => m.OverMij),
+    component: OverMij,
     title: 'Wout - Over mij',
   },
   {
     path: 'diensten',
-    loadComponent: () => import('./pages/diensten/diensten').then((m) => m.Diensten),
+    component: Diensten,
     title: 'Wout - Diensten',
   },
   {
     path: 'portfolio',
-    loadComponent: () => import('./pages/portfolio/portfolio').then((m) => m.Portfolio),
+    component: Portfolio,
     title: 'Wout - Portfolio',
     children: [
       {
         path: 'project/:id',
-        loadComponent: () =>
-          import('./pages/portfolio-projects/portfolio-projects').then((m) => m.PortfolioProjects),
+        component: PortfolioProjects,
         title: 'Wout - Portfolio Project',
       },
     ],
   },
   {
     path: 'contact',
-    loadComponent: () => import('./pages/contact/contact').then((m) => m.Contact),
+    component: Contact,
     title: 'Wout - Contact',
   },
   {
+    path: 'not-found',
+    component: NotFound,
+    title: 'Bug in the matrix? - Pagina niet gevonden',
+  },
+  {
     path: '**',
-    loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),
-    title: 'Bug in the matrix?',
+    redirectTo: 'not-found',
   },
 ];

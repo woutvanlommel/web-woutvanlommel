@@ -89,7 +89,7 @@ export class Expertise {
         'Jouw unieke bedrijfsproces vertaald naar software. Van intern dashboard tot complete SaaS.',
       iconName: 'heroCommandLine', // Verwijst naar de import
       buttonLabel: 'Ontdek webapps',
-      link: '/diensten/webapplicaties',
+      link: '/diensten/#webapplicaties',
     },
     {
       title: 'Flexibele Websites & CMS',
@@ -97,7 +97,7 @@ export class Expertise {
         'Snel, vindbaar en makkelijk zelf aan te passen. Geen standaard templates, maar pixel-perfect design.',
       iconName: 'heroComputerDesktop',
       buttonLabel: 'Ontdek websites',
-      link: '/diensten/websites',
+      link: '/diensten/#websites',
     },
     {
       title: 'API-koppelingen',
@@ -105,7 +105,7 @@ export class Expertise {
         'Software mag geen eiland zijn. Ik laat jouw systemen (CRM, boekhouding) naadloos met elkaar praten.',
       iconName: 'heroPuzzlePiece',
       buttonLabel: 'Ontdek automatisatie',
-      link: '/diensten/api',
+      link: '/diensten/#api',
     },
     {
       title: 'Support & Onderhoud',
@@ -113,7 +113,7 @@ export class Expertise {
         'Geen zorgen over updates of downtime. Ik houd de motor draaiende terwijl jij onderneemt.',
       iconName: 'heroWrenchScrewdriver',
       buttonLabel: 'Ontdek support',
-      link: '/diensten/support',
+      link: '/diensten/#support',
     },
   ];
 }

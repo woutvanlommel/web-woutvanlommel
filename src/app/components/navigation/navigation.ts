@@ -54,7 +54,7 @@ interface MenuItem {
             [routerLink]="item.path"
             routerLinkActive="text-primary"
             class="
-              relative text-fake-white font-medium text-[clamp(1.5rem,2vw,2rem)] transition-colors duration-300
+              relative text-fake-white font-medium text-[clamp(1rem,1.5vw,1.5rem)] transition-colors duration-300
               after:content-[''] after:absolute after:left-0 after:-bottom-1 
               after:h-0.5 after:w-0 after:bg-primary 
               after:transition-all after:duration-300 
