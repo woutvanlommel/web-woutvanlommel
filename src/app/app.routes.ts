@@ -31,7 +31,7 @@ export const routes: Routes = [
     title: 'Wout - Portfolio',
   },
   {
-    path: 'portfolio/project/:id',
+    path: 'portfolio/:slug',
     component: PortfolioProjects,
     title: 'Wout - Portfolio Project',
   },

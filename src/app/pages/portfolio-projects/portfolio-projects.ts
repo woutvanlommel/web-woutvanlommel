@@ -56,7 +56,7 @@ import { Project } from '../../models/project.model'; // Import Project type
               <div>
                 @if (project.githubLink) {
                   <a
-                    [href]="project.link"
+                    [href]="project.githubLink"
                     target="_blank"
                     class="text-fake-white text-[clamp(1rem,1.3vw,2rem)] hover:underline"
                     >GitHub Link</a
@@ -76,7 +76,40 @@ import { Project } from '../../models/project.model'; // Import Project type
               class="rounded-lg shadow-[0_0px_20px_-4px] shadow-fake-white"
             />
           </div>
-          <div class="flex flex-col md:flex-row w-full "></div>
+          <div class="flex flex-col-reverse md:flex-row w-full gap-4">
+            <div class="w-full md:w-2/3">
+              <div class="w-full">
+                <h3 class="text-[clamp(1.5rem,1.5vw,2.5rem)] text-primary uppercase">
+                  De uitdaging
+                </h3>
+                <p class="text-[clamp(1rem,1vw,1.5rem)] text-fake-white">
+                  {{ project.difficulty }}
+                </p>
+              </div>
+              <div>
+                <h3 class="text-[clamp(1.5rem,1.5vw,2.5rem)] text-primary uppercase">
+                  De oplossing
+                </h3>
+                <p class="text-[clamp(1rem,1vw,1.5rem)] text-fake-white">{{ project.solution }}</p>
+              </div>
+            </div>
+            <div class="w-full md:w-1/3">
+              <h3
+                class="text-fake-white text-[clamp(1.5rem,1.5vw,2.5rem)] text-center md:text-left"
+              >
+                Tech Stack<span class="text-primary">.</span>
+              </h3>
+              <div class="grid grid-cols-2 md:grid-cols-1 gap-2 bg-black/50 p-4 rounded-lg">
+                @for (techStack of project.techStack; track techStack) {
+                  <div
+                    class="flex justify-center items-center p-2 bg-black text-fake-white font-bold text-md md:text-lg shadow-sm shadow-primary/50 rounded-lg"
+                  >
+                    <h3>{{ techStack }}</h3>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
         </div>
       } @else {
         <div class="pt-32 text-center">Project niet gevonden.</div>
@@ -94,19 +127,19 @@ export class PortfolioProjects implements OnInit {
 
   ngOnInit() {
     // Haal het ID uit de URL
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const slug = this.route.snapshot.paramMap.get('slug');
 
     // Zoek het specifieke project
-    this.project = this.projects.find((p) => p.id === id);
+    this.project = this.projects.find((p) => p.slug === slug);
 
-    console.log('Gevonden ID uit URL:', id);
+    console.log('Gevonden ID uit URL:', slug);
 
     if (this.project) {
       console.log('Project details geladen:', this.project);
       console.log('Klant:', this.project.client);
       console.log('Tech Stack:', this.project.techStack.join(', '));
     } else {
-      console.error('Project niet gevonden met ID:', id);
+      console.error('Project niet gevonden met ID:', slug);
     }
   }
 }
