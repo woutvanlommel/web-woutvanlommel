@@ -1,15 +1,36 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
+import { ActivatedRoute, RouterLink } from '@angular/router'; // Import ActivatedRoute
 import { ProjectService } from '../../shared/project.service';
 import { Project } from '../../models/project.model'; // Import Project type
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  bootstrapArrowUpRight,
+  bootstrapArrowLeft,
+  bootstrapArrowRight,
+} from '@ng-icons/bootstrap-icons';
 
 @Component({
   selector: 'app-portfolio-projects',
-  imports: [],
+  imports: [NgIcon, RouterLink],
+  standalone: true,
+  viewProviders: [provideIcons({ bootstrapArrowUpRight, bootstrapArrowLeft, bootstrapArrowRight })],
   template: `
     <div class="w-full bg-light-black">
       @if (project) {
         <div class="w-full max-w-300 space-y-12 mx-auto px-4 md:px-8 py-32">
+          <nav class="flex text-zinc-500 text-sm capitalize tracking-wider">
+            <ol class="flex items-center gap-2">
+              <li class="flex items-center gap-2 after:content-['/'] after:text-zinc-700">
+                <a routerLink="/" class="hover:text-primary transition-colors">Home</a>
+              </li>
+              <li class="flex items-center gap-2 after:content-['/'] after:text-zinc-700">
+                <a routerLink="/portfolio" class="hover:text-primary transition-colors"
+                  >Portfolio</a
+                >
+              </li>
+              <li class="text-primary font-semibold">{{ project.client }} - {{ project.title }}</li>
+            </ol>
+          </nav>
           <div class="text-center space-y-1">
             <h1 class="text-[clamp(2rem,3.5vw,5rem)] font-bold text-fake-white">
               {{ project.title }}
@@ -76,9 +97,9 @@ import { Project } from '../../models/project.model'; // Import Project type
               class="rounded-lg shadow-[0_0px_20px_-4px] shadow-fake-white"
             />
           </div>
-          <div class="flex flex-col-reverse md:flex-row w-full gap-4">
-            <div class="w-full md:w-2/3">
-              <div class="w-full">
+          <div class="flex flex-col-reverse md:flex-row w-full gap-8">
+            <div class="w-full md:w-3/5 space-y-8">
+              <div class="w-full space-y-4">
                 <h3 class="text-[clamp(1.5rem,1.5vw,2.5rem)] text-primary uppercase">
                   De uitdaging
                 </h3>
@@ -86,14 +107,28 @@ import { Project } from '../../models/project.model'; // Import Project type
                   {{ project.difficulty }}
                 </p>
               </div>
-              <div>
+              <div class="w-full space-y-4">
                 <h3 class="text-[clamp(1.5rem,1.5vw,2.5rem)] text-primary uppercase">
                   De oplossing
                 </h3>
                 <p class="text-[clamp(1rem,1vw,1.5rem)] text-fake-white">{{ project.solution }}</p>
               </div>
+              @if (project.link) {
+                <a
+                  [href]="project.link"
+                  target="_blank"
+                  class="group inline-flex items-center gap-2 px-6 py-2 border-2 border-primary text-fake-white font-semibold rounded-lg hover:bg-primary transition-all duration-300 ease-in-out shadow-lg shadow-primary/10 hover:shadow-primary/40"
+                >
+                  Bezoek de live site
+                  <ng-icon
+                    name="bootstrapArrowUpRight"
+                    size="1rem"
+                    class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  ></ng-icon>
+                </a>
+              }
             </div>
-            <div class="w-full md:w-1/3">
+            <div class="w-full md:w-2/5 space-y-4">
               <h3
                 class="text-fake-white text-[clamp(1.5rem,1.5vw,2.5rem)] text-center md:text-left"
               >
@@ -110,6 +145,39 @@ import { Project } from '../../models/project.model'; // Import Project type
               </div>
             </div>
           </div>
+          <div class="flex justify-between items-start gap-4 bg-black/50 p-4 rounded-lg">
+            <a
+              routerLink="/portfolio"
+              class="group flex flex-col justify-center items-start text-left"
+            >
+              <p
+                class="text-zinc-500 uppercase text-[clamp(0.7rem,0.8vw,1.5rem)] flex items-center gap-2 group-hover:text-primary transition-colors"
+              >
+                <ng-icon name="bootstrapArrowLeft" />Portfolio
+              </p>
+              <p class="text-fake-white text-[clamp(1rem,1vw,1.5rem)] font-bold">
+                Terug naar portfolio
+              </p>
+            </a>
+
+            @if (nextProject) {
+              <a
+                [routerLink]="['/portfolio', nextProject.slug]"
+                class="group flex flex-col justify-center items-end text-right"
+              >
+                <p
+                  class="text-zinc-500 uppercase text-[clamp(0.7rem,0.8vw,1.5rem)] flex items-center gap-2 group-hover:text-primary transition-colors"
+                >
+                  Volgenjde proect <ng-icon name="bootstrapArrowRight" />
+                </p>
+                <p class="text-fake-white text-[clamp(1rem,1vw,1.5rem)] font-bold">
+                  {{ nextProject.title }}
+                </p>
+              </a>
+            } @else {
+              <div></div>
+            }
+          </div>
         </div>
       } @else {
         <div class="pt-32 text-center">Project niet gevonden.</div>
@@ -124,22 +192,31 @@ export class PortfolioProjects implements OnInit {
 
   projects = this.projectsService.getProjects();
   project: Project | undefined;
+  nextProject: Project | undefined;
+  prevProject: Project | undefined;
 
   ngOnInit() {
-    // Haal het ID uit de URL
-    const slug = this.route.snapshot.paramMap.get('slug');
+    // Reageer op veranderingen in de URL (belangrijk voor navigatie tussen projecten)
+    this.route.paramMap.subscribe((params) => {
+      const slug = params.get('slug');
+      this.updateProjectData(slug);
+    });
+  }
 
-    // Zoek het specifieke project
-    this.project = this.projects.find((p) => p.slug === slug);
+  private updateProjectData(slug: string | null) {
+    const currentIndex = this.projects.findIndex((p) => p.slug === slug);
 
-    console.log('Gevonden ID uit URL:', slug);
+    if (currentIndex !== -1) {
+      this.project = this.projects[currentIndex];
+      this.prevProject = this.projects[currentIndex - 1];
+      this.nextProject = this.projects[currentIndex + 1];
 
-    if (this.project) {
-      console.log('Project details geladen:', this.project);
-      console.log('Klant:', this.project.client);
-      console.log('Tech Stack:', this.project.techStack.join(', '));
+      // Optioneel: scroll naar boven bij navigatie
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      console.error('Project niet gevonden met ID:', slug);
+      this.project = undefined;
+      this.prevProject = undefined;
+      this.nextProject = undefined;
     }
   }
 }
