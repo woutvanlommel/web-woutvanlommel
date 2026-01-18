@@ -29,13 +29,11 @@ export const routes: Routes = [
     path: 'portfolio',
     component: Portfolio,
     title: 'Wout - Portfolio',
-    children: [
-      {
-        path: 'project/:id',
-        component: PortfolioProjects,
-        title: 'Wout - Portfolio Project',
-      },
-    ],
+  },
+  {
+    path: 'portfolio/project/:id',
+    component: PortfolioProjects,
+    title: 'Wout - Portfolio Project',
   },
   {
     path: 'contact',

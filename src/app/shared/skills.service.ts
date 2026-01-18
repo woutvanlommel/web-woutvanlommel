@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Skill } from '../models/skill.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SkillsService {
-  skills = [
+  skills: Skill[] = [
     { name: 'HTML5', type: 'Frontend' },
     { name: 'CSS3', type: 'Frontend' },
     { name: 'Tailwind CSS', type: 'Frontend' },
