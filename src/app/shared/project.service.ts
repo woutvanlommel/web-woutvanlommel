@@ -12,7 +12,7 @@ export class ProjectService {
       title: 'Website Redesign',
       slug: 'website-redesign-nextgenmedia',
       subTitle: 'E-commerce Website',
-      service: ['Web Development', 'UI/UX Design'],
+      service: 'Web Development',
       year: 2023,
       image: '/assets/img/projects/nextgenmedia.png',
       difficulty:
@@ -22,7 +22,7 @@ export class ProjectService {
       link: 'https://www.nextgenmedia.be',
       githubLink: 'https://github.com/project-a/website-redesign',
       techStack: ['Angular', 'Tailwind CSS', 'Node.js'],
-      higlight: true,
+      highlight: true,
     },
     {
       id: 1,
@@ -30,7 +30,7 @@ export class ProjectService {
       title: 'Uitbouw e-commerce drukkerij',
       slug: 'drukkerij-ecommerce-customflow',
       subTitle: 'E-commerce Website',
-      service: ['Web Development', 'UI/UX Design'],
+      service: 'UI/UX Design',
       year: 2023,
       image: '/assets/img/projects/nextgenmedia.png',
       difficulty:
@@ -40,11 +40,15 @@ export class ProjectService {
       link: 'https://www.nextgenmedia.be',
       githubLink: 'https://github.com/project-a/website-redesign',
       techStack: ['Angular', 'Tailwind CSS', 'Node.js'],
-      higlight: true,
+      highlight: false,
     },
   ];
 
   getProjects() {
     return this.projects;
+  }
+
+  getHighlightedProject() {
+    return this.projects.find((project) => project.highlight);
   }
 }

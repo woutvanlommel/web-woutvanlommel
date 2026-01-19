@@ -4,7 +4,7 @@ export interface Project {
   title: string;
   subTitle: string;
   slug: string;
-  service: string[];
+  service: string;
   year: number;
   image: string;
   difficulty: string;
@@ -12,5 +12,5 @@ export interface Project {
   link: string;
   githubLink: string;
   techStack: string[];
-  higlight: boolean;
+  highlight: boolean;
 }
