@@ -46,13 +46,9 @@ import {
             </div>
             <div class="flex flex-col gap-0 bg-black/50 p-4">
               <p class="text-[clamp(0.8rem,1vw,1.5rem)] text-primary uppercase">Diensten</p>
-              <div>
-                @for (service of project.service; track service; let last = $last) {
-                  <span class="text-fake-white text-[clamp(1rem,1.3vw,2rem)] inline-block"
-                    >{{ service.trim() }} {{ !last ? ',' : '' }}</span
-                  >
-                }
-              </div>
+              <span class="text-fake-white text-[clamp(1rem,1.3vw,2rem)]">
+                {{ project.service }}
+              </span>
             </div>
             <div class="flex flex-col gap-0 bg-black/50 p-4">
               <p class="text-[clamp(0.8rem,1vw,1.5rem)] text-primary uppercase">Jaar</p>

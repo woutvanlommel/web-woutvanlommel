@@ -13,16 +13,18 @@ import { ProjectService } from '../../shared/project.service';
       <app-home-hero></app-home-hero>
       <app-expertise></app-expertise>
       <app-over-home></app-over-home>
-      @if (project) {
-        <app-highlight-project
-          [projectTitle]="project.title"
-          [projectDescription]="project.difficulty"
-          [projectImage]="project.image"
-          [projectSlug]="project.slug"
-          [service]="project.service"
-          [techStack]="project.techStack"
-        ></app-highlight-project>
-      }
+      <section class="w-full bg-light-black py-16 md:py-32 px-4 md:px-8">
+        @if (project) {
+          <app-highlight-project
+            [projectTitle]="project.title"
+            [projectDescription]="project.difficulty"
+            [projectImage]="project.image"
+            [projectSlug]="project.slug"
+            [service]="project.service"
+            [techStack]="project.techStack"
+          ></app-highlight-project>
+        }
+      </section>
     </div>
   `,
   styles: ``,

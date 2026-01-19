@@ -25,7 +25,7 @@ export class ProjectService {
       highlight: true,
     },
     {
-      id: 1,
+      id: 2,
       client: 'Project B',
       title: 'Uitbouw e-commerce drukkerij',
       slug: 'drukkerij-ecommerce-customflow',
@@ -45,10 +45,15 @@ export class ProjectService {
   ];
 
   getProjects() {
-    return this.projects;
+    return this.projects; // Return all projects for now
   }
 
   getHighlightedProject() {
     return this.projects.find((project) => project.highlight);
+  }
+
+  getUniqueServices() {
+    const services = this.projects.map((project) => project.service);
+    return [...new Set(services)];
   }
 }
