@@ -23,4 +23,16 @@ export class SkillsService {
     { name: 'WordPress', type: 'Tools' },
     { name: 'Figma', type: 'Tools' },
   ];
+
+  getFrontendSkills() {
+    return this.skills.filter((skill) => skill.type === 'Frontend');
+  }
+
+  getBackendSkills() {
+    return this.skills.filter((skill) => skill.type === 'Backend');
+  }
+
+  getToolSkills() {
+    return this.skills.filter((skill) => skill.type === 'Tools');
+  }
 }
