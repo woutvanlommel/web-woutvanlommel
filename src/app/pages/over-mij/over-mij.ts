@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { OverWout } from '../../components/over-wout/over-wout';
 import { OverTechstack } from '../../components/over-techstack/over-techstack';
+import { OverWaarom } from '../../components/over-waarom/over-waarom';
 
 @Component({
   selector: 'app-over-mij',
-  imports: [OverWout, OverTechstack],
+  imports: [OverWout, OverTechstack, OverWaarom],
   template: `<div class="w-full bg-light-black pt-48 overflow-x-hidden relative">
     <div
       class="absolute -top-64 -right-64 w-125 h-125 md:w-175 md:h-175 bg-primary/20 blur-[120px] rounded-full pointer-events-none z-2"
@@ -21,6 +22,7 @@ import { OverTechstack } from '../../components/over-techstack/over-techstack';
     </div>
     <app-over-wout></app-over-wout>
     <app-over-techstack></app-over-techstack>
+    <app-over-waarom></app-over-waarom>
   </div>`,
   styles: ``,
 })

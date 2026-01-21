@@ -13,9 +13,9 @@ import {
 interface ExpertiseItem {
   title: string;
   description: string;
-  iconName: string; // We slaan nu de naam op, niet de class
+  iconName: string;
   buttonLabel: string;
-  link: string;
+  slug: string;
 }
 
 @Component({
@@ -44,36 +44,36 @@ interface ExpertiseItem {
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           @for (item of expertiseItems; track item.title) {
-          <div
-            class="group p-8 border border-white/10 bg-black rounded-2xl hover:border-primary/50 hover:bg-black/10 transition-all duration-300 cursor-pointer"
-          >
-            <div class="flex flex-col items-start gap-6 h-full">
-              <div class="flex items-center gap-4">
-                <div
-                  class="w-12 h-12 flex items-center justify-center bg-light-black/40 rounded-lg text-primary border border-white/5 group-hover:scale-110 transition-transform duration-300"
-                >
-                  <ng-icon [name]="item.iconName" size="1.5rem" class="text-primary"></ng-icon>
+            <div
+              class="group p-8 border border-white/10 bg-black rounded-2xl hover:border-primary/50 hover:bg-black/10 transition-all duration-300 cursor-pointer"
+            >
+              <div class="flex flex-col items-start gap-6 h-full">
+                <div class="flex items-center gap-4">
+                  <div
+                    class="w-12 h-12 flex items-center justify-center bg-light-black/40 rounded-lg text-primary border border-white/5 group-hover:scale-110 transition-transform duration-300"
+                  >
+                    <ng-icon [name]="item.iconName" size="1.5rem" class="text-primary"></ng-icon>
+                  </div>
+                  <h3
+                    class="text-fake-white text-[clamp(1.5rem,2vw,2rem)] font-bold group-hover:text-primary transition-colors"
+                  >
+                    {{ item.title }}
+                  </h3>
                 </div>
-                <h3
-                  class="text-fake-white text-[clamp(1.5rem,2vw,2rem)] font-bold group-hover:text-primary transition-colors"
+
+                <p class="text-gray-400 text-base leading-relaxed h-auto md:min-h-12">
+                  {{ item.description }}
+                </p>
+
+                <a
+                  [routerLink]="['/diensten', item.slug]"
+                  class="font-bold text-fake-white text-sm flex items-center gap-2 mt-auto group-hover:translate-x-2 transition-transform duration-300"
                 >
-                  {{ item.title }}
-                </h3>
+                  {{ item.buttonLabel }}
+                  <span class="text-primary text-lg">→</span>
+                </a>
               </div>
-
-              <p class="text-gray-400 text-base leading-relaxed h-auto md:min-h-12">
-                {{ item.description }}
-              </p>
-
-              <a
-                [routerLink]="item.link"
-                class="font-bold text-fake-white text-sm flex items-center gap-2 mt-auto group-hover:translate-x-2 transition-transform duration-300"
-              >
-                {{ item.buttonLabel }}
-                <span class="text-primary text-lg">→</span>
-              </a>
             </div>
-          </div>
           }
         </div>
       </div>
@@ -89,7 +89,7 @@ export class Expertise {
         'Jouw unieke bedrijfsproces vertaald naar software. Van intern dashboard tot complete SaaS.',
       iconName: 'heroCommandLine', // Verwijst naar de import
       buttonLabel: 'Ontdek webapps',
-      link: '/diensten/#webapplicaties',
+      slug: 'webapps',
     },
     {
       title: 'Flexibele Websites & CMS',
@@ -97,7 +97,7 @@ export class Expertise {
         'Snel, vindbaar en makkelijk zelf aan te passen. Geen standaard templates, maar pixel-perfect design.',
       iconName: 'heroComputerDesktop',
       buttonLabel: 'Ontdek websites',
-      link: '/diensten/#websites',
+      slug: 'websites',
     },
     {
       title: 'API-koppelingen',
@@ -105,7 +105,7 @@ export class Expertise {
         'Software mag geen eiland zijn. Ik laat jouw systemen (CRM, boekhouding) naadloos met elkaar praten.',
       iconName: 'heroPuzzlePiece',
       buttonLabel: 'Ontdek automatisatie',
-      link: '/diensten/#api',
+      slug: 'api',
     },
     {
       title: 'Support & Onderhoud',
@@ -113,7 +113,7 @@ export class Expertise {
         'Geen zorgen over updates of downtime. Ik houd de motor draaiende terwijl jij onderneemt.',
       iconName: 'heroWrenchScrewdriver',
       buttonLabel: 'Ontdek support',
-      link: '/diensten/#support',
+      slug: 'support',
     },
   ];
 }

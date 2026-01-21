@@ -1,5 +1,6 @@
 export interface Expertise {
   id: number;
+  slug: string;
   title: string;
   description: string;
   button: string;

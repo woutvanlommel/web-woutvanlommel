@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroMapPinSolid, heroEnvelopeSolid } from '@ng-icons/heroicons/solid';
 import { bootstrapGithub, bootstrapLinkedin } from '@ng-icons/bootstrap-icons';
@@ -17,24 +17,26 @@ interface MenuItem {
     provideIcons({ heroMapPinSolid, heroEnvelopeSolid, bootstrapGithub, bootstrapLinkedin }),
   ],
   template: `<div class=" bg-black">
-    <div
-      class="w-full flex items-center justify-center py-12 px-4 md:px-8 flex-col text-center gap-4 border-b border-white/10"
-    >
-      <div class="flex flex-col gap-2 text-fake-white justify-center items-center">
-        <h2 class="text-[clamp(1.5rem,2vw,2.5rem)] font-bold">
-          Klaar voor jouw idee te realiseren<span class="text-primary">?</span>
-        </h2>
-        <p class="text-[clamp(1rem,1vw,1.5rem)] font-semibold">
-          Laten we samen bespreken hoe we jouw bedrijf digitaal kunnen versterken.
-        </p>
-      </div>
-      <a
-        routerLink="/contact"
-        class="bg-primary cursor-pointer hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-lg transition-colors text-[clamp(1rem,1.2vw,1.5rem)]"
+    @if (router.url !== '/contact') {
+      <div
+        class="w-full flex items-center justify-center py-12 px-4 md:px-8 flex-col text-center gap-4 border-b border-white/10"
       >
-        Start een project
-      </a>
-    </div>
+        <div class="flex flex-col gap-2 text-fake-white justify-center items-center">
+          <h2 class="text-[clamp(1.5rem,2vw,2.5rem)] font-bold">
+            Klaar voor jouw idee te realiseren<span class="text-primary">?</span>
+          </h2>
+          <p class="text-[clamp(1rem,1vw,1.5rem)] font-semibold">
+            Laten we samen bespreken hoe we jouw bedrijf digitaal kunnen versterken.
+          </p>
+        </div>
+        <a
+          routerLink="/contact"
+          class="bg-primary cursor-pointer hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-lg transition-colors text-[clamp(1rem,1.2vw,1.5rem)]"
+        >
+          Start een project
+        </a>
+      </div>
+    }
     <div class="w-full">
       <div
         class=" w-full max-w-300 mx-auto flex flex-col md:flex-row justify-between items-start py-12 px-4 md:px-8 gap-8 border-b border-white/10"
@@ -128,6 +130,8 @@ interface MenuItem {
   </div>`,
 })
 export class Footer {
+  protected readonly router = inject(Router);
+
   protected readonly menuItems = signal<MenuItem[]>([
     { path: '/over-mij', label: 'Over mij' },
     { path: '/diensten', label: 'Diensten' },

@@ -10,6 +10,7 @@ export class ExpertiseService {
   private Expertises: Expertise[] = [
     {
       id: 1,
+      slug: 'webapps',
       title: 'Maatwerk Webapplicaties',
       description:
         'Standaard software voldoet vaak net niet. Ik ontwikkel krachtige applicaties op maat die jouw unieke bedrijfsprocessen stroomlijnen. Van interactieve dashboards in React tot complexe backends in Laravel: ik bouw systemen die schaalbaar, veilig en razendsnel zijn.',
@@ -18,6 +19,7 @@ export class ExpertiseService {
     },
     {
       id: 2,
+      slug: 'websites',
       title: 'Flexibele Websites & CMS',
       description:
         'Een website is je digitale visitekaartje. Ik bouw pixel-perfecte frontends die technisch geoptimaliseerd zijn voor snelheid en perfect werken op mobiel en desktop. Via een gebruiksvriendelijk CMS pas je zelf eenvoudig teksten en afbeeldingen aan, zonder dat je bang hoeft te zijn dat de layout verspringt.',
@@ -26,6 +28,7 @@ export class ExpertiseService {
     },
     {
       id: 3,
+      slug: 'api',
       title: 'Koppelingen & Automatisaties',
       description:
         'Typ je nog handmatig data over? Dat is verleden tijd. Ik koppel jouw favoriete tools (zoals CRM, boekhouding of betaalsystemen) naadloos aan elkaar. Door slimme API-integraties automatiseer ik foutgevoelig werk, zodat jij je kunt focussen op wat echt telt: ondernemen.',
@@ -34,6 +37,7 @@ export class ExpertiseService {
     },
     {
       id: 4,
+      slug: 'support',
       title: 'Zorgeloos onderhoud',
       description:
         'Na de lancering sta je er niet alleen voor. Software heeft onderhoud nodig om veilig en snel te blijven draaien. Met mijn onderhoudspakketten zorg ik voor de technische updates, zodat jij daar geen omkijken naar hebt. Heb je een vraag of wil je sparren over een uitbreiding? Dan heb je één vast aanspreekpunt die jouw systeem door en door kent.',
