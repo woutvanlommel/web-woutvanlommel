@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroMapPinSolid, heroEnvelopeSolid, heroArrowRightSolid } from '@ng-icons/heroicons/solid';
 import { bootstrapLinkedin, bootstrapGithub, bootstrapArrowRight } from '@ng-icons/bootstrap-icons';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { EmailService, ContactFormData } from '../../shared/email.service'; // Pas pad aan indien nodig
 
 @Component({
   selector: 'app-contact',
@@ -139,8 +140,9 @@ import { RouterLink } from '@angular/router';
                   [class.border-red-500]="isFieldInvalid('subject')"
                 >
                   <option value="" disabled selected>-- Kies een onderwerp --</option>
-                  <option value="freelance">Freelance Project</option>
-                  <option value="sparren">Even sparren</option>
+                  <option value="Maatwerk Webapplicaties">Maatwerk Webapplicaties</option>
+                  <option value="Flexibele Websites & CMS">Flexibele Websites & CMS</option>
+                  <option value="Koppelingen & Automatisaties">Koppelingen &Even sparren</option>
                   <option value="overig">Iets anders</option>
                 </select>
                 @if (isFieldInvalid('subject')) {
@@ -174,12 +176,23 @@ import { RouterLink } from '@angular/router';
 
               <!-- Submit Button -->
               <div class="col-span-2 pt-4">
+                @if (errorMessage()) {
+                  <p class="text-red-500 text-xs mb-4 animate-in fade-in duration-300">
+                    {{ errorMessage() }}
+                  </p>
+                }
                 <button
                   type="submit"
-                  class="w-full flex items-center justify-center gap-2 px-8 py-3 bg-primary text-fake-white font-bold rounded-md hover:bg-primary-600 transition-all cursor-pointer group"
+                  [disabled]="isSubmitting()"
+                  class="w-full flex items-center justify-center gap-2 px-8 py-3 bg-primary text-fake-white font-bold rounded-md hover:bg-primary-600 transition-all cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Verstuur bericht
-                  <span class=" text-black group-hover:translate-x-1 transition-transform">→</span>
+                  @if (isSubmitting()) {
+                    <span class="inline-block animate-spin mr-2">◌</span>
+                    Versturen...
+                  } @else {
+                    Verstuur bericht
+                    <span class="text-black group-hover:translate-x-1 transition-transform">→</span>
+                  }
                 </button>
               </div>
             </form>
@@ -213,6 +226,9 @@ import { RouterLink } from '@angular/router';
 export class Contact {
   private fb = inject(FormBuilder);
   submitted = false;
+  errorMessage = signal('');
+  isSubmitting = signal(false);
+  private emailService = inject(EmailService);
 
   contactForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -229,16 +245,33 @@ export class Contact {
     return !!(field && field.invalid && (field.touched || field.dirty || this.submitted));
   }
 
-  onSubmit() {
-    if (this.contactForm.valid) {
-      console.log('Formulier verzonden:', this.contactForm.value);
-      // Hier de logica voor het verzenden (bijv. een API call)
+  async onSubmit() {
+    this.errorMessage.set('');
 
-      this.submitted = true;
-      // Scroll naar boven om het succesbericht goed te zien
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (this.contactForm.valid) {
+      this.isSubmitting.set(true);
+
+      // Cast de form values naar ons strikte type
+      // We gebruiken 'as unknown' even als tussenstap of zorgen dat het form typed is (Angular 14+ Typed Forms zijn beter)
+      const formData = this.contactForm.getRawValue() as ContactFormData;
+
+      try {
+        await this.emailService.sendContactEmail(formData);
+
+        this.submitted = true;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.contactForm.reset();
+        console.log('Email succesvol verzonden!');
+        console.log('Opgelagen contact', formData);
+      } catch (error) {
+        this.errorMessage.set(
+          'Er ging iets mis bij het versturen. Probeer het later opnieuw of mail me direct.',
+        );
+        // In een echte app loggen we dit naar een logging service
+      } finally {
+        this.isSubmitting.set(false);
+      }
     } else {
-      // Markeer alle velden als 'touched' om validatiefouten te tonen
       this.contactForm.markAllAsTouched();
     }
   }
