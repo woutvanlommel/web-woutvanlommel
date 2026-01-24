@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router'; // Import ActivatedRoute
 import { ProjectService } from '../../shared/project.service';
 import { Project } from '../../models/project.model'; // Import Project type
@@ -185,6 +186,9 @@ import {
 export class PortfolioProjects implements OnInit {
   private projectsService = inject(ProjectService);
   private route = inject(ActivatedRoute); // Inject ActivatedRoute
+  private titleService = inject(Title);
+  private metaService = inject(Meta);
+  private cdr = inject(ChangeDetectorRef);
 
   projects = this.projectsService.getProjects();
   project: Project | undefined;
@@ -206,6 +210,15 @@ export class PortfolioProjects implements OnInit {
       this.project = this.projects[currentIndex];
       this.prevProject = this.projects[currentIndex - 1];
       this.nextProject = this.projects[currentIndex + 1];
+
+      // SEO
+      this.titleService.setTitle(`Wout - ${this.project.title}`);
+      this.metaService.updateTag({
+        name: 'description',
+        content: `Bekijk het project ${this.project.title} voor ${this.project.client}. ${this.project.difficulty.substring(0, 150)}...`,
+      });
+
+      this.cdr.detectChanges();
 
       // Optioneel: scroll naar boven bij navigatie
       window.scrollTo({ top: 0, behavior: 'smooth' });

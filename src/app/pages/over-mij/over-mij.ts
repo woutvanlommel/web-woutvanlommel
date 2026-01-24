@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { OverWout } from '../../components/over-wout/over-wout';
 import { OverTechstack } from '../../components/over-techstack/over-techstack';
 import { OverWaarom } from '../../components/over-waarom/over-waarom';
@@ -26,4 +27,14 @@ import { OverWaarom } from '../../components/over-waarom/over-waarom';
   </div>`,
   styles: ``,
 })
-export class OverMij {}
+export class OverMij implements OnInit {
+  private metaService = inject(Meta);
+
+  ngOnInit() {
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'Ontdek wie Wout Vanlommel is, zijn passie voor code en zijn technische expertise als freelance full stack developer.',
+    });
+  }
+}

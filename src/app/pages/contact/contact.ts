@@ -1,4 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroMapPinSolid, heroEnvelopeSolid, heroArrowRightSolid } from '@ng-icons/heroicons/solid';
 import { bootstrapLinkedin, bootstrapGithub, bootstrapArrowRight } from '@ng-icons/bootstrap-icons';
@@ -223,12 +224,21 @@ import { EmailService, ContactFormData } from '../../shared/email.service'; // P
   `,
   styles: ``,
 })
-export class Contact {
+export class Contact implements OnInit {
   private fb = inject(FormBuilder);
+  private metaService = inject(Meta);
   submitted = false;
   errorMessage = signal('');
   isSubmitting = signal(false);
   private emailService = inject(EmailService);
+
+  ngOnInit() {
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'Neem contact op met Wout Vanlommel voor je volgende digitale project. Beschikbaar voor freelance opdrachten.',
+    });
+  }
 
   contactForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
