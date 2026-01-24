@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <a
       [routerLink]="['/portfolio', projectSlug]"
-      class="w-full h-full max-w-300 mx-auto flex flex-col-reverse bg-black rounded-lg overflow-hidden shadow group transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/20"
+      class="w-full h-full max-w-300 mx-auto flex flex-col-reverse bg-black rounded-lg overflow-hidden shadow group transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/20 reveal"
     >
       <div class="w-full flex-1 text-fake-white flex flex-col justify-between p-8 space-y-6">
         <div class="space-y-4">

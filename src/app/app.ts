@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navigation } from './components/navigation/navigation';
 import { Footer } from './components/footer/footer';
+import { AnimationService } from './shared/animation.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,11 @@ import { Footer } from './components/footer/footer';
       <app-footer></app-footer>
     </footer>`,
 })
-export class App {
-  protected readonly title = signal('portfolio-frontend');
+export class App implements OnInit {
+  protected readonly title = signal('Wout Vanlommel - Freelance Full Stack Developer');
+  private animationService = inject(AnimationService);
+
+  ngOnInit() {
+    this.animationService.initScrollObserver();
+  }
 }

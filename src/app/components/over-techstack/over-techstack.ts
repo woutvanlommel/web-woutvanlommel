@@ -7,7 +7,7 @@ import { SkillsService } from '../../shared/skills.service';
   template: `
     <div class="w-full bg-black py-16">
       <div class="w-full max-w-300 mx-auto px-4 md:px-8 flex flex-col lg:flex-row gap-16">
-        <div class="w-full lg:w-3/5 space-y-4">
+        <div class="w-full lg:w-3/5 space-y-4 reveal">
           <h2 class="text-fake-white text-[clamp(2rem,2vw,2.5rem)] font-bold">
             De Tech Stack<span class="text-primary">.</span>
           </h2>
@@ -23,9 +23,12 @@ import { SkillsService } from '../../shared/skills.service';
                     {{ category.title }}
                   </h3>
                   <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    @for (skill of category.skills; track skill.name) {
+                    @for (skill of category.skills; track skill.name; let i = $index) {
                       <div
-                        class="flex justify-center items-center p-2 bg-light-black/20 text-fake-white font-bold text-md shadow-sm shadow-primary/50 rounded-lg hover:bg-light-black/40 transition-colors"
+                        [class]="
+                          'flex justify-center items-center p-2 bg-light-black/20 text-fake-white font-bold text-md shadow-sm shadow-primary/50 rounded-lg hover:bg-light-black/40 transition-colors reveal reveal-delay-' +
+                          ((i % 4) + 1) * 100
+                        "
                       >
                         {{ skill.name }}
                       </div>
@@ -37,7 +40,7 @@ import { SkillsService } from '../../shared/skills.service';
           </div>
         </div>
         <div
-          class="w-full lg:w-2/5 p-8 rounded-lg flex flex-col items-center justify-center bg-light-black/20 shadow-[0px_0px_12px] shadow-fake-white"
+          class="w-full lg:w-2/5 p-8 rounded-lg flex flex-col items-center justify-center bg-light-black/20 shadow-[0px_0px_12px] shadow-fake-white reveal reveal-delay-300"
         >
           <div class="text-left text-md md:text-xl text-fake-white space-y-4">
             <p><span class="text-primary">let</span> Wout = {{ '{' }}</p>

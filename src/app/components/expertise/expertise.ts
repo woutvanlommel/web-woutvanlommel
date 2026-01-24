@@ -35,7 +35,7 @@ interface ExpertiseItem {
   template: `
     <section class="w-full py-20 px-4 md:px-8 bg-light-black relative z-20">
       <div class="w-full max-w-300 mx-auto flex flex-col gap-8">
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2 reveal">
           <span class="uppercase text-primary text-sm font-bold tracking-wider">Mijn skills</span>
           <h2 class="text-fake-white font-extrabold text-3xl md:text-4xl">
             Mijn expertise<span class="text-primary">.</span>
@@ -43,9 +43,12 @@ interface ExpertiseItem {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          @for (item of expertiseItems; track item.title) {
+          @for (item of expertiseItems; track item.title; let i = $index) {
             <div
-              class="group p-8 border border-white/10 bg-black rounded-2xl hover:border-primary/50 hover:bg-black/10 transition-all duration-300 cursor-pointer"
+              [class]="
+                'group p-8 border border-white/10 bg-black rounded-2xl hover:border-primary/50 hover:bg-black/10 transition-all duration-300 cursor-pointer reveal reveal-delay-' +
+                ((i % 4) + 1) * 100
+              "
             >
               <div class="flex flex-col items-start gap-6 h-full">
                 <div class="flex items-center gap-4">
