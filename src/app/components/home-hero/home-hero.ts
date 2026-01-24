@@ -21,7 +21,7 @@ import { RouterLink } from '@angular/router';
       <div
         class="w-full max-w-300 mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24 relative z-10"
       >
-        <div class="w-full lg:w-7/12 flex flex-col gap-8 items-start">
+        <div class="w-full lg:w-7/12 flex flex-col gap-8 items-start reveal">
           <div class="flex flex-col gap-2 items-start">
             <span class="uppercase text-primary text-sm font-bold tracking-wider">
               Freelance fullstack developer
@@ -32,7 +32,7 @@ import { RouterLink } from '@angular/router';
           </div>
 
           <p
-            class="text-fake-white text-lg md:text-xl max-w-xl leading-relaxed [&>span]:text-primary [&>span]:font-medium"
+            class="text-fake-white text-lg md:text-xl max-w-xl leading-relaxed [&>span]:text-primary [&>span]:font-medium reveal reveal-delay-200"
           >
             Geen standaard templates, maar duurzame code. Gespecialiseerd in
             <span>schaalbare webapplicaties</span>, complexe <span>API-koppelingen</span> en
@@ -40,7 +40,7 @@ import { RouterLink } from '@angular/router';
             <span>Laravel en Angular/React</span> leg ik het fundament voor jouw online succes.
           </p>
 
-          <div class="flex flex-wrap gap-4 mt-4">
+          <div class="flex flex-wrap gap-4 mt-4 reveal reveal-delay-300">
             <a
               routerLink="/contact"
               class="bg-primary cursor-pointer hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-lg transition-colors text-lg"
@@ -57,7 +57,7 @@ import { RouterLink } from '@angular/router';
         </div>
       </div>
       <div
-        class="hidden absolute lg:flex position right-[1vw] xl:right-[8vw] w-[50vw] xl:w-[40vw] h-auto z-10"
+        class="hidden absolute lg:flex position right-[1vw] xl:right-[8vw] w-[50vw] xl:w-[40vw] h-auto z-10 reveal reveal-delay-400"
       >
         <img
           src="assets/img/laptop-hero.png"
