@@ -40,7 +40,7 @@ import { ExpertiseService } from '../../shared/expertise.service';
     <div
       class="absolute -top-64 -right-64 w-125 h-125 md:w-175 md:h-175 bg-primary/20 blur-[120px] rounded-full pointer-events-none z-2"
     ></div>
-    <div class="w-full max-w-300 space-y-8 mx-auto z-10 relative" @reveal>
+    <div class="w-full max-w-300 space-y-8 mx-auto z-10 relative reveal">
       <div class="text-center space-y-1">
         <h1 class="text-fake-white font-bold text-[clamp(3rem,4vw,4rem)]">
           Mijn Expertise<span class="text-primary">.</span>
@@ -51,13 +51,9 @@ import { ExpertiseService } from '../../shared/expertise.service';
       </div>
     </div>
     @if (expertises.length > 0) {
-      <div @staggerReveal>
+      <div>
         @for (expertise of expertises; track expertise.id; let isOdd = $odd) {
-          <div
-            [id]="expertise.slug"
-            class="w-full py-16 z-10 px-4 reveal-item"
-            [class.bg-black]="isOdd"
-          >
+          <div [id]="expertise.slug" class="w-full py-16 z-10 px-4 reveal" [class.bg-black]="isOdd">
             <div
               class="w-full max-w-300 mx-auto flex flex-col md:flex-row gap-8 justify-center items-center px-4 md:px-8"
               [class.md:flex-row-reverse]="isOdd"
@@ -89,16 +85,15 @@ import { ExpertiseService } from '../../shared/expertise.service';
     }
     <div class="w-full bg-light-black">
       <div class="w-full max-w-300 mx-auto px-4 md:px-8 py-24 space-y-8">
-        <h2 class="font-semibold text-[clamp(2rem,2vw,3rem)] text-fake-white" @reveal>
+        <h2 class="font-semibold text-[clamp(2rem,2vw,3rem)] text-fake-white reveal">
           Hoe we samenwerken<span class="text-primary">.</span>
         </h2>
         @if (workFlows.length > 0) {
           <div
             class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 rounded-lg overflow-hidden text-fake-white"
-            @staggerReveal
           >
-            @for (workflow of workFlows; track workflow.id) {
-              <div class="bg-black/50 p-6 space-y-4 reveal-item">
+            @for (workflow of workFlows; track workflow.id; let i = $index) {
+              <div [class]="'bg-black/50 p-6 space-y-4 reveal reveal-delay-' + ((i % 4) + 1) * 100">
                 <p class="text-3xl font-bold">
                   {{ workflow.number }}<span class="text-primary">.</span>
                 </p>

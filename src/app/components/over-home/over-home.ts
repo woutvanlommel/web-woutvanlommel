@@ -16,11 +16,9 @@ import { heroCheckMicro } from '@ng-icons/heroicons/micro';
   template: `
     <section class="bg-black w-full py-32">
       <div
-        class="grid grid-cols-1 lg:grid-cols-5 max-w-300 mx-auto gap-8 justify-center items-center"
+        class="grid grid-cols-1 lg:grid-cols-5 max-w-300 mx-auto gap-8 justify-center items-center px-4 md:px-8"
       >
-        <div
-          class="relative w-full flex justify-center items-center gap-4 md:col-span-2 px-8 lg:px-0"
-        >
+        <div class="relative w-full flex justify-center items-center gap-4 md:col-span-2 reveal">
           <div class="relative w-full aspect-video lg:aspect-4/5">
             <div class="rounded-2xl overflow-hidden relative z-10 aspect-video lg:aspect-4/5">
               <img
@@ -33,7 +31,7 @@ import { heroCheckMicro } from '@ng-icons/heroicons/micro';
           </div>
         </div>
 
-        <div class="flex flex-col gap-8 md:col-span-3 px-8">
+        <div class="flex flex-col gap-8 md:col-span-3 px-8 reveal reveal-delay-200">
           <div class="flex flex-col gap-0.5">
             <h3 class="text-primary uppercase text-[clamp(1rem,1vw,1.5rem)]">Over Wout</h3>
             <h2 class="text-fake-white font-bold text-[clamp(2rem,2vw,3rem)]">

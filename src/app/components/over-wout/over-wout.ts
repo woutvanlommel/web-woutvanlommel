@@ -15,7 +15,7 @@ import { heroCheckMicro } from '@ng-icons/heroicons/micro';
       class="grid grid-cols-1 lg:grid-cols-5 max-w-300 mx-auto gap-8 py-16 justify-center items-center"
     >
       <div
-        class="relative w-full flex justify-center items-center gap-4 md:col-span-2 px-4 md:px-8"
+        class="relative w-full flex justify-center items-center gap-4 md:col-span-2 px-4 md:px-8 reveal"
       >
         <div class="relative w-full aspect-video lg:aspect-4/5">
           <div class="rounded-2xl overflow-hidden relative z-10 aspect-video lg:aspect-4/5">
@@ -29,7 +29,7 @@ import { heroCheckMicro } from '@ng-icons/heroicons/micro';
         </div>
       </div>
 
-      <div class="flex flex-col gap-8 md:col-span-3 px-8">
+      <div class="flex flex-col gap-8 md:col-span-3 px-8 reveal reveal-delay-200">
         <div class="flex flex-col gap-0.5">
           <h3 class="text-primary uppercase text-[clamp(1rem,1vw,1.5rem)]">Over Wout</h3>
           <h2 class="text-fake-white font-bold text-[clamp(2rem,2vw,3rem)]">
