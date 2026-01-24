@@ -130,14 +130,14 @@ export class Diensten implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.route.params.subscribe((params) => {
-      const id = params['id'];
-      if (id) {
+      const slug = params['slug'];
+      if (slug) {
         // Altijd eerst naar boven als er een slug is, zodat we daarna rustig kunnen scrollen
         window.scrollTo(0, 0);
 
         // Langere timeout voor de animaties om hun werk te doen
         setTimeout(() => {
-          const element = document.getElementById(id);
+          const element = document.getElementById(slug);
           if (element) {
             element.scrollIntoView({
               behavior: 'smooth',

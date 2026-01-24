@@ -26,7 +26,7 @@ export const routes: Routes = [
     title: 'Wout - Diensten',
   },
   {
-    path: 'diensten/:id',
+    path: 'diensten/:slug',
     component: Diensten,
     title: 'Wout - Diensten',
   },
