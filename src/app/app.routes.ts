@@ -38,7 +38,6 @@ export const routes: Routes = [
   {
     path: 'portfolio/:slug',
     component: PortfolioProjects,
-    title: 'Wout - Portfolio Project',
   },
   {
     path: 'contact',

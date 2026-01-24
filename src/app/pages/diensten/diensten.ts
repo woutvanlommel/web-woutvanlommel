@@ -1,4 +1,5 @@
-import { Component, inject, AfterViewInit } from '@angular/core';
+import { Component, inject, AfterViewInit, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { ExpertiseService } from '../../shared/expertise.service';
@@ -114,7 +115,7 @@ import { ExpertiseService } from '../../shared/expertise.service';
   </div>`,
   styles: ``,
 })
-export class Diensten implements AfterViewInit {
+export class Diensten implements AfterViewInit, OnInit {
   private expertiseService = inject(ExpertiseService);
   expertises = this.expertiseService.getExpertises();
 
@@ -122,6 +123,15 @@ export class Diensten implements AfterViewInit {
   workFlows = this.workFlowsService.getWorkFlows();
 
   private route = inject(ActivatedRoute);
+  private metaService = inject(Meta);
+
+  ngOnInit() {
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'Maatwerk webapplicaties, API-koppelingen en performante websites. Ontdek hoe ik jouw bedrijf help groeien met technische oplossingen.',
+    });
+  }
 
   ngAfterViewInit() {
     this.route.params.subscribe((params) => {

@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { Zoekbalk } from '../../components/zoekbalk/zoekbalk';
 import { HighlightProject } from '../../components/highlight-project/highlight-project';
 import { ProjectService } from '../../shared/project.service';
@@ -55,8 +56,18 @@ import { ProjectCard } from '../../components/project-card/project-card';
   `,
   styles: ``,
 })
-export class Portfolio {
+export class Portfolio implements OnInit {
   private projectService = inject(ProjectService);
+  private metaService = inject(Meta);
+
   project = this.projectService.getHighlightedProject();
   allProjects = this.projectService.getProjects();
+
+  ngOnInit() {
+    this.metaService.updateTag({
+      name: 'description',
+      content:
+        'Bekijk mijn portfolio: een overzicht van projecten variërend van complexe ERP-systemen tot moderne webapplicaties.',
+    });
+  }
 }
