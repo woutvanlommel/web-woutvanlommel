@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Hoofdpagina's -->
   <url>
-    <loc>https://woutvanlommel.dev/</loc>
+    <loc>https://www.woutvanlommel.dev</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/over-mij</loc>
+    <loc>https://www.woutvanlommel.dev</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/diensten</loc>
+    <loc>https://www.woutvanlommel.dev/diensten</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/portfolio</loc>
+    <loc>https://www.woutvanlommel.dev/portfolio</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/contact</loc>
+    <loc>https://www.woutvanlommel.dev/contact</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.8</priority>
   </url>
 
   <!-- Diensten Detail -->
   <url>
-    <loc>https://woutvanlommel.dev/diensten/webapps</loc>
+    <loc>https://www.woutvanlommel.dev/diensten/webapps</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/diensten/websites</loc>
+    <loc>https://www.woutvanlommel.dev/diensten/websites</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/diensten/api</loc>
+    <loc>https://www.woutvanlommel.dev/diensten/api</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/diensten/support</loc>
+    <loc>https://www.woutvanlommel.dev/diensten/support</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.8</priority>
   </url>
 
   <!-- Portfolio Detail -->
   <url>
-    <loc>https://woutvanlommel.dev/portfolio/website-redesign-nextgenmedia</loc>
+    <loc>https://www.woutvanlommel.dev/portfolio/website-redesign-nextgenmedia</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://woutvanlommel.dev/portfolio/larolo</loc>
+    <loc>https://www.woutvanlommel.dev/portfolio/larolo</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.7</priority>
   </url>
