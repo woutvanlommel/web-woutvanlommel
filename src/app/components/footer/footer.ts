@@ -123,8 +123,8 @@ interface MenuItem {
             </p>
           </div>
           <div class=" w-full flex flex-row gap-4 justify-center md:justify-end items-center">
-            <a routerLink="/">Algemene Voorwaarden</a>
-            <a routerLink="/">Privacy Verklaring</a>
+            <a routerLink="/algemene-voorwaarden">Algemene Voorwaarden</a>
+            <a routerLink="/privacy-verklaring">Privacy Verklaring</a>
           </div>
         </div>
       </div>

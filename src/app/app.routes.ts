@@ -5,6 +5,8 @@ import { Diensten } from './pages/diensten/diensten';
 import { Portfolio } from './pages/portfolio/portfolio';
 import { PortfolioProjects } from './pages/portfolio-projects/portfolio-projects';
 import { Contact } from './pages/contact/contact';
+import { AlgemeneVoorwaarden } from './pages/algemene-voorwaarden/algemene-voorwaarden';
+import { PrivacyPolicy } from './pages/privacy-policy/privacy-policy';
 import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
@@ -43,6 +45,16 @@ export const routes: Routes = [
     path: 'contact',
     component: Contact,
     title: 'Wout - Contact',
+  },
+  {
+    path: 'algemene-voorwaarden',
+    component: AlgemeneVoorwaarden,
+    title: 'Wout - Algemene Voorwaarden',
+  },
+  {
+    path: 'privacy-verklaring',
+    component: PrivacyPolicy,
+    title: 'Wout - Privacy Policy',
   },
   {
     path: 'not-found',
