@@ -141,10 +141,15 @@ import { EmailService, ContactFormData } from '../../shared/email.service'; // P
                   [class.border-red-500]="isFieldInvalid('subject')"
                 >
                   <option value="" disabled selected>-- Kies een onderwerp --</option>
-                  <option value="Maatwerk Webapplicaties">Maatwerk Webapplicaties</option>
-                  <option value="Flexibele Websites & CMS">Flexibele Websites & CMS</option>
-                  <option value="Koppelingen & Automatisaties">Koppelingen &Even sparren</option>
-                  <option value="overig">Iets anders</option>
+                  <option value="Een nieuw project starten">Een nieuw project starten</option>
+                  <option value="Workflow & Automatisatie">
+                    Mijn workflow verbeteren/automatiseren
+                  </option>
+                  <option value="Een website die makkelijker te beheren is">
+                    Een website die makkelijker te beheren is
+                  </option>
+                  <option value="Even sparren over een idee">Even sparren over een idee</option>
+                  <option value="Iets anders">Iets anders</option>
                 </select>
                 @if (isFieldInvalid('subject')) {
                   <p class="text-red-500 text-xs mt-1 animate-in fade-in duration-300">
