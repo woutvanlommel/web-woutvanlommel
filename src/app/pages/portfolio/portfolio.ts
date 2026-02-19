@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { Zoekbalk } from '../../components/zoekbalk/zoekbalk';
 import { HighlightProject } from '../../components/highlight-project/highlight-project';
@@ -34,10 +34,13 @@ import { ProjectCard } from '../../components/project-card/project-card';
             ></app-highlight-project>
           }
         </div>
-        <app-zoekbalk></app-zoekbalk>
-        @if (allProjects.length > 0) {
+        <app-zoekbalk
+          (searchChange)="searchTerm.set($event)"
+          (serviceChange)="selectedService.set($event)"
+        ></app-zoekbalk>
+        @if (filteredProjects().length > 0) {
           <div class="grid grid-cols-1 md:grid-cols-2 grid-auto-rows-fr gap-8 px-4 md:px-8 py-8">
-            @for (project of allProjects; track project.id) {
+            @for (project of filteredProjects(); track project.id) {
               <app-project-card
                 [projectTitle]="project.title"
                 [projectDescription]="project.difficulty"
@@ -62,6 +65,28 @@ export class Portfolio implements OnInit {
 
   project = this.projectService.getHighlightedProject();
   allProjects = this.projectService.getProjects();
+
+  searchTerm = signal('');
+  selectedService = signal('');
+
+  filteredProjects = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    const service = this.selectedService();
+
+    return this.allProjects.filter((project) => {
+      const matchesSearch =
+        !term ||
+        project.title.toLowerCase().includes(term) ||
+        project.client.toLowerCase().includes(term) ||
+        project.solution.toLocaleLowerCase().includes(term) ||
+        project.difficulty.toLowerCase().includes(term) ||
+        project.techStack.some((t) => t.toLowerCase().includes(term));
+
+      const matchesService = !service || project.service === service;
+
+      return matchesSearch && matchesService;
+    });
+  });
 
   ngOnInit() {
     this.metaService.updateTag({
