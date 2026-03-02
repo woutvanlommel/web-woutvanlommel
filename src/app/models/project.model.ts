@@ -13,4 +13,5 @@ export interface Project {
   githubLink: string;
   techStack: string[];
   highlight: boolean;
+  production?: boolean;
 }

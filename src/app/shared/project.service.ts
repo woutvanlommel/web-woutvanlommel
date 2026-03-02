@@ -23,6 +23,7 @@ export class ProjectService {
       githubLink: 'https://github.com/jouw-username/jrk-theme',
       techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
       highlight: false,
+      production: true,
     },
     {
       id: 2,
@@ -41,6 +42,7 @@ export class ProjectService {
       githubLink: 'https://github.com/jouw-username/nextgen-theme',
       techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
       highlight: true,
+      production: true,
     },
     {
       id: 3,
@@ -59,6 +61,7 @@ export class ProjectService {
       githubLink: 'https://github.com/jouw-username/larolo-custom',
       techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
       highlight: false,
+      production: true,
     },
 
     {
@@ -78,11 +81,14 @@ export class ProjectService {
       githubLink: 'https://github.com/woutvanlommel/BakedAir',
       techStack: ['PHP'],
       highlight: false,
+      production: false,
     },
   ];
 
   getProjects() {
-    return this.projects.slice().reverse(); // Return all projects (reversed) without mutating original
+    return this.projects
+      .filter((project) => project.production === true) // Behoud enkel de productie-items
+      .reverse(); // Draai de volgorde om (zonder de originele array te muteren)
   }
 
   getHighlightedProject() {
