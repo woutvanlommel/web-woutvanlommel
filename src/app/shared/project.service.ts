@@ -82,7 +82,7 @@ export class ProjectService {
   ];
 
   getProjects() {
-    return this.projects.reverse; // Return all projects for now
+    return this.projects.slice().reverse(); // Return all projects (reversed) without mutating original
   }
 
   getHighlightedProject() {
