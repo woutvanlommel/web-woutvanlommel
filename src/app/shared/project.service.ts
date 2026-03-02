@@ -8,6 +8,24 @@ export class ProjectService {
   private projects: Project[] = [
     {
       id: 1,
+      client: 'JRK Herckenrode',
+      title: 'Jeugdbeweging Community Hub',
+      slug: 'jrk-herckenrode-jeugdbeweging-platform',
+      subTitle: 'Custom CMS & Digitale Continuïteit',
+      service: 'CMS Development',
+      year: 2026,
+      image: '/assets/img/projects/jrkherckenrode.png',
+      difficulty:
+        "De website van de jeugdbeweging was een 'black box': alle technische kennis lag bij één persoon. Bij het vertrek van deze leiding dreigde de online aanwezigheid stil te vallen, omdat de rest van de leiding afhankelijk was van externe hulp voor elke kleine aanpassing. Er was dringend behoefte aan een platform dat onafhankelijk van technische voorkennis beheerd kon worden.",
+      solution:
+        "Ik heb een custom WordPress theme ontwikkeld waarbij de backend volledig is afgestemd op een wisselende leidingsploeg. Door complexe functies te abstraheren naar eenvoudige invoervelden, kan de leiding nu zelfstandig de kalender, kampinformatie en inschrijvingen beheren. Deze 'fool-proof' inrichting zorgt voor een soepele flow in de communicatie en maakt de organisatie toekomstbestendig.",
+      link: 'https://www.jrkherckenrode.be',
+      githubLink: 'https://github.com/jouw-username/jrk-theme',
+      techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
+      highlight: false,
+    },
+    {
+      id: 2,
       client: 'NextGenMedia',
       title: 'High-Performance Showcase Platform',
       slug: 'digital-agency-rebranding-nextgenmedia',
@@ -25,7 +43,7 @@ export class ProjectService {
       highlight: true,
     },
     {
-      id: 2,
+      id: 3,
       client: 'LaRoLo',
       title: 'Land Rover Specialist Showcase',
       slug: 'land-rover-restauratie-verkoop-larolo',
@@ -42,28 +60,29 @@ export class ProjectService {
       techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
       highlight: false,
     },
+
     {
-      id: 3,
-      client: 'JRK Herckenrode',
-      title: 'Jeugdbeweging Community Hub',
-      slug: 'jrk-herckenrode-jeugdbeweging-platform',
-      subTitle: 'Custom CMS & Digitale Continuïteit',
-      service: 'CMS Development',
+      id: 4,
+      client: 'OXYPURE',
+      title: 'OXYPURE: Zuivere lucht',
+      slug: 'oxypure-zuivere-lucht',
+      subTitle: 'Stripe payment ingegratie',
+      service: 'Koppelingen en Automatisaties',
       year: 2026,
-      image: '/assets/img/projects/jrkherckenrode.png',
+      image: '/assets/img/projects/oxypure.png',
       difficulty:
         "De website van de jeugdbeweging was een 'black box': alle technische kennis lag bij één persoon. Bij het vertrek van deze leiding dreigde de online aanwezigheid stil te vallen, omdat de rest van de leiding afhankelijk was van externe hulp voor elke kleine aanpassing. Er was dringend behoefte aan een platform dat onafhankelijk van technische voorkennis beheerd kon worden.",
       solution:
         "Ik heb een custom WordPress theme ontwikkeld waarbij de backend volledig is afgestemd op een wisselende leidingsploeg. Door complexe functies te abstraheren naar eenvoudige invoervelden, kan de leiding nu zelfstandig de kalender, kampinformatie en inschrijvingen beheren. Deze 'fool-proof' inrichting zorgt voor een soepele flow in de communicatie en maakt de organisatie toekomstbestendig.",
-      link: 'https://www.jrkherckenrode.be',
-      githubLink: 'https://github.com/jouw-username/jrk-theme',
-      techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
+      link: 'https://productionserver.be/bakedair/',
+      githubLink: 'https://github.com/woutvanlommel/BakedAir',
+      techStack: ['PHP'],
       highlight: false,
     },
   ];
 
   getProjects() {
-    return this.projects; // Return all projects for now
+    return this.projects.reverse; // Return all projects for now
   }
 
   getHighlightedProject() {

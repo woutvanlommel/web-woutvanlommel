@@ -18,7 +18,7 @@ export class AnimationService {
 
     const observerOptions: IntersectionObserverInit = {
       root: null, // Use viewport
-      threshold: 0.3, // Trigger when 10% is visible
+      threshold: 0.2, // Trigger when 10% is visible
       rootMargin: '0px',
     };
 

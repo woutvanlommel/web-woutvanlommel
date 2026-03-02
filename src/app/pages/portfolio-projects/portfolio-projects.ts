@@ -165,7 +165,7 @@ import {
                 <p
                   class="text-zinc-500 uppercase text-[clamp(0.7rem,0.8vw,1.5rem)] flex items-center gap-2 group-hover:text-primary transition-colors"
                 >
-                  Volgenjde proect <ng-icon name="bootstrapArrowRight" />
+                  Volgenjde project <ng-icon name="bootstrapArrowRight" />
                 </p>
                 <p class="text-fake-white text-[clamp(1rem,1vw,1.5rem)] font-bold">
                   {{ nextProject.title }}
