@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { ActivatedRoute, RouterLink } from '@angular/router'; // Import ActivatedRoute
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProjectService } from '../../shared/project.service';
-import { Project } from '../../models/project.model'; // Import Project type
+import { Project } from '../../models/project.model';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   bootstrapArrowUpRight,
@@ -16,160 +16,223 @@ import {
   standalone: true,
   viewProviders: [provideIcons({ bootstrapArrowUpRight, bootstrapArrowLeft, bootstrapArrowRight })],
   template: `
-    <div class="w-full bg-light-black">
+    <div class="w-full bg-light-black min-h-screen">
       @if (project) {
-        <div class="w-full max-w-300 space-y-12 mx-auto px-4 md:px-8 py-32">
-          <nav class="flex text-zinc-500 text-sm capitalize tracking-wider">
+        <div class="w-full max-w-300 mx-auto px-4 md:px-8 py-32 space-y-16">
+          <!-- Breadcrumb -->
+          <nav class="text-zinc-500 text-xs uppercase tracking-widest">
             <ol class="flex items-center gap-2">
-              <li class="flex items-center gap-2 after:content-['/'] after:text-zinc-700">
+              <li
+                class="flex items-center gap-2 after:content-['/'] after:text-zinc-700 after:ml-2"
+              >
                 <a routerLink="/" class="hover:text-primary transition-colors">Home</a>
               </li>
-              <li class="flex items-center gap-2 after:content-['/'] after:text-zinc-700">
+              <li
+                class="flex items-center gap-2 after:content-['/'] after:text-zinc-700 after:ml-2"
+              >
                 <a routerLink="/portfolio" class="hover:text-primary transition-colors"
                   >Portfolio</a
                 >
               </li>
-              <li class="text-primary font-semibold">{{ project.client }} - {{ project.title }}</li>
+              <li class="text-primary font-semibold">{{ project.client }}</li>
             </ol>
           </nav>
-          <div class="text-center space-y-1">
-            <h1 class="text-[clamp(2rem,3.5vw,5rem)] font-bold text-fake-white">
+
+          <!-- Header -->
+          <div class="space-y-5 text-center">
+            @if (project.status === 'legacy') {
+              <div class="flex justify-center">
+                <span
+                  class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border border-zinc-700 bg-zinc-800/60 text-zinc-400"
+                >
+                  <span class="w-1.5 h-1.5 rounded-full bg-zinc-500 inline-block"></span>
+                  Legacy project
+                </span>
+              </div>
+            }
+            @if (project.status === 'ongoing') {
+              <div class="flex justify-center">
+                <span
+                  class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border border-primary/30 bg-primary/10 text-primary"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-primary inline-block animate-pulse"
+                  ></span>
+                  In ontwikkeling
+                </span>
+              </div>
+            }
+            <h1 class="text-[clamp(2rem,3.5vw,4.5rem)] font-bold text-fake-white leading-tight">
               {{ project.title }}
             </h1>
-            <h2 class="text-[clamp(1rem,2vw,3rem)] text-zinc-600">{{ project.subTitle }}</h2>
+            <p class="text-[clamp(1rem,1.3vw,1.75rem)] text-zinc-500">{{ project.subTitle }}</p>
           </div>
-          <div class="grid grid-cols-2 md:grid-cols-4 mx-auto gap-0.5 rounded-lg overflow-hidden">
-            <div class="flex flex-col gap-0 bg-black/50 p-4">
-              <p class="text-[clamp(0.8rem,1vw,1.5rem)] text-primary uppercase">Klant</p>
-              <span class="text-fake-white text-[clamp(1rem,1.3vw,2rem)]">{{
+
+          <!-- Meta grid -->
+          <div
+            class="grid grid-cols-2 md:grid-cols-4 gap-px rounded-xl overflow-hidden ring-1 ring-zinc-800"
+          >
+            <div class="bg-zinc-900/70 p-5 flex flex-col gap-1.5">
+              <p class="text-xs text-primary uppercase tracking-widest font-medium">Klant</p>
+              <span class="text-fake-white font-medium text-sm md:text-base">{{
                 project.client
               }}</span>
             </div>
-            <div class="flex flex-col gap-0 bg-black/50 p-4">
-              <p class="text-[clamp(0.8rem,1vw,1.5rem)] text-primary uppercase">Diensten</p>
-              <span class="text-fake-white text-[clamp(1rem,1.3vw,2rem)]">
-                {{ project.service }}
-              </span>
+            <div class="bg-zinc-900/70 p-5 flex flex-col gap-1.5">
+              <p class="text-xs text-primary uppercase tracking-widest font-medium">Dienst</p>
+              <!-- service is string[] dus joinen met ' & ' -->
+              <span class="text-fake-white font-medium text-sm md:text-base">{{
+                project.service.join(' & ')
+              }}</span>
             </div>
-            <div class="flex flex-col gap-0 bg-black/50 p-4">
-              <p class="text-[clamp(0.8rem,1vw,1.5rem)] text-primary uppercase">Jaar</p>
-              <span class="text-fake-white text-[clamp(1rem,1.3vw,2rem)]">{{ project.year }}</span>
+            <div class="bg-zinc-900/70 p-5 flex flex-col gap-1.5">
+              <p class="text-xs text-primary uppercase tracking-widest font-medium">Jaar</p>
+              <span class="text-fake-white font-medium text-sm md:text-base">{{
+                project.year
+              }}</span>
             </div>
-            <div class="flex flex-col gap-0 bg-black/50 p-4">
-              <p class="text-[clamp(0.8rem,1vw,1.5rem)] text-primary uppercase">Linkjes</p>
-              <div>
-                @if (project.link) {
-                  <a
-                    [href]="project.link"
-                    target="_blank"
-                    class="text-fake-white text-[clamp(1rem,1.3vw,2rem)] hover:underline"
-                    >Live Link</a
-                  >
-                } @else {
-                  <span class="text-fake-white text-[clamp(1rem,1.3vw,2rem)]"
-                    >Geen publieke link</span
-                  >
-                }
-              </div>
-              <div>
-                @if (project.githubLink) {
-                  <a
-                    [href]="project.githubLink"
-                    target="_blank"
-                    class="text-fake-white text-[clamp(1rem,1.3vw,2rem)] hover:underline"
-                    >GitHub Link</a
-                  >
-                } @else {
-                  <span class="text-fake-white text-[clamp(1rem,1.3vw,2rem)]"
-                    >Geen GitHub link</span
-                  >
-                }
-              </div>
-            </div>
-          </div>
-          <div class="">
-            <img
-              [src]="project.image"
-              [alt]="project.title"
-              class="rounded-lg shadow-[0_0px_20px_-4px] shadow-fake-white"
-            />
-          </div>
-          <div class="flex flex-col-reverse md:flex-row w-full gap-8">
-            <div class="w-full md:w-3/5 space-y-8">
-              <div class="w-full space-y-4">
-                <h3 class="text-[clamp(1.5rem,1.5vw,2.5rem)] text-primary uppercase">
-                  De uitdaging
-                </h3>
-                <p class="text-[clamp(1rem,1vw,1.5rem)] text-fake-white">
-                  {{ project.difficulty }}
-                </p>
-              </div>
-              <div class="w-full space-y-4">
-                <h3 class="text-[clamp(1.5rem,1.5vw,2.5rem)] text-primary uppercase">
-                  De oplossing
-                </h3>
-                <p class="text-[clamp(1rem,1vw,1.5rem)] text-fake-white">{{ project.solution }}</p>
-              </div>
+            <div class="bg-zinc-900/70 p-5 flex flex-col gap-1.5">
+              <p class="text-xs text-primary uppercase tracking-widest font-medium">Links</p>
               @if (project.link) {
                 <a
                   [href]="project.link"
                   target="_blank"
-                  class="group inline-flex items-center gap-2 px-6 py-2 border-2 border-primary text-fake-white font-semibold rounded-lg hover:bg-primary transition-all duration-300 ease-in-out shadow-lg shadow-primary/10 hover:shadow-primary/40"
+                  class="inline-flex items-center gap-1 text-fake-white font-medium text-sm md:text-base hover:text-primary transition-colors"
+                >
+                  Live site <ng-icon name="bootstrapArrowUpRight" size="0.7rem" />
+                </a>
+              } @else {
+                <span class="text-zinc-600 text-sm">Geen link</span>
+              }
+              @if (project.githubLink) {
+                <a
+                  [href]="project.githubLink"
+                  target="_blank"
+                  class="inline-flex items-center gap-1 text-fake-white font-medium text-sm md:text-base hover:text-primary transition-colors"
+                >
+                  GitHub <ng-icon name="bootstrapArrowUpRight" size="0.7rem" />
+                </a>
+              }
+            </div>
+          </div>
+
+          <!-- Afbeelding of placeholder -->
+          @if (project.image) {
+            <div class="rounded-xl overflow-hidden ring-1 ring-zinc-800">
+              <img [src]="project.image" [alt]="project.title" class="w-full object-cover" />
+            </div>
+          } @else {
+            <div
+              class="rounded-xl border border-dashed border-zinc-700/60 bg-zinc-900/30 flex flex-col items-center justify-center py-20 gap-3"
+            >
+              <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center">
+                <svg
+                  class="w-5 h-5 text-zinc-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <p class="text-zinc-600 text-sm">Afbeelding volgt</p>
+            </div>
+          }
+
+          <!-- Inhoud + stack -->
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+            <!-- Tekst (3/5) -->
+            <div class="lg:col-span-3 space-y-12">
+              <div class="space-y-4">
+                <h3
+                  class="text-xs uppercase tracking-widest text-primary font-medium flex items-center gap-3"
+                >
+                  <span class="w-6 h-px bg-primary inline-block"></span>
+                  De uitdaging
+                </h3>
+                <p class="text-zinc-300 text-base md:text-lg leading-relaxed">
+                  {{ project.difficulty }}
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <h3
+                  class="text-xs uppercase tracking-widest text-primary font-medium flex items-center gap-3"
+                >
+                  <span class="w-6 h-px bg-primary inline-block"></span>
+                  De oplossing
+                </h3>
+                <p class="text-zinc-300 text-base md:text-lg leading-relaxed">
+                  {{ project.solution }}
+                </p>
+              </div>
+
+              @if (project.link) {
+                <a
+                  [href]="project.link"
+                  target="_blank"
+                  class="group inline-flex items-center gap-2 px-6 py-3 border border-primary text-fake-white font-semibold rounded-lg hover:bg-primary transition-all duration-200"
                 >
                   Bezoek de live site
                   <ng-icon
                     name="bootstrapArrowUpRight"
                     size="1rem"
-                    class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                  ></ng-icon>
+                    class="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
                 </a>
               }
             </div>
-            <div class="w-full md:w-2/5 space-y-4">
+
+            <!-- Stack (2/5) -->
+            <div class="lg:col-span-2 space-y-4">
               <h3
-                class="text-fake-white text-[clamp(1.5rem,1.5vw,2.5rem)] text-center md:text-left"
+                class="text-xs uppercase tracking-widest text-zinc-500 font-medium flex items-center gap-3"
               >
-                Tech Stack<span class="text-primary">.</span>
+                <span class="w-6 h-px bg-zinc-700 inline-block"></span>
+                Tech stack
               </h3>
-              <div class="grid grid-cols-2 md:grid-cols-1 gap-2 bg-black/50 p-4 rounded-lg">
-                @for (techStack of project.techStack; track techStack) {
+              <div class="flex flex-col gap-2">
+                @for (tech of project.techStack; track tech) {
                   <div
-                    class="flex justify-center items-center p-2 bg-black text-fake-white font-bold text-md md:text-lg shadow-sm shadow-primary/50 rounded-lg"
+                    class="flex items-center gap-3 px-4 py-3 bg-zinc-900/60 ring-1 ring-zinc-800 rounded-lg"
                   >
-                    <h3>{{ techStack }}</h3>
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+                    <span class="text-fake-white font-medium text-sm">{{ tech }}</span>
                   </div>
                 }
               </div>
             </div>
           </div>
-          <div class="flex justify-between items-start gap-4 bg-black/50 p-4 rounded-lg">
-            <a
-              routerLink="/portfolio"
-              class="group flex flex-col justify-center items-start text-left"
-            >
+
+          <!-- Navigatie -->
+          <div class="flex justify-between items-start gap-4 pt-8 border-t border-zinc-800/60">
+            <a routerLink="/portfolio" class="group flex flex-col gap-1">
               <p
-                class="text-zinc-500 uppercase text-[clamp(0.7rem,0.8vw,1.5rem)] flex items-center gap-2 group-hover:text-primary transition-colors"
+                class="text-zinc-600 uppercase text-xs tracking-widest flex items-center gap-1.5 group-hover:text-primary transition-colors"
               >
-                <ng-icon name="bootstrapArrowLeft" />Portfolio
+                <ng-icon name="bootstrapArrowLeft" size="0.7rem" />
+                Portfolio
               </p>
-              <p class="text-fake-white text-[clamp(1rem,1vw,1.5rem)] font-bold">
-                Terug naar portfolio
-              </p>
+              <p class="text-fake-white text-sm font-semibold">Terug naar overzicht</p>
             </a>
 
             @if (nextProject) {
               <a
                 [routerLink]="['/portfolio', nextProject.slug]"
-                class="group flex flex-col justify-center items-end text-right"
+                class="group flex flex-col gap-1 items-end text-right"
               >
                 <p
-                  class="text-zinc-500 uppercase text-[clamp(0.7rem,0.8vw,1.5rem)] flex items-center gap-2 group-hover:text-primary transition-colors"
+                  class="text-zinc-600 uppercase text-xs tracking-widest flex items-center gap-1.5 group-hover:text-primary transition-colors"
                 >
-                  Volgenjde project <ng-icon name="bootstrapArrowRight" />
+                  Volgend project
+                  <ng-icon name="bootstrapArrowRight" size="0.7rem" />
                 </p>
-                <p class="text-fake-white text-[clamp(1rem,1vw,1.5rem)] font-bold">
-                  {{ nextProject.title }}
-                </p>
+                <p class="text-fake-white text-sm font-semibold">{{ nextProject.title }}</p>
               </a>
             } @else {
               <div></div>
@@ -177,7 +240,7 @@ import {
           </div>
         </div>
       } @else {
-        <div class="pt-32 text-center">Project niet gevonden.</div>
+        <div class="pt-32 text-center text-zinc-500">Project niet gevonden.</div>
       }
     </div>
   `,
@@ -185,7 +248,7 @@ import {
 })
 export class PortfolioProjects implements OnInit {
   private projectsService = inject(ProjectService);
-  private route = inject(ActivatedRoute); // Inject ActivatedRoute
+  private route = inject(ActivatedRoute);
   private titleService = inject(Title);
   private metaService = inject(Meta);
   private cdr = inject(ChangeDetectorRef);
@@ -196,7 +259,6 @@ export class PortfolioProjects implements OnInit {
   prevProject: Project | undefined;
 
   ngOnInit() {
-    // Reageer op veranderingen in de URL (belangrijk voor navigatie tussen projecten)
     this.route.paramMap.subscribe((params) => {
       const slug = params.get('slug');
       this.updateProjectData(slug);
@@ -211,16 +273,13 @@ export class PortfolioProjects implements OnInit {
       this.prevProject = this.projects[currentIndex - 1];
       this.nextProject = this.projects[currentIndex + 1];
 
-      // SEO
-      this.titleService.setTitle(`Wout - ${this.project.title}`);
+      this.titleService.setTitle(`Wout — ${this.project.title}`);
       this.metaService.updateTag({
         name: 'description',
-        content: `Bekijk het project ${this.project.title} voor ${this.project.client}. ${this.project.difficulty.substring(0, 150)}...`,
+        content: `${this.project.title} voor ${this.project.client}. ${this.project.difficulty.substring(0, 150)}...`,
       });
 
       this.cdr.detectChanges();
-
-      // Optioneel: scroll naar boven bij navigatie
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       this.project = undefined;

@@ -4,14 +4,15 @@ export interface Project {
   title: string;
   subTitle: string;
   slug: string;
-  service: string;
+  service: string[];
   year: number;
   image: string;
   difficulty: string;
   solution: string;
-  link: string;
-  githubLink: string;
+  link?: string;
+  githubLink?: string;
   techStack: string[];
   highlight: boolean;
   production?: boolean;
+  status?: 'active' | 'legacy' | 'ongoing';
 }

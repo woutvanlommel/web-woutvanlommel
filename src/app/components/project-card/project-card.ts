@@ -8,50 +8,71 @@ import { RouterLink } from '@angular/router';
   template: `
     <a
       [routerLink]="['/portfolio', projectSlug]"
-      class="w-full h-full max-w-300 mx-auto flex flex-col-reverse bg-black rounded-lg overflow-hidden shadow group transition-all duration-500 hover:scale-[1.02] hover:shadow-primary/20 reveal"
+      class="group w-full h-full flex flex-col bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 hover:border-zinc-600 hover:bg-zinc-900"
     >
-      <div class="w-full flex-1 text-fake-white flex flex-col justify-between p-8 space-y-6">
-        <div class="space-y-4">
-          <div class="space-y-2">
-            <h3 class="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
-              {{ projectTitle }}
-            </h3>
-            <p class="text-zinc-400 text-sm md:text-base line-clamp-3 leading-relaxed">
-              {{ projectDescription }}
-            </p>
-          </div>
-          <div
-            class="inline-flex items-center gap-2 text-fake-white group-hover:text-primary transition-all font-medium"
-          >
-            Bekijk project
-            <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
-          </div>
-        </div>
-
-        @if (techStack.length > 0) {
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-zinc-800">
-            @for (tech of techStack; track tech) {
-              <span
-                class="px-3 py-1 bg-zinc-900 rounded-full text-[10px] md:text-xs text-zinc-400 border border-zinc-800"
-                >{{ tech }}</span
-              >
-            }
+      <!-- Image -->
+      <div class="w-full h-56 md:h-64 relative overflow-hidden">
+        @if (projectImage) {
+          <img
+            [src]="projectImage"
+            [alt]="projectTitle"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        } @else {
+          <div class="w-full h-full bg-zinc-900 flex items-center justify-center">
+            <svg
+              class="w-8 h-8 text-zinc-700"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
           </div>
         }
+        <!-- Service badge -->
+        <span
+          class="absolute top-3 left-3 text-zinc-300 bg-black/70 backdrop-blur-sm tracking-widest text-[10px] py-1 px-3 border border-zinc-700/60 rounded-full uppercase"
+        >
+          {{ service.join(' & ') }}
+        </span>
       </div>
 
-      <!-- Image Side -->
-      <div class="w-full h-64 md:h-80 relative overflow-hidden">
-        <img
-          [src]="projectImage"
-          [alt]="projectTitle"
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <p
-          class="absolute top-4 left-4 text-zinc-400 bg-black/80 backdrop-blur-sm tracking-widest text-[10px] py-1 px-4 border border-zinc-700 rounded-full w-fit uppercase group-hover:text-primary transition-colors"
-        >
-          {{ service }}
-        </p>
+      <!-- Content -->
+      <div class="flex flex-col flex-1 p-6 gap-4">
+        <div class="space-y-2 flex-1">
+          <h3 class="text-fake-white text-lg md:text-xl font-semibold leading-tight">
+            {{ projectTitle }}
+          </h3>
+          <p class="text-zinc-500 text-sm leading-relaxed line-clamp-3">
+            {{ projectDescription }}
+          </p>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-zinc-800">
+          @if (techStack.length > 0) {
+            <div class="flex flex-wrap gap-1.5">
+              @for (tech of techStack; track tech) {
+                <span
+                  class="px-2 py-0.5 bg-zinc-800/80 rounded text-[10px] text-zinc-400 border border-zinc-700/50"
+                >
+                  {{ tech }}
+                </span>
+              }
+            </div>
+          }
+          <span
+            class="text-zinc-600 text-sm font-medium group-hover:text-primary transition-colors ml-auto flex items-center gap-1 shrink-0"
+          >
+            Bekijk
+            <span class="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
+          </span>
+        </div>
       </div>
     </a>
   `,
@@ -62,6 +83,6 @@ export class ProjectCard {
   @Input() projectDescription: string = '';
   @Input() projectImage: string = '';
   @Input() projectSlug: string = '';
-  @Input() service: string = '';
+  @Input() service: string[] = [];
   @Input() techStack: string[] = [];
 }

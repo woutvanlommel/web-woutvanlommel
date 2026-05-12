@@ -78,11 +78,11 @@ export class Portfolio implements OnInit {
         !term ||
         project.title.toLowerCase().includes(term) ||
         project.client.toLowerCase().includes(term) ||
-        project.solution.toLocaleLowerCase().includes(term) ||
+        project.solution.toLowerCase().includes(term) ||
         project.difficulty.toLowerCase().includes(term) ||
         project.techStack.some((t) => t.toLowerCase().includes(term));
 
-      const matchesService = !service || project.service === service;
+      const matchesService = !service || project.service.includes(service);
 
       return matchesSearch && matchesService;
     });
