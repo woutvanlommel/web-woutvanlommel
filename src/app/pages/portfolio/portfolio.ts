@@ -10,7 +10,7 @@ import { ProjectCard } from '../../components/project-card/project-card';
   imports: [Zoekbalk, HighlightProject, ProjectCard],
   template: `
     <div class="w-full pt-48 pb-32 overflow-x-hidden relative">
-      <div class="w-full max-w-300 space-y-8 mx-auto z-10 relative px-6 md:px-16 lg:px-24">
+      <div class="w-full max-w-300 space-y-8 mx-auto z-10 relative px-6">
         <div class="text-center space-y-1">
           <h1 class="text-fake-white font-bold text-[clamp(3rem,4vw,4rem)]">
             Mijn Werk<span class="text-primary">.</span>

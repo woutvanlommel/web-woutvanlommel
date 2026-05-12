@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <a
       [routerLink]="['/portfolio', projectSlug]"
-      class="group w-full h-full flex flex-col bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 hover:border-zinc-600 hover:bg-zinc-900"
+      class="group w-full h-full flex flex-col bg-zinc-900/50 border border-zinc-800/60 rounded-lg overflow-hidden transition-all duration-300 hover:border-zinc-600 hover:bg-zinc-900"
     >
       <!-- Image -->
       <div class="w-full h-56 md:h-64 relative overflow-hidden">
@@ -59,7 +59,7 @@ import { RouterLink } from '@angular/router';
             <div class="flex flex-wrap gap-1.5">
               @for (tech of techStack; track tech) {
                 <span
-                  class="px-2 py-0.5 bg-zinc-800/80 rounded text-[10px] text-zinc-400 border border-zinc-700/50"
+                  class="px-2 py-0.5 bg-zinc-900/80 rounded text-[10px] text-zinc-500 border border-zinc-800/60 font-mono"
                 >
                   {{ tech }}
                 </span>

@@ -1,4 +1,5 @@
-import { Component, inject, AfterViewInit, OnInit } from '@angular/core';
+import { Component, inject, AfterViewInit, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
@@ -86,22 +87,32 @@ import { ExpertiseService } from '../../shared/expertise.service';
     }
     <div class="w-full">
       <div class="w-full max-w-300 mx-auto px-6 md:px-16 lg:px-24 py-24 space-y-8">
-        <h2 class="font-semibold text-[clamp(2rem,2vw,3rem)] text-fake-white reveal">
+        <div class="border-b border-zinc-800/60 pb-6 reveal">
+          <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
+            >Werkwijze</span
+          >
+        </div>
+        <h2
+          class="text-fake-white font-bold text-[clamp(2rem,3vw,3rem)] leading-tight tracking-tight reveal"
+        >
           Hoe we samenwerken<span class="text-primary">.</span>
         </h2>
         @if (workFlows.length > 0) {
-          <div
-            class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 rounded-lg overflow-hidden text-fake-white"
-          >
+          <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             @for (workflow of workFlows; track workflow.id; let i = $index) {
-              <div [class]="'bg-black/50 p-6 space-y-4 reveal reveal-delay-' + ((i % 4) + 1) * 100">
-                <p class="text-3xl font-bold">
+              <div
+                [class]="
+                  'p-6 bg-zinc-900/50 ring-1 ring-zinc-800 hover:ring-zinc-600 rounded-lg space-y-3 transition-colors reveal reveal-delay-' +
+                  ((i % 4) + 1) * 100
+                "
+              >
+                <p class="text-3xl font-bold text-fake-white">
                   {{ workflow.number }}<span class="text-primary">.</span>
                 </p>
-                <h3 class="text-primary text-md uppercase">
+                <h3 class="text-xs font-semibold uppercase tracking-widest text-zinc-500">
                   {{ workflow.title }}
                 </h3>
-                <p class="text-zinc-400">{{ workflow.description }}</p>
+                <p class="text-zinc-400 text-sm leading-relaxed">{{ workflow.description }}</p>
               </div>
             }
           </div>
@@ -120,6 +131,7 @@ export class Diensten implements AfterViewInit, OnInit {
 
   private route = inject(ActivatedRoute);
   private metaService = inject(Meta);
+  private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
     this.metaService.updateTag({
@@ -130,21 +142,16 @@ export class Diensten implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     this.route.params.subscribe((params) => {
       const slug = params['slug'];
       if (slug) {
-        // Altijd eerst naar boven als er een slug is, zodat we daarna rustig kunnen scrollen
         window.scrollTo(0, 0);
-
-        // Langere timeout voor de animaties om hun werk te doen
         setTimeout(() => {
           const element = document.getElementById(slug);
           if (element) {
-            element.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
-              inline: 'nearest',
-            });
+            element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
           }
         }, 300);
       } else {
