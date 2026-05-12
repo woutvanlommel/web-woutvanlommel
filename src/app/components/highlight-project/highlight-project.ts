@@ -6,62 +6,57 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   standalone: true,
   template: `
-    <div
-      class="w-full mx-auto flex flex-col-reverse md:flex-row bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden"
-    >
-      <!-- Content -->
-      <div class="w-full md:w-1/2 flex flex-col justify-between p-8 gap-8">
-        <div class="space-y-1">
-          <p class="text-xs text-zinc-600 uppercase tracking-widest font-medium">
-            Uitgelicht project
-          </p>
-          <div class="w-6 h-px bg-primary"></div>
-        </div>
-
-        <div class="space-y-4">
-          <span
-            class="inline-block text-zinc-400 tracking-widest text-[10px] py-1 px-3 border border-zinc-700/60 rounded-full uppercase"
-          >
-            {{ service.join(' & ') }}
-          </span>
-          <h3 class="text-fake-white text-3xl md:text-4xl font-bold leading-tight">
-            {{ projectTitle }}
-          </h3>
-          <p class="text-zinc-500 text-sm md:text-base leading-relaxed line-clamp-3">
-            {{ projectDescription }}
-          </p>
-          <a
-            [routerLink]="['/portfolio', projectSlug]"
-            class="inline-flex items-center gap-2 text-fake-white hover:text-primary transition-colors font-medium group"
-          >
-            Bekijk project
-            <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
-          </a>
-        </div>
-
-        @if (techStack.length > 0) {
-          <div class="flex flex-wrap gap-2 pt-4 border-t border-zinc-800">
-            @for (tech of techStack; track tech) {
-              <span
-                class="px-2 py-0.5 bg-zinc-800/80 rounded text-[10px] text-zinc-400 border border-zinc-700/50"
-              >
-                {{ tech }}
-              </span>
-            }
-          </div>
-        }
+    <div class="w-full">
+      <!-- Section label — matches all other section headers -->
+      <div class="border-b border-zinc-800/60 pb-6">
+        <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">
+          Uitgelicht project
+        </span>
       </div>
 
-      <!-- Image -->
-      <div class="w-full h-72 md:h-auto md:w-1/2 relative overflow-hidden group">
-        <img
-          [src]="projectImage"
-          [alt]="projectTitle"
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent md:bg-gradient-to-r md:from-black/30 md:to-transparent"
-        ></div>
+      <!-- Content row -->
+      <div class="w-full flex flex-col md:flex-row">
+        <!-- Image -->
+        <div class="w-full md:w-1/2 h-64 md:h-auto relative overflow-hidden group">
+          <img
+            [src]="projectImage"
+            [alt]="projectTitle"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+          />
+          <div class="absolute inset-0 bg-black/20"></div>
+        </div>
+
+        <!-- Text — borders only on this side -->
+        <div class="w-full md:w-1/2 flex flex-col justify-between py-10 md:py-12 px-0 md:pl-12 gap-8 border-t border-b border-zinc-700 md:border-l">
+          <div class="space-y-4">
+            <span class="text-zinc-700 text-[10px] font-mono uppercase tracking-widest">
+              {{ service.join(' & ') }}
+            </span>
+            <h3 class="text-fake-white text-[clamp(1.75rem,3vw,3rem)] font-bold leading-none tracking-tight">
+              {{ projectTitle }}
+            </h3>
+            <p class="text-zinc-500 text-sm leading-relaxed line-clamp-3">
+              {{ projectDescription }}
+            </p>
+            <a
+              [routerLink]="['/portfolio', projectSlug]"
+              class="inline-flex items-center gap-2 text-fake-white hover:text-primary transition-colors duration-200 font-medium text-sm group"
+            >
+              Bekijk project
+              <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          </div>
+
+          @if (techStack.length > 0) {
+            <div class="flex flex-wrap gap-x-4 gap-y-1 pt-6 border-t border-zinc-800/60">
+              @for (tech of techStack; track tech) {
+                <span class="text-zinc-600 text-[10px] font-mono uppercase tracking-widest">
+                  {{ tech }}
+                </span>
+              }
+            </div>
+          }
+        </div>
       </div>
     </div>
   `,

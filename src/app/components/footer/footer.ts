@@ -1,8 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroMapPinSolid, heroEnvelopeSolid } from '@ng-icons/heroicons/solid';
-import { bootstrapGithub, bootstrapLinkedin } from '@ng-icons/bootstrap-icons';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 interface MenuItem {
   path: string;
@@ -12,124 +9,130 @@ interface MenuItem {
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [RouterLink, NgIcon],
-  viewProviders: [
-    provideIcons({ heroMapPinSolid, heroEnvelopeSolid, bootstrapGithub, bootstrapLinkedin }),
-  ],
-  template: ` @if (router.url !== '/not-found') {
-    <div class=" bg-black">
-      @if (router.url !== '/contact') {
-        <div
-          class="w-full flex items-center justify-center py-12 px-4 md:px-8 flex-col text-center gap-4 border-b border-white/10"
-        >
-          <div class="flex flex-col gap-2 text-fake-white justify-center items-center">
-            <h2 class="text-[clamp(1.5rem,2vw,2.5rem)] font-bold">
-              Klaar voor jouw idee te realiseren<span class="text-primary">?</span>
-            </h2>
-            <p class="text-[clamp(1rem,1vw,1.5rem)] font-semibold">
-              Laten we samen bespreken hoe we jouw bedrijf digitaal kunnen versterken.
-            </p>
-          </div>
-          <a
-            routerLink="/contact"
-            class="bg-primary cursor-pointer hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-lg transition-colors text-[clamp(1rem,1.2vw,1.5rem)]"
-          >
-            Start een project
-          </a>
-        </div>
-      }
-      <div class="w-full">
-        <div
-          class=" w-full max-w-300 mx-auto flex flex-col md:flex-row justify-between items-start py-12 px-4 md:px-8 gap-8 border-b border-white/10"
-        >
-          <div
-            class="flex flex-col gap-4 w-full items-center md:items-start justify-start text-fake-white"
-          >
-            <div class="flex flex-col gap-2 justify-center items-center md:items-start">
-              <a routerLink="/" class="h-8 flex items-center justify-center">
-                <img src="/assets/img/w.png" alt="Logo" class="h-full" />
-              </a>
-              <p class="uppercase text-primary text-[clamp(1rem,1.3vw,1.5rem)] font-bold">
-                Full Stack Developer
-              </p>
-            </div>
-            <div class="flex flex-col gap-1 justify-center items-center md:items-start w-fit">
-              <div
-                class="w-full flex flex-row items-center justify-center md:justify-start gap-2 text-[clamp(1rem,1vw,1.5rem)]"
-              >
-                <div class="mt-0.5">
-                  <ng-icon name="heroMapPinSolid" />
-                </div>
-                <p>3500 Hasselt, België</p>
+  imports: [RouterLink, RouterLinkActive],
+  template: `
+    @if (router.url !== '/not-found') {
+      <footer class="bg-black border-t border-zinc-800/60">
+        <!-- CTA -->
+        @if (router.url !== '/contact') {
+          <div class="px-6 md:px-16 lg:px-24 py-16 border-b border-zinc-800/40">
+            <div
+              class="w-full max-w-300 mx-auto flex flex-col md:flex-row items-start md:items-end justify-between gap-8"
+            >
+              <div class="space-y-2">
+                <p class="text-xs text-zinc-600 uppercase tracking-widest font-semibold">
+                  Nieuw project?
+                </p>
+                <h2
+                  class="text-fake-white font-bold leading-tight tracking-tight text-[clamp(2rem,3.5vw,3.5rem)]"
+                >
+                  Laten we iets bouwen<span class="text-primary">.</span>
+                </h2>
               </div>
               <a
-                href="mailto:woutvanlommel@icloud.com"
-                class="w-full flex flex-row items-center justify-center md:justify-start gap-2 text-[clamp(1rem,1vw,1.5rem)]"
+                routerLink="/contact"
+                class="group shrink-0 inline-flex items-center gap-3 text-fake-white text-sm font-semibold border border-zinc-700 hover:border-zinc-400 py-3 px-7 rounded-lg transition-all duration-200"
               >
-                <div class="mt-0.5">
-                  <ng-icon name="heroEnvelopeSolid" />
-                </div>
-                woutvanlommel@icloud.com
-              </a>
-              <p>BE 0793.803.953</p>
-            </div>
-          </div>
-          <div class="flex flex-col gap-2 w-full justify-start items-center text-fake-white">
-            <p class="font-bold text-[clamp(1.5rem,1.4vw,2rem)]">
-              Snel naar<span class="text-primary">.</span>
-            </p>
-            <div class="flex flex-col gap-2 justify-center items-center">
-              @for (item of menuItems(); track item.path) {
-                <a
-                  [routerLink]="item.path"
-                  routerLinkActive="text-primary"
-                  class="
-              relative text-fake-white font-medium text-[clamp(1rem,1.3vw,1.5rem)] transition-colors duration-300
-              after:content-[''] after:absolute after:left-0 after:-bottom-1 
-              after:h-0.5 after:w-0 after:bg-primary 
-              after:transition-all after:duration-300 
-              hover:after:w-full
-            "
+                Start een project
+                <span
+                  class="text-primary group-hover:translate-x-1 transition-transform duration-200"
+                  >→</span
                 >
-                  {{ item.label }}
-                </a>
-              }
+              </a>
             </div>
           </div>
+        }
+
+        <!-- Main grid -->
+        <div class="px-6 md:px-16 lg:px-24 pt-14 pb-10">
+          <div class="w-full max-w-300 mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+            <!-- Left: tagline + contact -->
+            <div class="flex flex-col gap-6">
+              <p class="text-zinc-600 text-sm leading-relaxed max-w-xs">
+                Maatwerk webapplicaties die jouw bedrijf versterken. Freelance fullstack developer
+                uit Hasselt.
+              </p>
+              <div class="space-y-1.5">
+                <p class="text-[10px] text-zinc-700 uppercase tracking-widest font-semibold mb-2">
+                  Contact
+                </p>
+                <a
+                  href="mailto:woutvanlommel@icloud.com"
+                  class="block text-zinc-500 text-sm hover:text-fake-white transition-colors duration-200"
+                >
+                  woutvanlommel&#64;icloud.com
+                </a>
+                <p class="text-zinc-600 text-sm">3500 Hasselt, België</p>
+                <p class="text-zinc-600 text-xs pt-0.5">BE 0793.803.953</p>
+              </div>
+            </div>
+
+            <!-- Center: nav links -->
+            <div class="flex flex-col gap-4">
+              <p class="text-[10px] text-zinc-700 uppercase tracking-widest font-semibold">
+                Navigation
+              </p>
+              <nav class="flex flex-col gap-0.5">
+                @for (item of menuItems(); track item.path) {
+                  <a
+                    [routerLink]="item.path"
+                    routerLinkActive="!text-primary"
+                    class="text-fake-white font-bold text-[clamp(1.5rem,2.5vw,2.75rem)] leading-tight tracking-tight hover:text-primary transition-colors duration-200"
+                  >
+                    {{ item.label }}
+                  </a>
+                }
+              </nav>
+            </div>
+
+            <!-- Right: connect -->
+            <div class="flex flex-col gap-4">
+              <p class="text-[10px] text-zinc-700 uppercase tracking-widest font-semibold">
+                Connect
+              </p>
+              <div class="flex flex-col gap-1.5">
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  class="text-fake-white font-semibold text-lg hover:text-primary transition-colors duration-200 flex items-center gap-2 w-fit"
+                >
+                  LinkedIn <span class="text-zinc-700 text-sm">↗</span>
+                </a>
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  class="text-fake-white font-semibold text-lg hover:text-primary transition-colors duration-200 flex items-center gap-2 w-fit"
+                >
+                  GitHub <span class="text-zinc-700 text-sm">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="px-6 md:px-16 lg:px-24 py-5 border-t border-zinc-800/40">
           <div
-            class="flex flex-row gap-2 w-full justify-center md:justify-end items-center text-fake-white 
-          [&>a]:hover:text-primary 
-          [&>a]:hover:transition-colors 
-          [&>a]:hover:uration-300 text-[clamp(1.5rem,2vw,2.5rem)]
-          [&>a]:cursor-pointer"
+            class="w-full max-w-300 mx-auto flex justify-between items-center text-[10px] text-zinc-500 uppercase tracking-widest"
           >
-            <a>
-              <ng-icon name="bootstrapLinkedin" />
-            </a>
-            <a>
-              <ng-icon name="bootstrapGithub" />
-            </a>
-          </div>
-        </div>
-        <div
-          class="w-full max-w-300 mx-auto flex flex-col-reverse md:flex-row justify-center md:justify-between items-center py-6 px-4 md:px-8 gap-4 text-fake-white text-[clamp(0.875rem,1vw,1.125rem)]"
-        >
-          <div class="w-full text-center md:text-left">
-            <p>
-              &copy; {{ currentYear() }} Wout Vanlommel. Alle rechten voorbehouden<span
-                class="text-primary"
-                >.</span
+            <span>&copy; {{ currentYear() }} Wout Vanlommel</span>
+            <div class="flex gap-5">
+              <a
+                routerLink="/algemene-voorwaarden"
+                class="hover:text-primary transition-colors duration-200"
+                >Algemene Voorwaarden</a
               >
-            </p>
-          </div>
-          <div class=" w-full flex flex-row gap-4 justify-center md:justify-end items-center">
-            <a routerLink="/algemene-voorwaarden">Algemene Voorwaarden</a>
-            <a routerLink="/privacy-verklaring">Privacy Verklaring</a>
+              <a
+                routerLink="/privacy-verklaring"
+                class="hover:text-primary transition-colors duration-200"
+                >Privacy</a
+              >
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  }`,
+      </footer>
+    }
+  `,
 })
 export class Footer {
   protected readonly router = inject(Router);
@@ -143,9 +146,3 @@ export class Footer {
 
   currentYear = signal(new Date().getFullYear());
 }
-
-// transition-colors duration-300
-//               after:content-[''] after:absolute after:left-0 after:-bottom-1
-//               after:h-0.5 after:w-0 after:bg-primary
-//               after:transition-all after:duration-300
-//               hover:after:w-full

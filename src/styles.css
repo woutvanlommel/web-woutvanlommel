@@ -45,6 +45,24 @@
   --color-secondary: #a1a1aa;
 }
 
+/* --- Background animations --- */
+@keyframes wave-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes aurora-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+@keyframes noise-drift {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(-50%, -50%); }
+}
+@keyframes mesh-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}
+
 /* --- Global Reveal Animations --- */
 .reveal {
   opacity: 0;
