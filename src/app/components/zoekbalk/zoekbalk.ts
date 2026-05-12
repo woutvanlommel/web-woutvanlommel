@@ -5,7 +5,7 @@ import { ProjectService } from '../../shared/project.service';
   selector: 'app-zoekbalk',
   imports: [],
   template: `
-    <div class="w-full mx-auto px-4 md:px-8">
+    <div class="w-full mx-auto">
       <div class="w-full mx-auto flex flex-col md:flex-row gap-4 p-2 bg-black/50 rounded-md">
         <input
           type="text"

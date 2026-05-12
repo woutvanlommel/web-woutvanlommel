@@ -36,11 +36,8 @@ import { ExpertiseService } from '../../shared/expertise.service';
       ]),
     ]),
   ],
-  template: ` <div class="w-full bg-light-black pt-48 overflow-x-hidden relative">
-    <div
-      class="absolute -top-64 -right-64 w-125 h-125 md:w-175 md:h-175 bg-primary/20 blur-[120px] rounded-full pointer-events-none z-2"
-    ></div>
-    <div class="w-full max-w-300 space-y-8 mx-auto z-10 relative reveal">
+  template: ` <div class="w-full pt-48 overflow-x-hidden relative">
+    <div class="w-full max-w-300 space-y-8 mx-auto z-10 relative px-6 md:px-16 lg:px-24 reveal">
       <div class="text-center space-y-1">
         <h1 class="text-fake-white font-bold text-[clamp(3rem,4vw,4rem)]">
           Mijn Expertise<span class="text-primary">.</span>
@@ -53,9 +50,13 @@ import { ExpertiseService } from '../../shared/expertise.service';
     @if (expertises.length > 0) {
       <div>
         @for (expertise of expertises; track expertise.id; let isOdd = $odd) {
-          <div [id]="expertise.slug" class="w-full py-16 z-10 px-4 reveal" [class.bg-black]="isOdd">
+          <div
+            [id]="expertise.slug"
+            class="w-full py-16 z-10 px-6 md:px-16 lg:px-24 reveal"
+            [class.bg-zinc-900/20]="isOdd"
+          >
             <div
-              class="w-full max-w-300 mx-auto flex flex-col md:flex-row gap-8 justify-center items-center px-4 md:px-8"
+              class="w-full max-w-300 mx-auto flex flex-col md:flex-row gap-8 justify-center items-center"
               [class.md:flex-row-reverse]="isOdd"
             >
               <div
@@ -83,8 +84,8 @@ import { ExpertiseService } from '../../shared/expertise.service';
         }
       </div>
     }
-    <div class="w-full bg-light-black">
-      <div class="w-full max-w-300 mx-auto px-4 md:px-8 py-24 space-y-8">
+    <div class="w-full">
+      <div class="w-full max-w-300 mx-auto px-6 md:px-16 lg:px-24 py-24 space-y-8">
         <h2 class="font-semibold text-[clamp(2rem,2vw,3rem)] text-fake-white reveal">
           Hoe we samenwerken<span class="text-primary">.</span>
         </h2>

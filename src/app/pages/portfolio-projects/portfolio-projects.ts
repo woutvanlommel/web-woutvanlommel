@@ -16,9 +16,9 @@ import {
   standalone: true,
   viewProviders: [provideIcons({ bootstrapArrowUpRight, bootstrapArrowLeft, bootstrapArrowRight })],
   template: `
-    <div class="w-full bg-light-black min-h-screen">
+    <div class="w-full min-h-screen">
       @if (project) {
-        <div class="w-full max-w-300 mx-auto px-4 md:px-8 py-32 space-y-16">
+        <div class="w-full max-w-300 mx-auto px-6 md:px-16 lg:px-24 py-32 space-y-16">
           <!-- Breadcrumb -->
           <nav class="text-zinc-500 text-xs uppercase tracking-widest">
             <ol class="flex items-center gap-2">

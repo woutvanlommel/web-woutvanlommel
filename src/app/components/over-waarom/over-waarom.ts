@@ -5,9 +5,9 @@ import { ExpertiseService } from '../../shared/expertise.service';
   selector: 'app-over-waarom',
   imports: [],
   template: `
-    <section class="w-full bg-light-black py-16">
+    <section class="w-full py-16">
       <div
-        class="w-full max-w-300 mx-auto px-4 md:px-8 flex flex-col items-start justify-center space-y-4"
+        class="w-full max-w-300 mx-auto px-6 md:px-16 lg:px-24 flex flex-col items-start justify-center space-y-4"
       >
         <h2 class="text-fake-white text-[clamp(2rem,2vw,2.5rem)] font-bold reveal">
           Waarom voor mij kiezen<span class="text-primary">.</span>

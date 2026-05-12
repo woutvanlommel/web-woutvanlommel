@@ -21,18 +21,22 @@ import { RouterLink } from '@angular/router';
           <img
             [src]="projectImage"
             [alt]="projectTitle"
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div class="absolute inset-0 bg-black/20"></div>
         </div>
 
         <!-- Text — borders only on this side -->
-        <div class="w-full md:w-1/2 flex flex-col justify-between py-10 md:py-12 px-0 md:pl-12 gap-8 border-t border-b border-zinc-700 md:border-l">
+        <div
+          class="w-full md:w-1/2 flex flex-col justify-between py-10 md:py-12 px-0 md:pl-12 gap-8 border-t border-b border-zinc-700 md:border-l"
+        >
           <div class="space-y-4">
             <span class="text-zinc-700 text-[10px] font-mono uppercase tracking-widest">
               {{ service.join(' & ') }}
             </span>
-            <h3 class="text-fake-white text-[clamp(1.75rem,3vw,3rem)] font-bold leading-none tracking-tight">
+            <h3
+              class="text-fake-white text-[clamp(1.75rem,3vw,3rem)] font-bold leading-none tracking-tight"
+            >
               {{ projectTitle }}
             </h3>
             <p class="text-zinc-500 text-sm leading-relaxed line-clamp-3">

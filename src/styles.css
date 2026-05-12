@@ -45,6 +45,13 @@
   --color-secondary: #a1a1aa;
 }
 
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* --- Background animations --- */
 @keyframes wave-scroll {
   0%   { transform: translateX(0); }
