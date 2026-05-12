@@ -8,12 +8,12 @@ import { AnimationService } from './shared/animation.service';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, Navigation, Footer],
-  template: `
-    <!-- Background: dot grid + radial glow -->
+  template: ` <!-- Background: dot grid + radial glow -->
     <div class="fixed inset-0 -z-10 bg-black pointer-events-none overflow-hidden">
       <!-- Dot grid -->
       <div
-        class="absolute inset-0 opacity-[0.06]" style="filter: blur(1px);"
+        class="absolute inset-0 opacity-[0.04]"
+        style="filter: blur(8px);"
         style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23ffffff'/%3E%3C/svg%3E&quot;); background-size: 24px 24px;"
       ></div>
       <!-- Orange radial glow top-center -->
