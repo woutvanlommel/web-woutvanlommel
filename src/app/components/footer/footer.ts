@@ -92,7 +92,7 @@ interface MenuItem {
               </p>
               <div class="flex flex-col gap-1.5">
                 <a
-                  href="https://linkedin.com/woutvanlommel"
+                  href="https://linkedin.com/in/woutvanlommel"
                   target="_blank"
                   class="text-fake-white font-semibold text-lg hover:text-primary transition-colors duration-200 flex items-center gap-2 w-fit"
                 >
