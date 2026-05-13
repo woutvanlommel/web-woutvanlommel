@@ -79,21 +79,21 @@ import {
 
             <!-- Meta row -->
             <div class="grid grid-cols-2 md:grid-cols-4 border-b border-zinc-800/60">
-              <div class="py-6 md:pr-8 border-r border-zinc-800/60 flex flex-col gap-1.5">
+              <div class="py-6 pr-4 md:pr-8 border-r border-b md:border-b-0 border-zinc-800/60 flex flex-col gap-1.5">
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Klant</p>
                 <span class="text-fake-white font-medium text-sm">{{ project.client }}</span>
               </div>
-              <div class="py-6 px-6 md:px-8 border-r border-zinc-800/60 flex flex-col gap-1.5">
+              <div class="py-6 pl-4 md:px-8 md:border-r border-zinc-800/60 border-b md:border-b-0 flex flex-col gap-1.5">
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Dienst</p>
                 <span class="text-fake-white font-medium text-sm">{{
                   project.service.join(' & ')
                 }}</span>
               </div>
-              <div class="py-6 px-6 md:px-8 border-r border-zinc-800/60 flex flex-col gap-1.5">
+              <div class="py-6 pr-4 md:px-8 border-r border-zinc-800/60 flex flex-col gap-1.5">
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Jaar</p>
                 <span class="text-fake-white font-medium text-sm">{{ project.year }}</span>
               </div>
-              <div class="py-6 pl-6 md:pl-8 flex flex-col gap-1.5">
+              <div class="py-6 pl-4 md:pl-8 flex flex-col gap-1.5">
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Links</p>
                 @if (project.link) {
                   <a

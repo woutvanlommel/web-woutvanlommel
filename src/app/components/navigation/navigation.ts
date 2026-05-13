@@ -181,12 +181,13 @@ interface MenuItem {
               >
                 Start een project →
               </a>
-              <div class="flex items-center gap-6 text-xs text-zinc-600 uppercase tracking-widest">
+              <div class="flex items-center gap-4 md:gap-6 text-xs text-zinc-600 uppercase tracking-widest flex-wrap">
                 <a
                   href="mailto:woutvanlommel@icloud.com"
                   class="hover:text-zinc-300 transition-colors"
                 >
-                  woutvanlommel&#64;icloud.com
+                  <span class="hidden sm:inline">woutvanlommel&#64;icloud.com</span>
+                  <span class="sm:hidden">Mail</span>
                 </a>
                 <a
                   href="https://linkedin.com/woutvanlommel"

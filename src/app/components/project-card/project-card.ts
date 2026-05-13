@@ -42,30 +42,28 @@ import { RouterLink } from '@angular/router';
         >
           {{ service.join(' & ') }}
         </span>
-        @if (status === 'legacy') {
-          <span
-            class="absolute top-3 right-3 inline-flex items-center gap-1.5 text-zinc-400 bg-black/70 backdrop-blur-sm tracking-widest text-[10px] py-1 px-3 border border-zinc-700/60 rounded-full uppercase"
-          >
-            <span class="w-1 h-1 rounded-full bg-zinc-500 inline-block"></span>
-            Legacy
-          </span>
-        }
-        @if (status === 'ongoing') {
-          <span
-            class="absolute top-3 right-3 inline-flex items-center gap-1.5 text-primary bg-black/70 backdrop-blur-sm tracking-widest text-[10px] py-1 px-3 border border-primary/40 rounded-full uppercase"
-          >
-            <span class="w-1 h-1 rounded-full bg-primary inline-block animate-pulse"></span>
-            In ontwikkeling
-          </span>
-        }
       </div>
 
       <!-- Content -->
       <div class="flex flex-col flex-1 p-6 gap-4">
         <div class="space-y-2 flex-1">
-          <h3 class="text-fake-white text-lg md:text-xl font-semibold leading-tight">
-            {{ projectTitle }}
-          </h3>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h3 class="text-fake-white text-lg md:text-xl font-semibold leading-tight">
+              {{ projectTitle }}
+            </h3>
+            @if (status === 'legacy') {
+              <span class="inline-flex items-center gap-1 text-zinc-500 tracking-widest text-[10px] py-0.5 px-2 border border-zinc-700/60 rounded-full uppercase font-mono shrink-0">
+                <span class="w-1 h-1 rounded-full bg-zinc-500 inline-block"></span>
+                Legacy
+              </span>
+            }
+            @if (status === 'ongoing') {
+              <span class="inline-flex items-center gap-1 text-primary tracking-widest text-[10px] py-0.5 px-2 border border-primary/40 rounded-full uppercase font-mono shrink-0">
+                <span class="w-1 h-1 rounded-full bg-primary inline-block animate-pulse"></span>
+                In ontwikkeling
+              </span>
+            }
+          </div>
           <p class="text-zinc-500 text-sm leading-relaxed line-clamp-3">
             {{ projectDescription }}
           </p>
