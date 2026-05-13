@@ -55,44 +55,47 @@ import { EmailService, ContactFormData } from '../../shared/email.service';
             <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Contactgegevens</span>
           </div>
 
-          @if (!submitted) {
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-16 py-16 border-b border-zinc-800/60">
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-16 py-16 border-b border-zinc-800/60">
 
-              <!-- Info (2/5) -->
-              <div class="lg:col-span-2 space-y-12 mb-12 lg:mb-0">
-                <p class="text-zinc-500 text-sm leading-relaxed max-w-sm">
-                  Ik ben beschikbaar voor freelance projecten. Stuur me een berichtje en ik reageer meestal binnen 24 uur.
-                </p>
-                <div class="flex flex-col gap-5">
-                  <a
-                    href="mailto:woutvanlommel@icloud.com"
-                    class="flex items-center gap-3 text-fake-white text-sm hover:text-primary transition-colors"
-                  >
-                    <ng-icon name="heroEnvelopeSolid" size="0.9rem" class="text-zinc-600 shrink-0" />
-                    woutvanlommel&#64;icloud.com
-                  </a>
-                  <div class="flex items-center gap-3 text-fake-white text-sm">
-                    <ng-icon name="heroMapPinSolid" size="0.9rem" class="text-zinc-600 shrink-0" />
-                    3500 Hasselt, België
-                  </div>
-                  <span class="text-zinc-600 text-sm">BE 0793.803.953</span>
+            <!-- Info (2/5) — always visible -->
+            <div class="lg:col-span-2 space-y-12 mb-12 lg:mb-0">
+              <p class="text-zinc-500 text-sm leading-relaxed max-w-sm">
+                Ik ben beschikbaar voor freelance projecten. Stuur me een berichtje en ik reageer meestal binnen 24 uur.
+              </p>
+              <div class="flex flex-col gap-5">
+                <a
+                  href="mailto:woutvanlommel@icloud.com"
+                  class="flex items-center gap-3 text-fake-white text-sm hover:text-primary transition-colors"
+                >
+                  <ng-icon name="heroEnvelopeSolid" size="0.9rem" class="text-zinc-600 shrink-0" />
+                  woutvanlommel&#64;icloud.com
+                </a>
+                <div class="flex items-center gap-3 text-fake-white text-sm">
+                  <ng-icon name="heroMapPinSolid" size="0.9rem" class="text-zinc-600 shrink-0" />
+                  3500 Hasselt, België
                 </div>
-                <div class="flex flex-row gap-5 pt-4 border-t border-zinc-800/60">
-                  <a href="https://www.linkedin.com/in/woutvanlommel/" target="_blank" class="text-zinc-600 hover:text-fake-white transition-colors text-lg">
-                    <ng-icon name="bootstrapLinkedin" />
-                  </a>
-                  <a href="https://github.com/woutvanlommel" target="_blank" class="text-zinc-600 hover:text-fake-white transition-colors text-lg">
-                    <ng-icon name="bootstrapGithub" />
-                  </a>
-                </div>
+                <span class="text-zinc-600 text-sm">BE 0793.803.953</span>
               </div>
+              <div class="flex flex-row gap-5 pt-4 border-t border-zinc-800/60">
+                <a href="https://www.linkedin.com/in/woutvanlommel/" target="_blank" class="text-zinc-600 hover:text-fake-white transition-colors text-lg">
+                  <ng-icon name="bootstrapLinkedin" />
+                </a>
+                <a href="https://github.com/woutvanlommel" target="_blank" class="text-zinc-600 hover:text-fake-white transition-colors text-lg">
+                  <ng-icon name="bootstrapGithub" />
+                </a>
+              </div>
+            </div>
 
-              <!-- Form (3/5) -->
+            <!-- Right column (3/5) -->
+            <div class="lg:col-span-3">
+
+            @if (!submitted) {
+              <!-- Form -->
               <form
                 [formGroup]="contactForm"
                 (ngSubmit)="onSubmit()"
                 autocomplete="off"
-                class="lg:col-span-3 grid grid-cols-2 gap-8"
+                class="grid grid-cols-2 gap-8"
               >
                 <div class="flex flex-col gap-3 col-span-2 md:col-span-1">
                   <label for="name" class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Naam</label>
@@ -183,26 +186,28 @@ import { EmailService, ContactFormData } from '../../shared/email.service';
                   </button>
                 </div>
               </form>
+            } @else {
+              <!-- Success -->
+              <div class="space-y-8">
+                <div class="space-y-4">
+                  <h2 class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight">
+                    Bedankt<span class="text-primary">.</span>
+                  </h2>
+                  <p class="text-zinc-500 text-sm max-w-md leading-relaxed">
+                    Ik neem zo snel mogelijk contact met je op!
+                  </p>
+                </div>
+                <a
+                  routerLink="/"
+                  class="inline-flex items-center gap-3 bg-primary hover:bg-primary/85 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 text-sm w-fit"
+                >
+                  ← Terug naar home
+                </a>
+              </div>
+            }
 
             </div>
-          } @else {
-            <div class="py-16 space-y-8">
-              <div class="space-y-4">
-                <h2 class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight">
-                  Bedankt<span class="text-primary">.</span>
-                </h2>
-                <p class="text-zinc-500 text-sm max-w-md leading-relaxed">
-                  Ik neem zo snel mogelijk contact met je op!
-                </p>
-              </div>
-              <a
-                routerLink="/"
-                class="inline-flex items-center gap-3 bg-primary hover:bg-primary/85 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 text-sm w-fit"
-              >
-                ← Terug naar home
-              </a>
-            </div>
-          }
+          </div>
 
         </div>
       </section>

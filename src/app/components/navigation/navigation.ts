@@ -143,19 +143,25 @@ interface MenuItem {
                   <a
                     [routerLink]="item.path"
                     (click)="close()"
-                    routerLinkActive="text-primary"
+                    routerLinkActive
+                    #rla="routerLinkActive"
                     class="nav-item group flex items-baseline gap-4 md:gap-6 py-4 md:py-5 border-b border-zinc-800/60 last:border-b-0 cursor-pointer"
                   >
                     <span class="text-zinc-700 text-xs font-mono w-6 shrink-0 translate-y-[-2px]"
                       >0{{ i + 1 }}</span
                     >
                     <span
-                      class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight group-hover:text-primary group-active:text-primary transition-colors duration-200"
+                      class="font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight group-hover:text-primary transition-colors duration-200"
+                      [class.text-primary]="rla.isActive"
+                      [class.text-fake-white]="!rla.isActive"
                     >
                       {{ item.label }}
                     </span>
                     <span
-                      class="hidden md:block text-zinc-600 text-sm ml-auto self-center group-hover:text-zinc-400 transition-colors duration-200"
+                      class="hidden md:block text-sm ml-auto self-center transition-colors duration-200"
+                      [class.text-primary]="rla.isActive"
+                      [class.text-zinc-600]="!rla.isActive"
+                      [class.group-hover:text-zinc-400]="!rla.isActive"
                     >
                       {{ item.sub }}
                     </span>
