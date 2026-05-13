@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <a
       [routerLink]="['/portfolio', projectSlug]"
-      class="group w-full h-full flex flex-col bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 hover:border-zinc-600 hover:bg-zinc-900"
+      class="group w-full h-full flex flex-col bg-zinc-900/50 border border-zinc-800/60 rounded-lg overflow-hidden transition-all duration-300 hover:border-zinc-600 hover:bg-zinc-900"
     >
       <!-- Image -->
       <div class="w-full h-56 md:h-64 relative overflow-hidden">
@@ -19,20 +19,21 @@ import { RouterLink } from '@angular/router';
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         } @else {
-          <div class="w-full h-full bg-zinc-900 flex items-center justify-center">
-            <svg
-              class="w-8 h-8 text-zinc-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div
+            class="w-full h-full bg-zinc-900 flex flex-col items-center justify-center gap-4 relative overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 opacity-[0.03]"
+              style="background-image: repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px), repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px);"
+            ></div>
+            <span
+              class="text-[5rem] font-bold leading-none tracking-tight select-none text-zinc-800 z-10"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
+              W<span class="text-primary">.</span>
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-zinc-700 z-10 font-mono"
+              >Coming soon</span
+            >
           </div>
         }
         <!-- Service badge -->
@@ -46,9 +47,23 @@ import { RouterLink } from '@angular/router';
       <!-- Content -->
       <div class="flex flex-col flex-1 p-6 gap-4">
         <div class="space-y-2 flex-1">
-          <h3 class="text-fake-white text-lg md:text-xl font-semibold leading-tight">
-            {{ projectTitle }}
-          </h3>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h3 class="text-fake-white text-lg md:text-xl font-semibold leading-tight">
+              {{ projectTitle }}
+            </h3>
+            @if (status === 'legacy') {
+              <span class="inline-flex items-center gap-1 text-zinc-500 tracking-widest text-[10px] py-0.5 px-2 border border-zinc-700/60 rounded-full uppercase font-mono shrink-0">
+                <span class="w-1 h-1 rounded-full bg-zinc-500 inline-block"></span>
+                Legacy
+              </span>
+            }
+            @if (status === 'ongoing') {
+              <span class="inline-flex items-center gap-1 text-primary tracking-widest text-[10px] py-0.5 px-2 border border-primary/40 rounded-full uppercase font-mono shrink-0">
+                <span class="w-1 h-1 rounded-full bg-primary inline-block animate-pulse"></span>
+                In ontwikkeling
+              </span>
+            }
+          </div>
           <p class="text-zinc-500 text-sm leading-relaxed line-clamp-3">
             {{ projectDescription }}
           </p>
@@ -59,7 +74,7 @@ import { RouterLink } from '@angular/router';
             <div class="flex flex-wrap gap-1.5">
               @for (tech of techStack; track tech) {
                 <span
-                  class="px-2 py-0.5 bg-zinc-800/80 rounded text-[10px] text-zinc-400 border border-zinc-700/50"
+                  class="px-2 py-0.5 bg-zinc-900/80 rounded text-[10px] text-zinc-500 border border-zinc-800/60 font-mono"
                 >
                   {{ tech }}
                 </span>
@@ -81,8 +96,9 @@ import { RouterLink } from '@angular/router';
 export class ProjectCard {
   @Input() projectTitle: string = '';
   @Input() projectDescription: string = '';
-  @Input() projectImage: string = '';
+  @Input() projectImage: string | undefined = undefined;
   @Input() projectSlug: string = '';
   @Input() service: string[] = [];
   @Input() techStack: string[] = [];
+  @Input() status: string | undefined = undefined;
 }

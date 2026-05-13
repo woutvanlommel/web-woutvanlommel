@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-not-found',
   imports: [RouterLink],
   template: `
-    <section class="w-full h-screen bg-light-black relative flex items-center justify-center px-4">
+    <section class="w-full h-screen relative flex items-center justify-center px-4">
       <div
         class="absolute -top-64 -right-64 w-125 h-125 md:w-175 md:h-175 bg-primary/20 blur-[120px] rounded-full pointer-events-none z-2"
       ></div>

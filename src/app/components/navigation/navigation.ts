@@ -1,155 +1,235 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { trigger, transition, style, animate } from '@angular/animations'; // 1. Animaties importeren
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  stagger,
+  query,
+  keyframes,
+} from '@angular/animations';
 
 interface MenuItem {
   path: string;
   label: string;
+  sub: string;
 }
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
-  // 2. Definieer de animatie
   animations: [
-    trigger('slideDown', [
-      // Binnenkomen: start boven beeld (-100%), glijd naar 0
+    trigger('overlay', [
       transition(':enter', [
-        style({ transform: 'translateY(-100%)', opacity: 0 }),
+        style({ clipPath: 'inset(0 0 100% 0)' }),
+        animate('500ms cubic-bezier(0.76, 0, 0.24, 1)', style({ clipPath: 'inset(0 0 0% 0)' })),
+      ]),
+      transition(':leave', [
+        animate('400ms cubic-bezier(0.76, 0, 0.24, 1)', style({ clipPath: 'inset(0 0 100% 0)' })),
+      ]),
+    ]),
+    trigger('iconMorph', [
+      transition('closed => open', [
         animate(
-          '300ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-          style({ transform: 'translateY(0)', opacity: 1 }),
+          '600ms ease',
+          keyframes([
+            style({ transform: 'rotate(0deg) scale(1)', offset: 0 }),
+            style({ transform: 'rotate(95deg) scale(0.65)', offset: 0.35 }),
+            style({ transform: 'rotate(188deg) scale(1.1)', offset: 0.8 }),
+            style({ transform: 'rotate(180deg) scale(1)', offset: 1 }),
+          ]),
         ),
       ]),
-      // Weggaan: glijd terug naar boven
-      transition(':leave', [
+      transition('open => closed', [
         animate(
-          '250ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-          style({ transform: 'translateY(-100%)', opacity: 0 }),
+          '600ms ease',
+          keyframes([
+            style({ transform: 'rotate(180deg) scale(1)', offset: 0 }),
+            style({ transform: 'rotate(85deg) scale(0.65)', offset: 0.35 }),
+            style({ transform: 'rotate(-8deg) scale(1.1)', offset: 0.8 }),
+            style({ transform: 'rotate(0deg) scale(1)', offset: 1 }),
+          ]),
         ),
+      ]),
+    ]),
+    trigger('itemsIn', [
+      transition(':enter', [
+        query(
+          '.nav-item',
+          [
+            style({ opacity: 0, transform: 'translateY(40px)' }),
+            stagger(60, [
+              animate(
+                '400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                style({ opacity: 1, transform: 'translateY(0)' }),
+              ),
+            ]),
+          ],
+          { optional: true },
+        ),
+      ]),
+      transition(':leave', [
+        query('.nav-item', [stagger(-30, [animate('150ms ease-in', style({ opacity: 0 }))])], {
+          optional: true,
+        }),
       ]),
     ]),
   ],
   template: `
     @if (router.url !== '/not-found') {
-      <nav
-        class="w-full py-6 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+      <!-- Altijd zichtbare bar: logo + menu knop -->
+      <header
+        class="w-full fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-5 transition-all duration-300"
+        [class.bg-black]="isOpen()"
+        [class.bg-black/80]="scrolled() && !isOpen()"
+        [class.backdrop-blur-md]="scrolled() && !isOpen()"
       >
         <div class="w-full max-w-300 mx-auto flex justify-between items-center">
-          <div class="flex justify-start w-full h-8 items-center">
-            <a
-              routerLink="/"
-              class="text-2xl font-bold text-white relative z-50"
-              (click)="closeMenu()"
-            >
-              <img src="/assets/img/w.png" alt="Logo" class="h-full" />
-            </a>
-          </div>
+          <!-- Logo -->
+          <a routerLink="/" (click)="close()" class="h-7 flex items-center z-50 relative">
+            <img src="/assets/img/w.png" alt="Logo" class="h-full" />
+          </a>
 
-          <div
-            class="hidden md:flex flex-row justify-center gap-6 items-center justify-self-center w-full min-w-fit"
+          <!-- Menu toggle -->
+          <button
+            (click)="toggle()"
+            class="relative z-50 flex items-center gap-2.5 cursor-pointer rounded-full border px-4 py-2 transition-all duration-300"
+            [class.border-zinc-700]="!isOpen()"
+            [class.hover:border-zinc-400]="!isOpen()"
+            [class.border-zinc-600]="isOpen()"
+            aria-label="Toggle menu"
           >
-            @for (item of menuItems(); track item.path) {
+            <div
+              class="relative w-5 h-3.5 origin-center"
+              [@iconMorph]="isOpen() ? 'open' : 'closed'"
+            >
+              <span
+                class="absolute inset-x-0 top-0 h-px bg-white origin-center"
+                style="transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);"
+                [style.transform]="isOpen() ? 'translateY(6.5px) rotate(-135deg)' : 'none'"
+              ></span>
+              <span
+                class="absolute left-0 top-1.5 h-px bg-white origin-left"
+                style="transition: width 400ms cubic-bezier(0.76, 0, 0.24, 1), opacity 250ms ease;"
+                [style.width]="isOpen() ? '0%' : '75%'"
+                [style.opacity]="isOpen() ? '0' : '1'"
+              ></span>
+              <span
+                class="absolute inset-x-0 bottom-0 h-px bg-white origin-center"
+                style="transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1);"
+                [style.transform]="isOpen() ? 'translateY(-6.5px) rotate(135deg)' : 'none'"
+              ></span>
+            </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-widest text-zinc-300 transition-colors duration-300 leading-none"
+            >
+              {{ isOpen() ? 'Close' : 'Menu' }}
+            </span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Fullscreen overlay -->
+      @if (isOpen()) {
+        <div @overlay class="fixed inset-0 z-40 bg-black overflow-y-auto scrollbar-hide" [@itemsIn]>
+          <div class="min-h-full flex flex-col">
+            <!-- Top padding voor de header -->
+            <div class="flex-1 px-6 md:px-16 lg:px-24 pt-24 pb-12">
+              <!-- Links -->
+              <nav class="space-y-1 md:space-y-0">
+                @for (item of menuItems(); track item.path; let i = $index) {
+                  <a
+                    [routerLink]="item.path"
+                    (click)="close()"
+                    routerLinkActive
+                    #rla="routerLinkActive"
+                    class="nav-item group flex items-baseline gap-4 md:gap-6 py-4 md:py-5 border-b border-zinc-800/60 last:border-b-0 cursor-pointer"
+                  >
+                    <span class="text-zinc-700 text-xs font-mono w-6 shrink-0 translate-y-[-2px]"
+                      >0{{ i + 1 }}</span
+                    >
+                    <span
+                      class="font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight group-hover:text-primary transition-colors duration-200"
+                      [class.text-primary]="rla.isActive"
+                      [class.text-fake-white]="!rla.isActive"
+                    >
+                      {{ item.label }}
+                    </span>
+                    <span
+                      class="hidden md:block text-sm ml-auto self-center transition-colors duration-200"
+                      [class.text-primary]="rla.isActive"
+                      [class.text-zinc-600]="!rla.isActive"
+                      [class.group-hover:text-zinc-400]="!rla.isActive"
+                    >
+                      {{ item.sub }}
+                    </span>
+                  </a>
+                }
+              </nav>
+            </div>
+
+            <!-- Bottom: contact + socials -->
+            <div
+              class="nav-item px-6 md:px-16 lg:px-24 py-8 border-t border-zinc-800/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+            >
               <a
-                [routerLink]="item.path"
-                routerLinkActive="text-primary"
-                class="
-              relative text-fake-white font-medium text-[clamp(1rem,1.5vw,1.5rem)] transition-colors duration-300
-              after:content-[''] after:absolute after:left-0 after:-bottom-1 
-              after:h-0.5 after:w-0 after:bg-primary 
-              after:transition-all after:duration-300 
-              hover:after:w-full
-            "
+                routerLink="/contact"
+                (click)="close()"
+                class="inline-flex items-center gap-3 bg-primary hover:bg-primary/85 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 text-sm"
               >
-                {{ item.label }}
+                Start een project →
               </a>
-            }
-          </div>
-
-          <div class="flex justify-end items-center gap-4 w-full">
-            <a
-              routerLink="/contact"
-              class="hidden md:flex bg-primary hover:bg-primary-600 text-white font-bold py-2 px-6 rounded-lg transition-colors"
-            >
-              Start Project
-            </a>
-
-            <button
-              (click)="toggleMobileMenu()"
-              class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none z-50"
-              aria-label="Toggle menu"
-            >
-              <span
-                class="block w-6 h-0.5 bg-white transition-all duration-300 origin-center"
-                [class.rotate-45]="isMobileMenuOpen()"
-                [class.translate-y-2]="isMobileMenuOpen()"
-              ></span>
-
-              <span
-                class="block w-6 h-0.5 bg-white transition-all duration-300"
-                [class.opacity-0]="isMobileMenuOpen()"
-              ></span>
-
-              <span
-                class="block w-6 h-0.5 bg-white transition-all duration-300 origin-center"
-                [class.-rotate-45]="isMobileMenuOpen()"
-                [class.-translate-y-2]="isMobileMenuOpen()"
-              ></span>
-            </button>
+              <div class="flex items-center gap-4 md:gap-6 text-xs text-zinc-600 uppercase tracking-widest flex-wrap">
+                <a
+                  href="mailto:woutvanlommel@icloud.com"
+                  class="hover:text-zinc-300 transition-colors"
+                >
+                  <span class="hidden sm:inline">woutvanlommel&#64;icloud.com</span>
+                  <span class="sm:hidden">Mail</span>
+                </a>
+                <a
+                  href="https://linkedin.com/woutvanlommel"
+                  target="_blank"
+                  class="hover:text-zinc-300 transition-colors"
+                  >LinkedIn</a
+                >
+                <a
+                  href="https://github.com/woutvanlommel"
+                  target="_blank"
+                  class="hover:text-zinc-300 transition-colors"
+                  >GitHub</a
+                >
+              </div>
+            </div>
           </div>
         </div>
-      </nav>
-    }
-
-    @if (isMobileMenuOpen()) {
-      <div
-        @slideDown
-        class="fixed inset-0 z-40 bg-black/90 backdrop-blur-md w-full h-screen flex flex-col justify-center items-center pt-20"
-      >
-        <div class="flex flex-col gap-8 text-center w-full px-6">
-          @for (item of menuItems(); track item.path) {
-            <a
-              [routerLink]="item.path"
-              (click)="toggleMobileMenu()"
-              routerLinkActive="text-primary"
-              [routerLinkActiveOptions]="{ exact: true }"
-              class="text-3xl font-bold text-fake-white hover:text-primary transition-colors"
-            >
-              {{ item.label }}
-            </a>
-          }
-
-          <div class="mt-8">
-            <a
-              routerLink="/contact"
-              (click)="toggleMobileMenu()"
-              class="inline-block w-full max-w-xs bg-primary hover:bg-primary-600 text-white font-bold py-4 rounded-xl text-xl transition-colors shadow-lg shadow-primary/20"
-            >
-              Start een project
-            </a>
-          </div>
-        </div>
-      </div>
+      }
     }
   `,
 })
 export class Navigation {
   protected readonly router = inject(Router);
   protected readonly menuItems = signal<MenuItem[]>([
-    { path: '/over-mij', label: 'Over mij' },
-    { path: '/diensten', label: 'Diensten' },
-    { path: '/portfolio', label: 'Portfolio' },
+    { path: '/over-mij', label: 'Over mij', sub: 'Wie ik ben' },
+    { path: '/diensten', label: 'Diensten', sub: 'Wat ik doe' },
+    { path: '/portfolio', label: 'Portfolio', sub: 'Mijn werk' },
+    { path: '/contact', label: 'Contact', sub: 'Laten we praten' },
   ]);
 
-  isMobileMenuOpen = signal(false);
+  isOpen = signal(false);
+  scrolled = signal(false);
 
-  toggleMobileMenu() {
-    this.isMobileMenuOpen.update((val) => !val);
+  @HostListener('window:scroll')
+  onScroll() {
+    this.scrolled.set(window.scrollY > 24);
   }
 
-  // Extra helper om menu te sluiten als je op logo klikt
-  closeMenu() {
-    this.isMobileMenuOpen.set(false);
+  toggle() {
+    this.isOpen.update((v) => !v);
+  }
+  close() {
+    this.isOpen.set(false);
   }
 }

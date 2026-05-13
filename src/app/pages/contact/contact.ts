@@ -1,11 +1,11 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroMapPinSolid, heroEnvelopeSolid, heroArrowRightSolid } from '@ng-icons/heroicons/solid';
-import { bootstrapLinkedin, bootstrapGithub, bootstrapArrowRight } from '@ng-icons/bootstrap-icons';
+import { heroMapPinSolid, heroEnvelopeSolid } from '@ng-icons/heroicons/solid';
+import { bootstrapLinkedin, bootstrapGithub } from '@ng-icons/bootstrap-icons';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { EmailService, ContactFormData } from '../../shared/email.service'; // Pas pad aan indien nodig
+import { EmailService, ContactFormData } from '../../shared/email.service';
 
 @Component({
   selector: 'app-contact',
@@ -16,215 +16,202 @@ import { EmailService, ContactFormData } from '../../shared/email.service'; // P
       heroEnvelopeSolid,
       bootstrapLinkedin,
       bootstrapGithub,
-      bootstrapArrowRight,
-      heroArrowRightSolid,
     }),
   ],
   template: `
-    <div class="w-full bg-light-black pt-48 pb-32 overflow-x-hidden relative">
-      <div
-        class="absolute -top-64 -right-64 w-125 h-125 md:w-175 md:h-175 bg-primary/20 blur-[120px] rounded-full pointer-events-none z-2"
-      ></div>
-      <div class="w-full max-w-300 space-y-16 mx-auto z-10 relative px-4 md:px-8">
-        @if (!submitted) {
-          <div class="text-center space-y-1">
-            <h1 class="text-fake-white font-bold text-[clamp(3rem,4vw,4rem)]">
-              Laten we samenwerken<span class="text-primary">.</span>
-            </h1>
-            <h2 class="text-zinc-500 text-[clamp(2rem,2vw,2.5rem)]">
+    <div class="w-full overflow-x-hidden relative">
+
+      <!-- Hero -->
+      <section class="h-svh flex flex-col px-6 md:px-16 lg:px-24 relative overflow-hidden">
+        <div class="w-full max-w-300 mx-auto relative z-10 flex flex-col h-full">
+          <div class="flex-1 flex flex-col justify-center pt-24 md:pt-28">
+            <div class="border-b border-zinc-800/60 pb-4">
+              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Neem contact op</span>
+            </div>
+            <div class="py-5 md:py-6 border-b border-zinc-800/60">
+              <h1 class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight">
+                Laten we samenwerken<span class="text-primary">.</span>
+              </h1>
+            </div>
+          </div>
+          <div class="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <p class="text-zinc-500 text-sm max-w-md leading-relaxed">
               Heb je een project in gedachten of wil je gewoon even sparren? Ik hoor graag van je.
-            </h2>
-          </div>
-        }
-
-        <div class="flex flex-col md:flex-row gap-8 z-10 items-center">
-          <div class="space-y-6 md:space-y-12 w-full md:w-1/2">
-            <div class="space-y-2">
-              <h3
-                class="uppercase text-primary text-[clamp(1rem,1.5vw,1.5rem)] font-bold tracking-widest"
-              >
-                Contactgegevens
-              </h3>
-              <p class="text-zinc-300 text-sm max-w-md">
-                Ik ben beschikbaar voor freelance projecten vanaf februari 2026. Stuur me een
-                berichtje en ik reageer meestal binnen 24 uur.
-              </p>
-            </div>
-            <div class="flex flex-col gap-4 justify-center items-start w-fit text-fake-white">
-              <a
-                href="mailto:woutvanlommel@icloud.com"
-                class="flex items-center gap-3 text-lg hover:text-primary transition-colors"
-              >
-                <ng-icon name="heroEnvelopeSolid" class="text-xl" />
-                woutvanlommel@icloud.com
-              </a>
-              <div class="flex items-center gap-3 text-lg">
-                <ng-icon name="heroMapPinSolid" class="text-xl" />
-                <p>3500 Hasselt, België</p>
-              </div>
-              <p class="text-zinc-400">BE 0793.803.953</p>
-            </div>
-            <div class="flex flex-row gap-4 text-3xl">
-              <a
-                href="#"
-                class="hover:text-primary text-fake-white transition-colors cursor-pointer"
-              >
-                <ng-icon name="bootstrapLinkedin" />
-              </a>
-              <a
-                href="#"
-                class="hover:text-primary text-fake-white transition-colors cursor-pointer"
-              >
-                <ng-icon name="bootstrapGithub" />
-              </a>
+            </p>
+            <div class="flex items-center gap-6 text-xs text-zinc-600 uppercase tracking-widest">
+              <a routerLink="/portfolio" class="hover:text-zinc-300 transition-colors duration-200">Portfolio</a>
+              <a routerLink="/over-mij" class="hover:text-zinc-300 transition-colors duration-200">Over mij</a>
+              <a routerLink="/diensten" class="hover:text-zinc-300 transition-colors duration-200">Diensten</a>
             </div>
           </div>
-
-          @if (!submitted) {
-            <form
-              [formGroup]="contactForm"
-              (ngSubmit)="onSubmit()"
-              autocomplete="off"
-              class="w-full md:w-1/2 grid grid-cols-2 h-fit gap-4 [&>div>label]:uppercase [&>div>label]:text-fake-white [&>div>label]:text-xs p-8 rounded-lg bg-black/75 border border-zinc-700 shadow-2xl z-20"
-            >
-              <!-- Naam -->
-              <div class="flex flex-col gap-2 col-span-2 md:col-span-1">
-                <label for="name" class="font-medium">Naam</label>
-                <input
-                  type="text"
-                  id="name"
-                  formControlName="name"
-                  placeholder="Bv.: John Doe"
-                  class="w-full p-3 rounded-md bg-zinc-800/80 border border-zinc-600 text-fake-white focus:outline-none focus:border-primary transition-colors"
-                  [class.border-red-500]="isFieldInvalid('name')"
-                />
-                @if (isFieldInvalid('name')) {
-                  <p class="text-red-500 text-xs mt-1 animate-in fade-in duration-300">
-                    {{
-                      contactForm.get('name')?.errors?.['required']
-                        ? 'Naam is verplicht.'
-                        : 'Naam moet minstens 2 tekens bevatten.'
-                    }}
-                  </p>
-                }
-              </div>
-
-              <!-- Email -->
-              <div class="flex flex-col gap-2 col-span-2 md:col-span-1">
-                <label for="email" class="font-medium">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  formControlName="email"
-                  placeholder="Bv.: John"
-                  class="w-full p-3 rounded-md bg-zinc-800/80 border border-zinc-600 text-fake-white focus:outline-none focus:border-primary transition-colors"
-                  [class.border-red-500]="isFieldInvalid('email')"
-                />
-                @if (isFieldInvalid('email')) {
-                  <p class="text-red-500 text-xs mt-1 animate-in fade-in duration-300">
-                    {{
-                      contactForm.get('email')?.errors?.['required']
-                        ? 'Email is verplicht.'
-                        : 'Voer een geldig emailadres in (bv. john@doe.com).'
-                    }}
-                  </p>
-                }
-              </div>
-
-              <!-- Onderwerp -->
-              <div class="flex flex-col gap-2 col-span-2">
-                <label for="onderwerp" class="font-medium">Onderwerp</label>
-                <select
-                  id="onderwerp"
-                  formControlName="subject"
-                  class="w-full p-3 rounded-md bg-zinc-800/80 border border-zinc-600 text-fake-white focus:outline-none focus:border-primary transition-colors appearance-none"
-                  [class.border-red-500]="isFieldInvalid('subject')"
-                >
-                  <option value="" disabled selected>-- Kies een onderwerp --</option>
-                  <option value="Een nieuw project starten">Een nieuw project starten</option>
-                  <option value="Workflow & Automatisatie">
-                    Mijn workflow verbeteren/automatiseren
-                  </option>
-                  <option value="Een website die makkelijker te beheren is">
-                    Een website die makkelijker te beheren is
-                  </option>
-                  <option value="Even sparren over een idee">Even sparren over een idee</option>
-                  <option value="Iets anders">Iets anders</option>
-                </select>
-                @if (isFieldInvalid('subject')) {
-                  <p class="text-red-500 text-xs mt-1 animate-in fade-in duration-300">
-                    Dit veld is verplicht.
-                  </p>
-                }
-              </div>
-
-              <!-- Bericht -->
-              <div class="flex flex-col gap-2 col-span-2">
-                <label for="bericht" class="font-medium">Bericht</label>
-                <textarea
-                  id="bericht"
-                  formControlName="message"
-                  placeholder="Vertel me over jouw project"
-                  class="w-full p-3 rounded-md bg-zinc-800/80 border border-zinc-600 text-fake-white focus:outline-none focus:border-primary min-h-32 transition-colors"
-                  rows="5"
-                  [class.border-red-500]="isFieldInvalid('message')"
-                ></textarea>
-                @if (isFieldInvalid('message')) {
-                  <p class="text-red-500 text-xs mt-1 animate-in fade-in duration-300">
-                    {{
-                      contactForm.get('message')?.errors?.['required']
-                        ? 'Bericht is verplicht.'
-                        : 'Je bericht moet minstens 10 tekens bevatten.'
-                    }}
-                  </p>
-                }
-              </div>
-
-              <!-- Submit Button -->
-              <div class="col-span-2 pt-4">
-                @if (errorMessage()) {
-                  <p class="text-red-500 text-xs mb-4 animate-in fade-in duration-300">
-                    {{ errorMessage() }}
-                  </p>
-                }
-                <button
-                  type="submit"
-                  [disabled]="isSubmitting()"
-                  class="w-full flex items-center justify-center gap-2 px-8 py-3 bg-primary text-fake-white font-bold rounded-md hover:bg-primary-600 transition-all cursor-pointer group disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  @if (isSubmitting()) {
-                    <span class="inline-block animate-spin mr-2">◌</span>
-                    Versturen...
-                  } @else {
-                    Verstuur bericht
-                    <span class="text-black group-hover:translate-x-1 transition-transform">→</span>
-                  }
-                </button>
-              </div>
-            </form>
-          } @else {
-            <div
-              class="w-full md:w-1/2 space-y-8 animate-in fade-in slide-in-from-right duration-500"
-            >
-              <div class="space-y-2">
-                <h1 class="text-fake-white font-bold text-[clamp(4rem,6vw,6rem)] leading-none">
-                  Bedankt<span class="text-primary">.</span>
-                </h1>
-                <p class="text-zinc-400 text-xl md:text-2xl">
-                  Ik neem zo snel mogelijk contact met je op!
-                </p>
-              </div>
-              <a
-                routerLink="/"
-                class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-fake-white font-bold rounded-md hover:bg-primary-600 transition-all group"
-              >
-                <span class=" text-black group-hover:-translate-x-1 transition-transform">←</span>
-                Terug naar home
-              </a>
-            </div>
-          }
         </div>
-      </div>
+      </section>
+
+      <!-- Contact section -->
+      <section class="w-full px-6 md:px-16 lg:px-24 py-16">
+        <div class="w-full max-w-300 mx-auto">
+
+          <div class="border-b border-zinc-800/60 pb-6">
+            <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Contactgegevens</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-16 py-16 border-b border-zinc-800/60">
+
+            <!-- Info (2/5) — always visible -->
+            <div class="lg:col-span-2 space-y-12 mb-12 lg:mb-0">
+              <p class="text-zinc-500 text-sm leading-relaxed max-w-sm">
+                Ik ben beschikbaar voor freelance projecten. Stuur me een berichtje en ik reageer meestal binnen 24 uur.
+              </p>
+              <div class="flex flex-col gap-5">
+                <a
+                  href="mailto:woutvanlommel@icloud.com"
+                  class="flex items-center gap-3 text-fake-white text-sm hover:text-primary transition-colors"
+                >
+                  <ng-icon name="heroEnvelopeSolid" size="0.9rem" class="text-zinc-600 shrink-0" />
+                  woutvanlommel&#64;icloud.com
+                </a>
+                <div class="flex items-center gap-3 text-fake-white text-sm">
+                  <ng-icon name="heroMapPinSolid" size="0.9rem" class="text-zinc-600 shrink-0" />
+                  3500 Hasselt, België
+                </div>
+                <span class="text-zinc-600 text-sm">BE 0793.803.953</span>
+              </div>
+              <div class="flex flex-row gap-5 pt-4 border-t border-zinc-800/60">
+                <a href="https://www.linkedin.com/in/woutvanlommel/" target="_blank" class="text-zinc-600 hover:text-fake-white transition-colors text-lg">
+                  <ng-icon name="bootstrapLinkedin" />
+                </a>
+                <a href="https://github.com/woutvanlommel" target="_blank" class="text-zinc-600 hover:text-fake-white transition-colors text-lg">
+                  <ng-icon name="bootstrapGithub" />
+                </a>
+              </div>
+            </div>
+
+            <!-- Right column (3/5) -->
+            <div class="lg:col-span-3">
+
+            @if (!submitted) {
+              <!-- Form -->
+              <form
+                [formGroup]="contactForm"
+                (ngSubmit)="onSubmit()"
+                autocomplete="off"
+                class="grid grid-cols-2 gap-8"
+              >
+                <div class="flex flex-col gap-3 col-span-2 md:col-span-1">
+                  <label for="name" class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Naam</label>
+                  <input
+                    type="text"
+                    id="name"
+                    formControlName="name"
+                    placeholder="John Doe"
+                    class="w-full px-0 py-3 bg-transparent border-b border-zinc-800 text-fake-white text-sm focus:outline-none focus:border-primary transition-colors placeholder:text-zinc-700"
+                    [class.border-red-500]="isFieldInvalid('name')"
+                  />
+                  @if (isFieldInvalid('name')) {
+                    <p class="text-red-500 text-xs">
+                      {{ contactForm.get('name')?.errors?.['required'] ? 'Naam is verplicht.' : 'Naam moet minstens 2 tekens bevatten.' }}
+                    </p>
+                  }
+                </div>
+
+                <div class="flex flex-col gap-3 col-span-2 md:col-span-1">
+                  <label for="email" class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    placeholder="john&#64;doe.com"
+                    class="w-full px-0 py-3 bg-transparent border-b border-zinc-800 text-fake-white text-sm focus:outline-none focus:border-primary transition-colors placeholder:text-zinc-700"
+                    [class.border-red-500]="isFieldInvalid('email')"
+                  />
+                  @if (isFieldInvalid('email')) {
+                    <p class="text-red-500 text-xs">
+                      {{ contactForm.get('email')?.errors?.['required'] ? 'Email is verplicht.' : 'Voer een geldig emailadres in.' }}
+                    </p>
+                  }
+                </div>
+
+                <div class="flex flex-col gap-3 col-span-2">
+                  <label for="onderwerp" class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Onderwerp</label>
+                  <select
+                    id="onderwerp"
+                    formControlName="subject"
+                    class="w-full px-0 py-3 bg-transparent border-b border-zinc-800 text-fake-white text-sm focus:outline-none focus:border-primary transition-colors appearance-none"
+                    [class.border-red-500]="isFieldInvalid('subject')"
+                  >
+                    <option value="" disabled selected class="bg-zinc-900">-- Kies een onderwerp --</option>
+                    <option value="Een nieuw project starten" class="bg-zinc-900">Een nieuw project starten</option>
+                    <option value="Workflow & Automatisatie" class="bg-zinc-900">Mijn workflow verbeteren/automatiseren</option>
+                    <option value="Een website die makkelijker te beheren is" class="bg-zinc-900">Een website die makkelijker te beheren is</option>
+                    <option value="Even sparren over een idee" class="bg-zinc-900">Even sparren over een idee</option>
+                    <option value="Iets anders" class="bg-zinc-900">Iets anders</option>
+                  </select>
+                  @if (isFieldInvalid('subject')) {
+                    <p class="text-red-500 text-xs">Dit veld is verplicht.</p>
+                  }
+                </div>
+
+                <div class="flex flex-col gap-3 col-span-2">
+                  <label for="bericht" class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Bericht</label>
+                  <textarea
+                    id="bericht"
+                    formControlName="message"
+                    placeholder="Vertel me over jouw project"
+                    class="w-full px-0 py-3 bg-transparent border-b border-zinc-800 text-fake-white text-sm focus:outline-none focus:border-primary min-h-32 transition-colors resize-none placeholder:text-zinc-700"
+                    rows="5"
+                    [class.border-red-500]="isFieldInvalid('message')"
+                  ></textarea>
+                  @if (isFieldInvalid('message')) {
+                    <p class="text-red-500 text-xs">
+                      {{ contactForm.get('message')?.errors?.['required'] ? 'Bericht is verplicht.' : 'Je bericht moet minstens 10 tekens bevatten.' }}
+                    </p>
+                  }
+                </div>
+
+                <div class="col-span-2">
+                  @if (errorMessage()) {
+                    <p class="text-red-500 text-xs mb-4">{{ errorMessage() }}</p>
+                  }
+                  <button
+                    type="submit"
+                    [disabled]="isSubmitting()"
+                    class="inline-flex items-center gap-3 bg-primary hover:bg-primary/85 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    @if (isSubmitting()) {
+                      <span class="inline-block animate-spin">◌</span>
+                      Versturen...
+                    } @else {
+                      Verstuur bericht →
+                    }
+                  </button>
+                </div>
+              </form>
+            } @else {
+              <!-- Success -->
+              <div class="space-y-8">
+                <div class="space-y-4">
+                  <h2 class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight">
+                    Bedankt<span class="text-primary">.</span>
+                  </h2>
+                  <p class="text-zinc-500 text-sm max-w-md leading-relaxed">
+                    Ik neem zo snel mogelijk contact met je op!
+                  </p>
+                </div>
+                <a
+                  routerLink="/"
+                  class="inline-flex items-center gap-3 bg-primary hover:bg-primary/85 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 text-sm w-fit"
+                >
+                  ← Terug naar home
+                </a>
+              </div>
+            }
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   `,
   styles: ``,

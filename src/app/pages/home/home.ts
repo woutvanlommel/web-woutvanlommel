@@ -14,19 +14,21 @@ import { ProjectService } from '../../shared/project.service';
       <app-home-hero></app-home-hero>
       <app-expertise></app-expertise>
       <app-over-home></app-over-home>
-      <section class="w-full bg-light-black py-16 md:py-32 px-4 md:px-8">
-        @if (project) {
-          <div class="reveal">
-            <app-highlight-project
-              [projectTitle]="project.title"
-              [projectDescription]="project.difficulty"
-              [projectImage]="project.image"
-              [projectSlug]="project.slug"
-              [service]="project.service"
-              [techStack]="project.techStack"
-            ></app-highlight-project>
-          </div>
-        }
+      <section class="w-full px-6 md:px-16 lg:px-24 py-32">
+        <div class="w-full max-w-300 mx-auto">
+          @if (project) {
+            <div class="reveal">
+              <app-highlight-project
+                [projectTitle]="project.title"
+                [projectDescription]="project.difficulty"
+                [projectImage]="project.image ?? ''"
+                [projectSlug]="project.slug"
+                [service]="project.service"
+                [techStack]="project.techStack"
+              ></app-highlight-project>
+            </div>
+          }
+        </div>
       </section>
     </div>
   `,

@@ -5,16 +5,15 @@ import { SkillsService } from '../../shared/skills.service';
   selector: 'app-skills',
   standalone: true,
   imports: [],
-  template: ` @for (skill of skills; track skill.name; let i = $index) {
-    <div
-      [class]="
-        'flex justify-center items-center p-4 bg-black text-fake-white font-bold text-md md:text-lg shadow-sm shadow-primary/50 rounded-lg reveal reveal-delay-' +
-        ((i % 4) + 1) * 100
-      "
-    >
-      <h3>{{ skill.name }}</h3>
-    </div>
-  }`,
+  template: `
+    @for (skill of skills; track skill.name) {
+      <div
+        class="flex justify-center items-center px-4 h-14 border-b border-r border-zinc-800/40 text-zinc-500 hover:text-fake-white text-sm font-medium transition-colors duration-200 cursor-default text-center"
+      >
+        <h3>{{ skill.name }}</h3>
+      </div>
+    }
+  `,
   styles: `
     :host {
       display: contents;
