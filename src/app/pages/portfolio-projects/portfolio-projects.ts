@@ -18,19 +18,23 @@ import {
   template: `
     <div class="w-full">
       @if (project) {
-        <div class="w-full max-w-300 mx-auto px-6 md:px-16 lg:px-24">
-
+        <div class="w-full max-w-300 mx-auto px-6">
           <!-- Page header -->
           <div class="pt-40 pb-0">
-
             <!-- Breadcrumb -->
             <nav class="text-zinc-600 text-xs uppercase tracking-widest">
               <ol class="flex items-center gap-2">
-                <li class="flex items-center gap-2 after:content-['/'] after:text-zinc-800 after:ml-2">
+                <li
+                  class="flex items-center gap-2 after:content-['/'] after:text-zinc-800 after:ml-2"
+                >
                   <a routerLink="/" class="hover:text-zinc-400 transition-colors">Home</a>
                 </li>
-                <li class="flex items-center gap-2 after:content-['/'] after:text-zinc-800 after:ml-2">
-                  <a routerLink="/portfolio" class="hover:text-zinc-400 transition-colors">Portfolio</a>
+                <li
+                  class="flex items-center gap-2 after:content-['/'] after:text-zinc-800 after:ml-2"
+                >
+                  <a routerLink="/portfolio" class="hover:text-zinc-400 transition-colors"
+                    >Portfolio</a
+                  >
                 </li>
                 <li class="text-zinc-400">{{ project.client }}</li>
               </ol>
@@ -46,21 +50,31 @@ import {
             <!-- Title block -->
             <div class="py-8 md:py-10 border-b border-zinc-800/60 space-y-4">
               @if (project.status === 'legacy') {
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border border-zinc-700 bg-zinc-800/60 text-zinc-400">
+                <span
+                  class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border border-zinc-700 bg-zinc-800/60 text-zinc-400"
+                >
                   <span class="w-1.5 h-1.5 rounded-full bg-zinc-500 inline-block"></span>
                   Legacy project
                 </span>
               }
               @if (project.status === 'ongoing') {
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border border-primary/30 bg-primary/10 text-primary">
-                  <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block animate-pulse"></span>
+                <span
+                  class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border border-primary/30 bg-primary/10 text-primary"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-primary inline-block animate-pulse"
+                  ></span>
                   In ontwikkeling
                 </span>
               }
-              <h1 class="text-fake-white font-bold text-[clamp(2.5rem,5vw,5rem)] leading-none tracking-tight">
+              <h1
+                class="text-fake-white font-bold text-[clamp(2.5rem,5vw,5rem)] leading-none tracking-tight"
+              >
                 {{ project.title }}<span class="text-primary">.</span>
               </h1>
-              <p class="text-zinc-500 text-[clamp(1rem,1.3vw,1.5rem)] leading-relaxed">{{ project.subTitle }}</p>
+              <p class="text-zinc-500 text-[clamp(1rem,1.3vw,1.5rem)] leading-relaxed">
+                {{ project.subTitle }}
+              </p>
             </div>
 
             <!-- Meta row -->
@@ -71,7 +85,9 @@ import {
               </div>
               <div class="py-6 px-6 md:px-8 border-r border-zinc-800/60 flex flex-col gap-1.5">
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Dienst</p>
-                <span class="text-fake-white font-medium text-sm">{{ project.service.join(' & ') }}</span>
+                <span class="text-fake-white font-medium text-sm">{{
+                  project.service.join(' & ')
+                }}</span>
               </div>
               <div class="py-6 px-6 md:px-8 border-r border-zinc-800/60 flex flex-col gap-1.5">
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Jaar</p>
@@ -110,27 +126,44 @@ import {
                 <img [src]="project.image" [alt]="project.title" class="w-full object-cover" />
               </div>
             } @else {
-              <div class="rounded-lg border border-dashed border-zinc-800 bg-zinc-900/30 flex flex-col items-center justify-center py-20 gap-3">
-                <p class="text-zinc-600 text-sm">Afbeelding volgt</p>
+              <div
+                class="w-full h-80 md:h-104 bg-zinc-900 rounded-lg border border-zinc-800/60 flex flex-col items-center justify-center gap-4 relative overflow-hidden"
+              >
+                <div
+                  class="absolute inset-0 opacity-[0.03]"
+                  style="background-image: repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 30px), repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 30px);"
+                ></div>
+                <span
+                  class="text-[8rem] font-bold leading-none tracking-tight select-none text-zinc-800 z-10"
+                  >W<span class="text-primary">.</span></span
+                >
+                <span class="text-[10px] uppercase tracking-widest text-zinc-700 z-10 font-mono"
+                  >Coming soon</span
+                >
               </div>
             }
           </div>
 
           <!-- Content + stack -->
-          <div class="grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-16 py-16 border-b border-zinc-800/60">
-
+          <div
+            class="grid grid-cols-1 lg:grid-cols-5 gap-0 lg:gap-16 py-16 border-b border-zinc-800/60"
+          >
             <!-- Text (3/5) -->
             <div class="lg:col-span-3 space-y-12">
               <div class="space-y-6">
                 <div class="border-b border-zinc-800/60 pb-6">
-                  <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">De uitdaging</span>
+                  <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
+                    >De uitdaging</span
+                  >
                 </div>
                 <p class="text-zinc-400 leading-relaxed">{{ project.difficulty }}</p>
               </div>
 
               <div class="space-y-6">
                 <div class="border-b border-zinc-800/60 pb-6">
-                  <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">De oplossing</span>
+                  <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
+                    >De oplossing</span
+                  >
                 </div>
                 <p class="text-zinc-400 leading-relaxed">{{ project.solution }}</p>
               </div>
@@ -150,12 +183,16 @@ import {
             <!-- Stack (2/5) -->
             <div class="lg:col-span-2 mt-12 lg:mt-0 space-y-6">
               <div class="border-b border-zinc-800/60 pb-6">
-                <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Tech stack</span>
+                <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
+                  >Tech stack</span
+                >
               </div>
               <div class="flex flex-col gap-2">
                 @for (tech of project.techStack; track tech; let i = $index) {
                   <div class="flex items-center gap-4 py-4 border-b border-zinc-800/40">
-                    <span class="text-zinc-700 text-xs font-mono shrink-0">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                    <span class="text-zinc-700 text-xs font-mono shrink-0">{{
+                      (i + 1).toString().padStart(2, '0')
+                    }}</span>
                     <span class="text-fake-white font-medium text-sm">{{ tech }}</span>
                   </div>
                 }
@@ -166,7 +203,9 @@ import {
           <!-- Navigation -->
           <div class="flex justify-between items-start gap-4 py-12">
             <a routerLink="/portfolio" class="group flex flex-col gap-1">
-              <p class="text-zinc-600 uppercase text-xs tracking-widest flex items-center gap-1.5 group-hover:text-primary transition-colors">
+              <p
+                class="text-zinc-600 uppercase text-xs tracking-widest flex items-center gap-1.5 group-hover:text-primary transition-colors"
+              >
                 <ng-icon name="bootstrapArrowLeft" size="0.7rem" />
                 Portfolio
               </p>
@@ -178,7 +217,9 @@ import {
                 [routerLink]="['/portfolio', nextProject.slug]"
                 class="group flex flex-col gap-1 items-end text-right"
               >
-                <p class="text-zinc-600 uppercase text-xs tracking-widest flex items-center gap-1.5 group-hover:text-primary transition-colors">
+                <p
+                  class="text-zinc-600 uppercase text-xs tracking-widest flex items-center gap-1.5 group-hover:text-primary transition-colors"
+                >
                   Volgend project
                   <ng-icon name="bootstrapArrowRight" size="0.7rem" />
                 </p>
@@ -188,7 +229,6 @@ import {
               <div></div>
             }
           </div>
-
         </div>
       } @else {
         <div class="pt-40 text-center text-zinc-600 text-sm">Project niet gevonden.</div>

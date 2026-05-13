@@ -19,20 +19,21 @@ import { RouterLink } from '@angular/router';
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         } @else {
-          <div class="w-full h-full bg-zinc-900 flex items-center justify-center">
-            <svg
-              class="w-8 h-8 text-zinc-700"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div
+            class="w-full h-full bg-zinc-900 flex flex-col items-center justify-center gap-4 relative overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 opacity-[0.03]"
+              style="background-image: repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px), repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px);"
+            ></div>
+            <span
+              class="text-[5rem] font-bold leading-none tracking-tight select-none text-zinc-800 z-10"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
+              W<span class="text-primary">.</span>
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-zinc-700 z-10 font-mono"
+              >Coming soon</span
+            >
           </div>
         }
         <!-- Service badge -->
@@ -47,6 +48,14 @@ import { RouterLink } from '@angular/router';
           >
             <span class="w-1 h-1 rounded-full bg-zinc-500 inline-block"></span>
             Legacy
+          </span>
+        }
+        @if (status === 'ongoing') {
+          <span
+            class="absolute top-3 right-3 inline-flex items-center gap-1.5 text-primary bg-black/70 backdrop-blur-sm tracking-widest text-[10px] py-1 px-3 border border-primary/40 rounded-full uppercase"
+          >
+            <span class="w-1 h-1 rounded-full bg-primary inline-block animate-pulse"></span>
+            In ontwikkeling
           </span>
         }
       </div>
@@ -89,7 +98,7 @@ import { RouterLink } from '@angular/router';
 export class ProjectCard {
   @Input() projectTitle: string = '';
   @Input() projectDescription: string = '';
-  @Input() projectImage: string = '';
+  @Input() projectImage: string | undefined = undefined;
   @Input() projectSlug: string = '';
   @Input() service: string[] = [];
   @Input() techStack: string[] = [];

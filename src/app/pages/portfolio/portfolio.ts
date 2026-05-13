@@ -47,7 +47,7 @@ import { ProjectCard } from '../../components/project-card/project-card';
               <app-highlight-project
                 [projectTitle]="project.title"
                 [projectDescription]="project.difficulty"
-                [projectImage]="project.image"
+                [projectImage]="project.image ?? ''"
                 [projectSlug]="project.slug"
                 [service]="project.service"
                 [techStack]="project.techStack"

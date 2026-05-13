@@ -62,6 +62,7 @@ export class ProjectService {
       techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
       highlight: false,
       production: true,
+      status: 'active',
     },
     {
       id: 4,
@@ -81,6 +82,24 @@ export class ProjectService {
       highlight: true,
       production: true,
       status: 'active',
+    },
+    {
+      id: 5,
+      client: 'Customflow',
+      title: 'Textiel Order Management Platform',
+      slug: 'customflow-textiel-order-management',
+      subTitle: 'Excel Upload & Productie Parser',
+      service: ['Dashboard Development', 'E-commerce'],
+      year: 2026,
+      image: '',
+      difficulty:
+        'Textielbedrijven ontvangen grote ordervolumes in wisselende Excel-formaten met namen, maten en hoeveelheden. Het handmatig omzetten naar een productieklare structuur was tijdrovend en foutgevoelig.',
+      solution:
+        'Een webapplicatie waarmee medewerkers Excel-bestanden uploaden die automatisch worden geparsed en omgezet naar een gestandaardiseerde, productieklare structuur. Dit elimineert manuele verwerking en minimaliseert fouten in het productieproces.',
+      techStack: ['Laravel', 'PHP', 'Tailwind CSS', 'MySQL'],
+      highlight: false,
+      production: true,
+      status: 'ongoing',
     },
   ];
 

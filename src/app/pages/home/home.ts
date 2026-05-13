@@ -21,7 +21,7 @@ import { ProjectService } from '../../shared/project.service';
               <app-highlight-project
                 [projectTitle]="project.title"
                 [projectDescription]="project.difficulty"
-                [projectImage]="project.image"
+                [projectImage]="project.image ?? ''"
                 [projectSlug]="project.slug"
                 [service]="project.service"
                 [techStack]="project.techStack"

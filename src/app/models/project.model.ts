@@ -6,7 +6,7 @@ export interface Project {
   slug: string;
   service: string[];
   year: number;
-  image: string;
+  image?: string;
   difficulty: string;
   solution: string;
   link?: string;
