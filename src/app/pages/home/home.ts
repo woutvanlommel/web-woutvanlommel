@@ -20,7 +20,7 @@ import { ProjectService } from '../../shared/project.service';
             <div class="reveal">
               <app-highlight-project
                 [projectTitle]="project.title"
-                [projectDescription]="project.difficulty"
+                [projectDescription]="project.content.context"
                 [projectImage]="project.image ?? ''"
                 [projectSlug]="project.slug"
                 [service]="project.service"

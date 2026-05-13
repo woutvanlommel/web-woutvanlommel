@@ -79,11 +79,15 @@ import {
 
             <!-- Meta row -->
             <div class="grid grid-cols-2 md:grid-cols-4 border-b border-zinc-800/60">
-              <div class="py-6 pr-4 md:pr-8 border-r border-b md:border-b-0 border-zinc-800/60 flex flex-col gap-1.5">
+              <div
+                class="py-6 pr-4 md:pr-8 border-r border-b md:border-b-0 border-zinc-800/60 flex flex-col gap-1.5"
+              >
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Klant</p>
                 <span class="text-fake-white font-medium text-sm">{{ project.client }}</span>
               </div>
-              <div class="py-6 pl-4 md:px-8 md:border-r border-zinc-800/60 border-b md:border-b-0 flex flex-col gap-1.5">
+              <div
+                class="py-6 pl-4 md:px-8 md:border-r border-zinc-800/60 border-b md:border-b-0 flex flex-col gap-1.5"
+              >
                 <p class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Dienst</p>
                 <span class="text-fake-white font-medium text-sm">{{
                   project.service.join(' & ')
@@ -153,20 +157,31 @@ import {
               <div class="space-y-6">
                 <div class="border-b border-zinc-800/60 pb-6">
                   <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
-                    >De uitdaging</span
+                    >Context</span
                   >
                 </div>
-                <p class="text-zinc-400 leading-relaxed">{{ project.difficulty }}</p>
+                <p class="text-zinc-400 leading-relaxed">{{ project.content.context }}</p>
               </div>
 
               <div class="space-y-6">
                 <div class="border-b border-zinc-800/60 pb-6">
                   <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
-                    >De oplossing</span
+                    >Aanpak</span
                   >
                 </div>
-                <p class="text-zinc-400 leading-relaxed">{{ project.solution }}</p>
+                <p class="text-zinc-400 leading-relaxed">{{ project.content.approach }}</p>
               </div>
+
+              @if (project.content.result) {
+                <div class="space-y-6">
+                  <div class="border-b border-zinc-800/60 pb-6">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
+                      >Resultaat</span
+                    >
+                  </div>
+                  <p class="text-zinc-400 leading-relaxed">{{ project.content.result }}</p>
+                </div>
+              }
 
               @if (project.link) {
                 <a
@@ -270,11 +285,10 @@ export class PortfolioProjects implements OnInit {
     }
 
     if (this.project) {
-
       this.titleService.setTitle(`Wout — ${this.project.title}`);
       this.metaService.updateTag({
         name: 'description',
-        content: `${this.project.title} voor ${this.project.client}. ${this.project.difficulty.substring(0, 150)}...`,
+        content: `${this.project.title} voor ${this.project.client}. ${this.project.content.context.substring(0, 150)}...`,
       });
 
       this.cdr.detectChanges();

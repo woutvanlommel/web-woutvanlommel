@@ -1,3 +1,9 @@
+export interface ProjectContent {
+  context: string;
+  approach: string;
+  result?: string;
+}
+
 export interface Project {
   id: number;
   client: string;
@@ -7,8 +13,7 @@ export interface Project {
   service: string[];
   year: number;
   image?: string;
-  difficulty: string;
-  solution: string;
+  content: ProjectContent;
   link?: string;
   githubLink?: string;
   techStack: string[];

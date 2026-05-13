@@ -46,7 +46,7 @@ import { ProjectCard } from '../../components/project-card/project-card';
             <div class="reveal">
               <app-highlight-project
                 [projectTitle]="project.title"
-                [projectDescription]="project.difficulty"
+                [projectDescription]="project.content.context"
                 [projectImage]="project.image ?? ''"
                 [projectSlug]="project.slug"
                 [service]="project.service"
@@ -76,7 +76,7 @@ import { ProjectCard } from '../../components/project-card/project-card';
                 <div class="reveal">
                   <app-project-card
                     [projectTitle]="project.title"
-                    [projectDescription]="project.difficulty"
+                    [projectDescription]="project.content.context"
                     [projectImage]="project.image"
                     [projectSlug]="project.slug"
                     [service]="project.service"
@@ -141,7 +141,7 @@ import { ProjectCard } from '../../components/project-card/project-card';
                 <div class="reveal">
                   <app-project-card
                     [projectTitle]="legacy.title"
-                    [projectDescription]="legacy.difficulty"
+                    [projectDescription]="legacy.content.context"
                     [projectImage]="legacy.image"
                     [projectSlug]="legacy.slug"
                     [service]="legacy.service"
@@ -185,8 +185,8 @@ export class Portfolio implements OnInit, OnDestroy {
         !term ||
         project.title.toLowerCase().includes(term) ||
         project.client.toLowerCase().includes(term) ||
-        project.solution.toLowerCase().includes(term) ||
-        project.difficulty.toLowerCase().includes(term) ||
+        project.content.context.toLowerCase().includes(term) ||
+        project.content.approach.toLowerCase().includes(term) ||
         project.techStack.some((t) => t.toLowerCase().includes(term));
 
       const matchesService = !service || project.service.includes(service);
