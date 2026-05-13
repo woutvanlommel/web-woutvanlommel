@@ -244,7 +244,8 @@ export class PortfolioProjects implements OnInit {
   private metaService = inject(Meta);
   private cdr = inject(ChangeDetectorRef);
 
-  projects = this.projectsService.getProjects().filter((p) => p.status !== 'legacy');
+  allProjects = this.projectsService.getProjects();
+  cycleProjects = this.allProjects.filter((p) => p.status !== 'legacy');
   project: Project | undefined;
   nextProject: Project | undefined;
   prevProject: Project | undefined;
@@ -257,12 +258,18 @@ export class PortfolioProjects implements OnInit {
   }
 
   private updateProjectData(slug: string | null) {
-    const currentIndex = this.projects.findIndex((p) => p.slug === slug);
+    this.project = this.allProjects.find((p) => p.slug === slug);
 
-    if (currentIndex !== -1) {
-      this.project = this.projects[currentIndex];
-      this.prevProject = this.projects[currentIndex - 1];
-      this.nextProject = this.projects[currentIndex + 1];
+    const cycleIndex = this.cycleProjects.findIndex((p) => p.slug === slug);
+    if (cycleIndex !== -1) {
+      this.prevProject = this.cycleProjects[cycleIndex - 1];
+      this.nextProject = this.cycleProjects[cycleIndex + 1];
+    } else {
+      this.prevProject = undefined;
+      this.nextProject = undefined;
+    }
+
+    if (this.project) {
 
       this.titleService.setTitle(`Wout — ${this.project.title}`);
       this.metaService.updateTag({
@@ -272,10 +279,6 @@ export class PortfolioProjects implements OnInit {
 
       this.cdr.detectChanges();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      this.project = undefined;
-      this.prevProject = undefined;
-      this.nextProject = undefined;
     }
   }
 }

@@ -1,6 +1,14 @@
 import { Component, signal, inject, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { trigger, transition, style, animate, stagger, query, keyframes } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  stagger,
+  query,
+  keyframes,
+} from '@angular/animations';
 
 interface MenuItem {
   path: string;
@@ -24,20 +32,26 @@ interface MenuItem {
     ]),
     trigger('iconMorph', [
       transition('closed => open', [
-        animate('600ms ease', keyframes([
-          style({ transform: 'rotate(0deg) scale(1)',    offset: 0    }),
-          style({ transform: 'rotate(95deg) scale(0.65)', offset: 0.35 }),
-          style({ transform: 'rotate(188deg) scale(1.1)', offset: 0.8  }),
-          style({ transform: 'rotate(180deg) scale(1)',  offset: 1    }),
-        ])),
+        animate(
+          '600ms ease',
+          keyframes([
+            style({ transform: 'rotate(0deg) scale(1)', offset: 0 }),
+            style({ transform: 'rotate(95deg) scale(0.65)', offset: 0.35 }),
+            style({ transform: 'rotate(188deg) scale(1.1)', offset: 0.8 }),
+            style({ transform: 'rotate(180deg) scale(1)', offset: 1 }),
+          ]),
+        ),
       ]),
       transition('open => closed', [
-        animate('600ms ease', keyframes([
-          style({ transform: 'rotate(180deg) scale(1)',   offset: 0    }),
-          style({ transform: 'rotate(85deg) scale(0.65)', offset: 0.35 }),
-          style({ transform: 'rotate(-8deg) scale(1.1)',  offset: 0.8  }),
-          style({ transform: 'rotate(0deg) scale(1)',     offset: 1    }),
-        ])),
+        animate(
+          '600ms ease',
+          keyframes([
+            style({ transform: 'rotate(180deg) scale(1)', offset: 0 }),
+            style({ transform: 'rotate(85deg) scale(0.65)', offset: 0.35 }),
+            style({ transform: 'rotate(-8deg) scale(1.1)', offset: 0.8 }),
+            style({ transform: 'rotate(0deg) scale(1)', offset: 1 }),
+          ]),
+        ),
       ]),
     ]),
     trigger('itemsIn', [
@@ -57,15 +71,9 @@ interface MenuItem {
         ),
       ]),
       transition(':leave', [
-        query(
-          '.nav-item',
-          [
-            stagger(-30, [
-              animate('150ms ease-in', style({ opacity: 0 })),
-            ]),
-          ],
-          { optional: true },
-        ),
+        query('.nav-item', [stagger(-30, [animate('150ms ease-in', style({ opacity: 0 }))])], {
+          optional: true,
+        }),
       ]),
     ]),
   ],
@@ -114,7 +122,9 @@ interface MenuItem {
                 [style.transform]="isOpen() ? 'translateY(-6.5px) rotate(135deg)' : 'none'"
               ></span>
             </div>
-            <span class="text-xs font-semibold uppercase tracking-widest text-zinc-300 transition-colors duration-300 leading-none">
+            <span
+              class="text-xs font-semibold uppercase tracking-widest text-zinc-300 transition-colors duration-300 leading-none"
+            >
               {{ isOpen() ? 'Close' : 'Menu' }}
             </span>
           </button>
@@ -140,7 +150,7 @@ interface MenuItem {
                       >0{{ i + 1 }}</span
                     >
                     <span
-                      class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight group-hover:text-primary transition-colors duration-200"
+                      class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight group-hover:text-primary group-active:text-primary transition-colors duration-200"
                     >
                       {{ item.label }}
                     </span>
@@ -173,13 +183,13 @@ interface MenuItem {
                   woutvanlommel&#64;icloud.com
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/woutvanlommel"
                   target="_blank"
                   class="hover:text-zinc-300 transition-colors"
                   >LinkedIn</a
                 >
                 <a
-                  href="https://github.com"
+                  href="https://github.com/woutvanlommel"
                   target="_blank"
                   class="hover:text-zinc-300 transition-colors"
                   >GitHub</a
