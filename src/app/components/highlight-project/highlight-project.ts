@@ -7,25 +7,28 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   template: `
     <div class="w-full">
-      <!-- Section label — matches all other section headers -->
+      <!-- Section label -->
       <div class="border-b border-zinc-800/60 pb-6">
         <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">
           Uitgelicht project
         </span>
       </div>
 
-      <!-- Content row -->
-      <div class="w-full flex flex-col md:flex-row">
+      <!-- Hele content row navigeert via click -->
+      <a
+        [routerLink]="['/portfolio', projectSlug]"
+        class="w-full flex flex-col md:flex-row group cursor-pointer"
+      >
         <!-- Image -->
-        <div class="w-full md:w-1/2 h-64 md:h-auto relative overflow-hidden group">
+        <div class="w-full md:w-1/2 h-64 md:h-auto relative overflow-hidden">
           <img
             [src]="projectImage"
             [alt]="projectTitle"
-            class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+            class="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
           />
         </div>
 
-        <!-- Text — borders only on this side -->
+        <!-- Text -->
         <div
           class="w-full md:w-1/2 flex flex-col justify-between py-10 md:py-12 px-0 md:pl-12 gap-8 border-t border-b border-zinc-800/60 md:border-l md:border-zinc-800/60"
         >
@@ -41,13 +44,12 @@ import { RouterLink } from '@angular/router';
             <p class="text-zinc-500 text-sm leading-relaxed line-clamp-3">
               {{ projectDescription }}
             </p>
-            <a
-              [routerLink]="['/portfolio', projectSlug]"
-              class="inline-flex items-center gap-2 text-fake-white hover:text-primary transition-colors duration-200 font-medium text-sm group"
+            <div
+              class="inline-flex items-center gap-2 text-fake-white group-hover:text-primary transition-colors duration-200 font-medium text-sm"
             >
               Bekijk project
               <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
-            </a>
+            </div>
           </div>
 
           @if (techStack.length > 0) {
@@ -60,10 +62,9 @@ import { RouterLink } from '@angular/router';
             </div>
           }
         </div>
-      </div>
+      </a>
     </div>
   `,
-  styles: ``,
 })
 export class HighlightProject {
   @Input() projectTitle: string = '';
