@@ -5,33 +5,36 @@ import { ExpertiseService } from '../../shared/expertise.service';
   selector: 'app-over-waarom',
   imports: [],
   template: `
-    <section class="w-full py-16">
-      <div
-        class="w-full max-w-300 mx-auto px-6 md:px-16 lg:px-24 flex flex-col items-start justify-center space-y-4"
-      >
-        <h2 class="text-fake-white text-[clamp(2rem,2vw,2.5rem)] font-bold reveal">
-          Waarom voor mij kiezen<span class="text-primary">.</span>
-        </h2>
-        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
-          @for (benefit of Benefits; track benefit.id; let i = $index) {
-            <div
-              [class]="
-                'p-6 bg-black/50 rounded-lg border border-zinc-700 hover:border-primary transition-colors reveal reveal-delay-' +
-                ((i % 3) + 1) * 100
-              "
-            >
-              <p class="text-fake-white text-2xl font-bold">
-                {{ benefit.number }} <span class="text-primary">.</span>
-              </p>
-              <h3 class="text-primary text-xl font-normal uppercase">
-                {{ benefit.title }}
-              </h3>
-              <p class="text-zinc-400 text-sm">
-                {{ benefit.description }}
-              </p>
-            </div>
-          }
+    <section class="w-full px-6 md:px-16 lg:px-24 py-16">
+      <div class="w-full max-w-300 mx-auto">
+
+        <div class="border-b border-zinc-800/60 pb-6 reveal">
+          <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Waarom mij</span>
         </div>
+
+        <div class="py-16">
+          <h2 class="text-fake-white font-bold text-[clamp(2rem,3.5vw,4rem)] leading-none tracking-tight mb-12 reveal">
+            Waarom voor mij kiezen<span class="text-primary">.</span>
+          </h2>
+
+          <div class="border-t border-zinc-800/60">
+            @for (benefit of Benefits; track benefit.id; let i = $index) {
+              <div
+                [class]="
+                  'flex items-start gap-6 py-7 border-b border-zinc-800/60 reveal reveal-delay-' +
+                  ((i % 3) + 1) * 100
+                "
+              >
+                <span class="text-zinc-700 text-xs font-mono shrink-0 pt-1">{{ benefit.number }}</span>
+                <div class="flex flex-col gap-2">
+                  <span class="text-fake-white font-semibold text-lg leading-none">{{ benefit.title }}</span>
+                  <p class="text-zinc-500 text-sm leading-relaxed">{{ benefit.description }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
       </div>
     </section>
   `,

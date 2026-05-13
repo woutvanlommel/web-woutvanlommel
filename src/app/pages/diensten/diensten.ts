@@ -37,89 +37,118 @@ import { ExpertiseService } from '../../shared/expertise.service';
       ]),
     ]),
   ],
-  template: ` <div class="w-full pt-48 overflow-x-hidden relative">
-    <div class="w-full max-w-300 space-y-8 mx-auto z-10 relative px-6 md:px-16 lg:px-24 reveal">
-      <div class="text-center space-y-1">
-        <h1 class="text-fake-white font-bold text-[clamp(3rem,4vw,4rem)]">
-          Mijn Expertise<span class="text-primary">.</span>
-        </h1>
-        <h2 class="text-zinc-500 text-[clamp(2rem,2vw,2.5rem)]">
-          Van complexe backend tot pixel-perfecte frontend. Alles onder één dak.
-        </h2>
-      </div>
-    </div>
-    @if (expertises.length > 0) {
-      <div>
-        @for (expertise of expertises; track expertise.id; let isOdd = $odd) {
-          <div
-            [id]="expertise.slug"
-            class="w-full py-16 z-10 px-6 md:px-16 lg:px-24 reveal"
-            [class.bg-zinc-900/20]="isOdd"
-          >
-            <div
-              class="w-full max-w-300 mx-auto flex flex-col md:flex-row gap-8 justify-center items-center"
-              [class.md:flex-row-reverse]="isOdd"
-            >
-              <div
-                class="w-full md:w-1/2 flex flex-col gap-4 items-start justify-center text-fake-white"
-              >
-                <h2 class="font-semibold text-[clamp(2rem,2vw,3rem)]">
-                  {{ expertise.title }}
-                </h2>
-                <p class="text-zinc-400">{{ expertise.description }}</p>
-                <a
-                  class="text-fake-white font-bold group inline-flex items-center gap-2 mt-2 cursor-pointer"
-                  routerLink="/contact"
-                >
-                  {{ expertise.button }}
-                  <span class="text-primary group-hover:translate-x-1 transition-transform pt-0.5"
-                    >→</span
-                  >
-                </a>
-              </div>
-              <div class="w-full md:w-1/2">
-                <img [src]="expertise.image" [alt]="expertise.title" class="w-full" />
-              </div>
+  template: `
+    <div class="w-full overflow-x-hidden relative">
+
+      <!-- Hero -->
+      <section class="h-svh flex flex-col px-6 md:px-16 lg:px-24 relative overflow-hidden">
+        <div class="w-full max-w-300 mx-auto relative z-10 flex flex-col h-full">
+          <div class="flex-1 flex flex-col justify-center pt-24 md:pt-28 reveal">
+            <div class="border-b border-zinc-800/60 pb-4">
+              <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Mijn diensten</span>
+            </div>
+            <div class="py-5 md:py-6 border-b border-zinc-800/60">
+              <h1 class="text-fake-white font-bold text-[clamp(2.5rem,6vw,6rem)] leading-none tracking-tight">
+                Van idee naar<br /><span class="text-primary">werkende software</span><span class="text-fake-white">.</span>
+              </h1>
             </div>
           </div>
-        }
-      </div>
-    }
-    <div class="w-full">
-      <div class="w-full max-w-300 mx-auto px-6 md:px-16 lg:px-24 py-24 space-y-8">
-        <div class="border-b border-zinc-800/60 pb-6 reveal">
-          <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
-            >Werkwijze</span
-          >
+          <div class="py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 reveal">
+            <p class="text-zinc-500 text-sm max-w-md leading-relaxed">
+              Van complexe backend tot pixel-perfecte frontend. Alles onder één dak.
+            </p>
+            <div class="flex items-center gap-6 text-xs text-zinc-600 uppercase tracking-widest">
+              <a routerLink="/portfolio" class="hover:text-zinc-300 transition-colors duration-200">Portfolio</a>
+              <a routerLink="/over-mij" class="hover:text-zinc-300 transition-colors duration-200">Over mij</a>
+              <a routerLink="/contact" class="hover:text-zinc-300 transition-colors duration-200">Contact</a>
+            </div>
+          </div>
         </div>
-        <h2
-          class="text-fake-white font-bold text-[clamp(2rem,3vw,3rem)] leading-tight tracking-tight reveal"
-        >
-          Hoe we samenwerken<span class="text-primary">.</span>
-        </h2>
-        @if (workFlows.length > 0) {
-          <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            @for (workflow of workFlows; track workflow.id; let i = $index) {
+      </section>
+
+      <!-- Expertise sections -->
+      @if (expertises.length > 0) {
+        @for (expertise of expertises; track expertise.id; let i = $index; let isOdd = $odd) {
+          <section
+            [id]="expertise.slug"
+            class="w-full px-6 md:px-16 lg:px-24 py-16"
+          >
+            <div class="w-full max-w-300 mx-auto">
+
+              <div class="border-b border-zinc-800/60 pb-6 reveal">
+                <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">0{{ i + 1 }}</span>
+              </div>
+
               <div
-                [class]="
-                  'p-6 bg-zinc-900/50 ring-1 ring-zinc-800 hover:ring-zinc-600 rounded-lg space-y-3 transition-colors reveal reveal-delay-' +
-                  ((i % 4) + 1) * 100
-                "
+                [class]="'flex flex-col lg:flex-row gap-12 py-16 border-b border-zinc-800/60' + (isOdd ? ' lg:flex-row-reverse' : '')"
               >
-                <p class="text-3xl font-bold text-fake-white">
-                  {{ workflow.number }}<span class="text-primary">.</span>
-                </p>
-                <h3 class="text-xs font-semibold uppercase tracking-widest text-zinc-500">
-                  {{ workflow.title }}
-                </h3>
-                <p class="text-zinc-400 text-sm leading-relaxed">{{ workflow.description }}</p>
+                <div class="w-full lg:w-3/5 flex flex-col gap-8 reveal reveal-delay-200">
+                  <h2 class="text-fake-white font-bold text-[clamp(2rem,3.5vw,4rem)] leading-none tracking-tight">
+                    {{ expertise.title }}<span class="text-primary">.</span>
+                  </h2>
+                  <p class="text-zinc-500 leading-relaxed">{{ expertise.description }}</p>
+                  <a
+                    routerLink="/contact"
+                    class="inline-flex items-center gap-3 bg-primary hover:bg-primary/85 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 text-sm w-fit"
+                  >
+                    {{ expertise.button }} →
+                  </a>
+                </div>
+
+                <div class="w-full lg:w-2/5 reveal">
+                  <img
+                    [src]="expertise.image"
+                    [alt]="expertise.title"
+                    class="w-full"
+                  />
+                </div>
+              </div>
+
+            </div>
+          </section>
+        }
+      }
+
+      <!-- Workflow -->
+      <section class="w-full px-6 md:px-16 lg:px-24 py-16">
+        <div class="w-full max-w-300 mx-auto">
+
+          <div class="border-b border-zinc-800/60 pb-6 reveal">
+            <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Werkwijze</span>
+          </div>
+
+          <div class="py-16">
+            <h2 class="text-fake-white font-bold text-[clamp(2rem,3.5vw,4rem)] leading-none tracking-tight mb-12 reveal">
+              Hoe we samenwerken<span class="text-primary">.</span>
+            </h2>
+
+            @if (workFlows.length > 0) {
+              <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                @for (workflow of workFlows; track workflow.id; let i = $index) {
+                  <div
+                    [class]="
+                      'p-6 bg-zinc-900/50 ring-1 ring-zinc-800 hover:ring-zinc-600 rounded-lg space-y-3 transition-colors reveal reveal-delay-' +
+                      ((i % 4) + 1) * 100
+                    "
+                  >
+                    <p class="text-3xl font-bold text-fake-white">
+                      {{ workflow.number }}<span class="text-primary">.</span>
+                    </p>
+                    <h3 class="text-xs font-semibold uppercase tracking-widest text-zinc-500">
+                      {{ workflow.title }}
+                    </h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">{{ workflow.description }}</p>
+                  </div>
+                }
               </div>
             }
           </div>
-        }
-      </div>
+
+        </div>
+      </section>
+
     </div>
-  </div>`,
+  `,
   styles: ``,
 })
 export class Diensten implements AfterViewInit, OnInit {

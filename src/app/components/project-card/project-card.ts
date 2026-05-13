@@ -41,6 +41,14 @@ import { RouterLink } from '@angular/router';
         >
           {{ service.join(' & ') }}
         </span>
+        @if (status === 'legacy') {
+          <span
+            class="absolute top-3 right-3 inline-flex items-center gap-1.5 text-zinc-400 bg-black/70 backdrop-blur-sm tracking-widest text-[10px] py-1 px-3 border border-zinc-700/60 rounded-full uppercase"
+          >
+            <span class="w-1 h-1 rounded-full bg-zinc-500 inline-block"></span>
+            Legacy
+          </span>
+        }
       </div>
 
       <!-- Content -->
@@ -85,4 +93,5 @@ export class ProjectCard {
   @Input() projectSlug: string = '';
   @Input() service: string[] = [];
   @Input() techStack: string[] = [];
+  @Input() status: string | undefined = undefined;
 }

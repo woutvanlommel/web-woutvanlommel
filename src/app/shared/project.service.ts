@@ -92,6 +92,10 @@ export class ProjectService {
     return this.projects.find((project) => project.highlight);
   }
 
+  getLegacyProjects() {
+    return this.projects.filter((project) => project.status === 'legacy');
+  }
+
   getUniqueServices(): string[] {
     // service is nu string[] dus we flattten eerst voor unieke waarden
     const all = this.projects.flatMap((project) => project.service);
