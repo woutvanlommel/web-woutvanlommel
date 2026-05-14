@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Skills } from '../skills/skills';
 
 @Component({
   selector: 'app-over-home',
-  imports: [RouterLink, Skills],
+  imports: [RouterLink],
   template: `
     <section class="w-full px-6 md:px-16 lg:px-24 py-16">
       <div class="w-full max-w-300 mx-auto">
@@ -76,18 +75,6 @@ import { Skills } from '../skills/skills';
             >
               Meer over mij →
             </a>
-          </div>
-        </div>
-
-        <!-- Skills -->
-        <div class="pt-12 reveal">
-          <div class="border-b border-zinc-800/60 pb-6 mb-0">
-            <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
-              >Tech stack</span
-            >
-          </div>
-          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-            <app-skills></app-skills>
           </div>
         </div>
 
