@@ -1,5 +1,6 @@
 import { Component, output } from '@angular/core';
 import { ProjectService } from '../../shared/project.service';
+import { ProjectService as ProjectServiceType } from '../../models/project.model';
 
 @Component({
   selector: 'app-zoekbalk',
@@ -30,9 +31,9 @@ import { ProjectService } from '../../shared/project.service';
 })
 export class Zoekbalk {
   searchChange = output<string>();
-  serviceChange = output<string>();
+  serviceChange = output<ProjectServiceType | ''>();
 
-  services: string[] = [];
+  services: ProjectServiceType[] = [];
 
   constructor(private projectService: ProjectService) {
     this.services = this.projectService.getUniqueServices();
@@ -44,7 +45,7 @@ export class Zoekbalk {
   }
 
   onServiceChange(event: Event) {
-    const value = (event.target as HTMLSelectElement).value;
+    const value = (event.target as HTMLSelectElement).value as ProjectServiceType | '';
     this.serviceChange.emit(value);
   }
 }

@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Zoekbalk } from '../../components/zoekbalk/zoekbalk';
 import { HighlightProject } from '../../components/highlight-project/highlight-project';
 import { ProjectService } from '../../shared/project.service';
+import { ProjectService as ProjectServiceType } from '../../models/project.model';
 import { ProjectCard } from '../../components/project-card/project-card';
 
 @Component({
@@ -170,7 +171,7 @@ export class Portfolio implements OnInit, OnDestroy {
   legacyProjects = this.projectService.getLegacyProjects();
 
   searchTerm = signal('');
-  selectedService = signal('');
+  selectedService = signal<ProjectServiceType | ''>('');
   currentPage = signal(1);
   itemsPerPage = signal(6);
 
@@ -211,7 +212,7 @@ export class Portfolio implements OnInit, OnDestroy {
     this.currentPage.set(1);
   }
 
-  onServiceChange(service: string) {
+  onServiceChange(service: ProjectServiceType | '') {
     this.selectedService.set(service);
     this.currentPage.set(1);
   }

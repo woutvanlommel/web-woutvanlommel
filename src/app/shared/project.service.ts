@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../models/project.model';
+import { Project, ProjectService as ProjectServiceType } from '../models/project.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,19 +9,19 @@ export class ProjectService {
     {
       id: 1,
       client: 'JRK Herckenrode',
-      title: 'Jeugdbeweging Community Hub',
+      title: 'Digitaal Platform voor de Jeugdbeweging',
       slug: 'jrk-herckenrode-jeugdbeweging-platform',
-      subTitle: 'Custom CMS & Digitale Continuïteit',
-      service: ['CMS Development'],
+      subTitle: 'Op maat CMS & digitale continuïteit',
+      service: ['Platform ontwikkeling'],
       year: 2026,
       image: '/assets/img/projects/jrkherckenrode.png',
       content: {
         context:
-          "De website van de jeugdbeweging was een 'black box': alle technische kennis lag bij één persoon. Bij het vertrek van deze leiding dreigde de online aanwezigheid stil te vallen — de rest van de ploeg was afhankelijk van externe hulp voor elke kleine aanpassing.",
+          'De website van de jeugdbeweging was een black box: alle technische kennis zat bij één persoon. Toen die leiding vertrok, dreigde de online werking stil te vallen, de rest van de ploeg kon zonder externe hulp geen enkele aanpassing doorvoeren.',
         approach:
-          'Een custom WordPress theme waarbij de backend volledig is afgestemd op een wisselende leidingsploeg. Complexe functies zijn geabstraheerd naar eenvoudige invoervelden, zodat de leiding nu zelfstandig de kalender, kampinformatie en inschrijvingen beheert.',
+          'Een custom WordPress-thema met een backend die volledig is afgestemd op een wisselende leidingsploeg. Complexe functionaliteit is vertaald naar eenvoudige invoervelden, zodat de leiding zelfstandig de kalender, kampinformatie en inschrijvingen beheert.',
         result:
-          'De organisatie is technisch zelfstandig: nieuwe leiding kan de website overnemen zonder enige ontwikkelaarshulp.',
+          'De organisatie is technisch zelfstandig geworden: nieuwe leiding neemt de website over zonder ontwikkelaarshulp.',
       },
       link: 'https://www.jrkherckenrode.be',
       githubLink: 'https://github.com/jouw-username/jrk-theme',
@@ -32,19 +32,19 @@ export class ProjectService {
     {
       id: 2,
       client: 'NextGenMedia',
-      title: 'High-Performance Showcase Platform',
+      title: 'Snel en schaalbaar presentatieplatform',
       slug: 'digital-agency-rebranding-nextgenmedia',
-      subTitle: 'Brand-Consistent Custom CMS',
-      service: ['CMS Development'],
+      subTitle: 'Merkconsistent op maat CMS',
+      service: ['Platform ontwikkeling'],
       year: 2026,
       image: '/assets/img/projects/nextgenmedia.png',
       content: {
         context:
-          "NextGenMedia had een verouderde webstructuur die de groei van hun portfolio belemmerde. Een omslachtig beheerproces en het ontbreken van visuele kaders zorgden voor een 'content-stilstand': de website werd nauwelijks nog bijgewerkt.",
+          'NextGenMedia had een verouderde websitestructuur die de groei van hun portfolio afremde. Een omslachtig beheerproces en het ontbreken van visuele kaders zorgden voor stilstand: de site werd amper nog bijgewerkt.',
         approach:
-          "Een volledig custom WordPress-ecosysteem met een modulair Field-First systeem via ACF. Het team publiceert complexe pagina's via eenvoudige invoervelden, terwijl de huisstijl hardcoded in de architectuur zit — visuele consistentie gegarandeerd, ongeacht wie content plaatst.",
+          "Een volledig custom WordPress-ecosysteem met een modulair, veldgestuurd systeem via ACF. Het team publiceert complexe pagina's via eenvoudige invoervelden, terwijl de huisstijl in de architectuur verankerd zit, visuele consistentie is gegarandeerd, ongeacht wie er content plaatst.",
         result:
-          'De publicatietijd werd drastisch ingekort en de website wordt opnieuw actief onderhouden.',
+          'De publicatietijd is drastisch gedaald en de website wordt opnieuw actief onderhouden.',
       },
       githubLink: 'https://github.com/jouw-username/nextgen-theme',
       techStack: ['PHP', 'Javascript', 'CSS3', 'WordPress'],
@@ -55,19 +55,19 @@ export class ProjectService {
     {
       id: 3,
       client: 'LaRoLo',
-      title: 'Land Rover Specialist Showcase',
+      title: 'Website voor Land Rover Specialist',
       slug: 'land-rover-restauratie-verkoop-larolo',
-      subTitle: 'Custom Theme Architecture & Lead Gen',
-      service: ['CMS Development'],
+      subTitle: 'Vakmanschap in de kijker & leadgeneratie centraal',
+      service: ['Platform ontwikkeling'],
       year: 2026,
       image: '/assets/img/projects/larolo.png',
       content: {
         context:
-          'Na meer dan 25 jaar ervaring startte Larolo als zelfstandig Land Rover specialist. Voor een ondernemer die staat voor totale ontzorging van zijn klanten, was een website die hemzelf kopzorgen gaf geen optie.',
+          'Na meer dan 25 jaar ervaring startte Larolo als zelfstandig Land Rover-specialist. Voor een ondernemer die zijn klanten volledig wil ontzorgen, was een website die hemzelf kopzorgen bezorgde geen optie.',
         approach:
-          'Een custom WordPress theme volledig geoptimaliseerd voor tekst- en foto-invoer, zodat nieuwe voertuigen razendsnel online staan. Het systeem dwingt een luxe, consistente presentatie af die past bij 25 jaar expertise.',
+          'Een custom WordPress-thema volledig geoptimaliseerd voor snelle tekst- en foto-invoer, zodat nieuwe voertuigen razendsnel online staan. Het systeem dwingt een luxueuze, consistente presentatie af die past bij 25 jaar expertise.',
         result:
-          'Larolo beheert zijn volledige online stockbeheer zelfstandig en kan zich focussen op verkoop.',
+          'Larolo beheert zijn volledige online voorraad zelfstandig en kan zich focussen op verkoop.',
       },
       link: 'https://www.larolo.be',
       githubLink: 'https://github.com/jouw-username/larolo-custom',
@@ -81,19 +81,28 @@ export class ProjectService {
       client: 'Iduna Kermt',
       title: 'Iduna Kermt Beheerplatform',
       slug: 'iduna-kermt-filament-dashboard',
-      subTitle: 'Filament Dashboard & Website Onderhoud',
-      service: ['Dashboard Development', 'Onderhoud'],
+      subTitle: 'Filament Dashboard, Cadeaubonnen & Website Onderhoud',
+      service: ['Platform ontwikkeling', 'Onderhoud'],
       year: 2026,
       image: '/assets/img/projects/idunakermt.png',
       content: {
         context:
-          'De zaakvoerster wilde openingsuren en het behandelingsaanbod zelfstandig kunnen aanpassen zonder telkens een developer te contacteren. Elke kleine wijziging vereiste technische tussenkomst.',
+          'Wat begon als technische onderhoudsondersteuning groeide stap voor stap uit tot een modulair platform. Eerst kwam er een reviews-module die rechtstreeks de beoordelingen van Google ophaalt en toont op de website, gevolgd door een cadeaubonnenmodule waarmee klanten ook buiten de openingsuren een cadeaubon kunnen bestellen.',
         approach:
-          'Laravel + Filament: een op maat beheerpaneel waarmee openingsuren en behandelingen direct en intuïtief aangepast worden. Gecombineerd met doorlopend technisch onderhoud voor een stabiele website.',
-        result: 'De zaakvoerster past haar aanbod zelfstandig aan in minder dan twee minuten.',
+          'Laravel + Filament: een op maat gebouwd beheerpaneel dat we modulair blijven uitbreiden. Behandelingen en openingsuren worden centraal beheerd, de reviews-module haalt automatisch de Google-beoordelingen binnen en de cadeaubonnenmodule verwerkt bestellingen zelfs wanneer de winkel gesloten is — dit alles gekoppeld aan doorlopend technisch onderhoud.',
+        result:
+          'Elke nieuwe module bouwt verder op de vorige: van eenvoudige onderhoudsondersteuning naar een groeiend beheerplatform. Zo werken we modulair verder naar een mini-ERP-systeem in de toekomst op maat van Iduna Kermt.',
       },
       link: 'https://www.idunakermt.be',
-      techStack: ['Laravel', 'Filament', 'PHP', 'Tailwind CSS', 'MySQL'],
+      techStack: [
+        'Laravel',
+        'Livewire',
+        'Google Cloud Console',
+        'Filament',
+        'PHP',
+        'Tailwind CSS',
+        'MySQL',
+      ],
       highlight: true,
       production: true,
       status: 'active',
@@ -101,21 +110,29 @@ export class ProjectService {
     {
       id: 5,
       client: 'Customflow',
-      title: 'Textiel Order Management Platform',
+      title: 'Textiel Orderplatform voor Overflow-Orders',
       slug: 'customflow-textiel-order-management',
-      subTitle: 'Excel Upload & Productie Parser',
-      service: ['Dashboard Development', 'E-commerce'],
+      subTitle: 'Externe API-Koppelingen & automatische orderverwerking',
+      service: ['Platform ontwikkeling', 'E-commerce'],
       year: 2026,
       image: '',
       content: {
         context:
-          'Textielbedrijven ontvangen grote ordervolumes in wisselende Excel-formaten met namen, maten en hoeveelheden. Het handmatig omzetten naar een productieklare structuur was tijdrovend en foutgevoelig.',
+          'Textieldrukkers krijgen soms meer grootorders binnen dan ze zelf kunnen verwerken. Van bijvoorbeeld tien grootorders raken er in twee weken tijd maar vijf verwerkt, de overige vijf moeten ze uitstellen of gewoon weigeren.',
         approach:
-          'Een webapplicatie waarbij medewerkers Excel-bestanden uploaden die automatisch worden geparsed naar een gestandaardiseerde, productieklare structuur.',
+          "Een platform volledig vanaf nul gebouwd waarop textieldrukkers hun overflow-orders kunnen plaatsen. Een externe API-integratie haalt de actuele stockvoorraad op, een tweede verwerkt de orders richting productie. Daartussen gebeurt alles op het platform zelf: orders worden opgebouwd, afbeeldingen en logo's rechtstreeks aangeleverd en de namen voor op de truien, t-shirts,... vanuit een Excel-achtige template automatisch verwerkt tot een gestructureerd JSON-formaat.",
         result:
-          'Manuele verwerking geëlimineerd, foutenpercentage in het productieproces sterk gereduceerd.',
+          'De orders die drukkers zelf niet verwerkt krijgen, worden nu via het platform alsnog binnen dezelfde termijn afgehandeld, zonder dat ze klanten moeten doorverwijzen of orders moeten weigeren.',
       },
-      techStack: ['Laravel', 'PHP', 'Tailwind CSS', 'MySQL'],
+      techStack: [
+        'Laravel',
+        'Livewire',
+        'Filament',
+        'API-koppeling',
+        'PHP',
+        'Tailwind CSS',
+        'MySQL',
+      ],
       highlight: false,
       production: true,
       status: 'ongoing',
@@ -123,22 +140,43 @@ export class ProjectService {
     {
       id: 6,
       client: 'Flowlabs',
-      title: 'Flowlabs Automation Platform',
+      title: 'Flowlabs Automatiseringsplatform',
       slug: 'flowlabs-automation-platform',
-      subTitle: 'API Integraties, Scraping & AI-inzichten',
-      service: ['SaaS Development', 'Automation'],
+      subTitle: 'API-Integraties, Scraping & AI-Inzichten',
+      service: ['SaaS ontwikkeling', 'Automatisatie'],
       year: 2026,
       image: '/assets/img/projects/flowlabs.png',
       content: {
         context:
-          'Bedrijven verliezen dagelijks uren aan repetitieve taken: data ophalen uit meerdere bronnen, manueel rapporten opstellen, leads opvolgen zonder systeem. De behoefte aan een schaalbare automatiseringslaag was duidelijk.',
+          'Bedrijven verliezen dagelijks uren aan repetitieve taken: data ophalen uit meerdere bronnen, manueel rapporten opstellen, leads opvolgen zonder systeem. De nood aan een schaalbare automatiseringslaag was duidelijk.',
         approach:
-          'Flowlabs is mijn eigen automation- en integratiebedrijf, draaiende op een VPS in Docker. Ik bouw GA4-rapporten, scraping flows, automatische e-mails, API-integraties en AI-gestuurde inzichten die als terugkerende service worden aangeboden aan klanten.',
-        result:
-          'Actieve klanten besparen gemiddeld meerdere uren per week op data- en rapportagetaken.',
+          'Flowlabs is mijn eigen digitaal automatisatiebedrijf, draaiend op een VPS in Docker. We bouwen automatisaties in Python, denk aan sms-automatisatie, orderverwerking en gelijkaardige processen, aangeboden als terugkerende dienst aan klanten.',
+        result: 'Actieve klanten besparen gemiddeld meerdere uren per week op manuele taken.',
       },
       link: 'https://www.flowlabs.be',
-      techStack: ['Laravel', 'PHP', 'Docker', 'PostgreSQL', 'TypeScript'],
+      techStack: ['Python', 'Laravel', 'PHP', 'Docker', 'PostgreSQL', 'TypeScript'],
+      highlight: false,
+      production: true,
+      status: 'active',
+    },
+    {
+      id: 7,
+      client: 'Sportschool Hasselt',
+      title: 'Automatische Orderverwerking Sportkledij',
+      slug: 'sportschool-hasselt-shopify-orderautomatisatie',
+      subTitle: 'Shopify-Koppeling & Automatische Orderverwerking',
+      service: ['Automatisatie'],
+      year: 2026,
+      image: '/assets/img/projects/sportschoolhasselt.png',
+      content: {
+        context:
+          'Scholieren bestellen hun sportkledij via een Shopify-webshop, maar de opvolging gebeurde manueel: om de twee weken moest iemand nakijken welke bestellingen bij de eerstvolgende ophaalronde van de productiepartner hoorden.',
+        approach:
+          'Een integratie op de Shopify-website die orders via een webhook opvangt en rechtstreeks doorkoppelt met de API van de productiepartner. Eén doorlopende flow: een bestelling wordt automatisch gekoppeld aan het eerstvolgende ophaalmoment, zonder manuele tussenkomst.',
+        result:
+          'De verantwoordelijke hoeft niet langer om de twee weken orders na te kijken, alles wordt automatisch verwerkt en de kledij ligt op tijd klaar op school.',
+      },
+      techStack: ['Python', 'Shopify API', 'Webhooks', 'Externe API', 'Zoho + Zepto Mail'],
       highlight: false,
       production: true,
       status: 'active',
@@ -157,7 +195,7 @@ export class ProjectService {
     return this.projects.filter((project) => project.status === 'legacy');
   }
 
-  getUniqueServices(): string[] {
+  getUniqueServices(): ProjectServiceType[] {
     const all = this.projects.flatMap((project) => project.service);
     return [...new Set(all)];
   }
