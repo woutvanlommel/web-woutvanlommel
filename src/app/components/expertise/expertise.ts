@@ -47,9 +47,21 @@ interface ExpertiseItem {
 })
 export class Expertise {
   protected readonly expertiseItems: ExpertiseItem[] = [
-    { title: 'Maatwerk webapplicaties', sub: 'Van intern dashboard tot complete SaaS', slug: 'webapps' },
-    { title: 'Flexibele Websites & CMS', sub: 'Snel, vindbaar en makkelijk te beheren', slug: 'websites' },
-    { title: 'API-koppelingen', sub: 'Laat jouw systemen naadloos samenwerken', slug: 'api' },
+    {
+      title: 'Maatwerk webapplicaties',
+      sub: 'Van intern dashboard tot complete SaaS',
+      slug: 'webapps',
+    },
+    {
+      title: 'Flexibele Websites & CMS',
+      sub: 'Snel, vindbaar en makkelijk te beheren',
+      slug: 'websites',
+    },
+    {
+      title: 'Automatisatie',
+      sub: 'Laat jouw systemen naadloos samenwerken',
+      slug: 'automatisatie',
+    },
     { title: 'Support & Onderhoud', sub: 'Updates, beveiliging en performantie', slug: 'support' },
   ];
 }

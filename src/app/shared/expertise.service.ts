@@ -28,12 +28,13 @@ export class ExpertiseService {
     },
     {
       id: 3,
-      slug: 'api',
+      slug: 'automatisatie',
       title: 'Koppelingen & Automatisaties',
       description:
         'Typ je nog handmatig data over? Dat is verleden tijd. Ik koppel jouw favoriete tools (zoals CRM, boekhouding of betaalsystemen) naadloos aan elkaar. Door slimme API-integraties automatiseer ik foutgevoelig werk, zodat jij je kunt focussen op wat echt telt: ondernemen.',
       button: 'Automatiseer je werk',
       image: '/assets/img/expertises/koppelingen.png',
+      link: 'https://flowlabs.be',
     },
     {
       id: 4,

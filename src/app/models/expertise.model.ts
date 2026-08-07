@@ -5,6 +5,7 @@ export interface Expertise {
   description: string;
   button: string;
   image: string;
+  link?: string;
 }
 
 export interface WorkFlow {
