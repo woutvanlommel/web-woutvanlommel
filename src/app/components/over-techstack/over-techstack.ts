@@ -7,15 +7,18 @@ import { SkillsService } from '../../shared/skills.service';
   template: `
     <section class="w-full px-6 md:px-16 lg:px-24 py-16">
       <div class="w-full max-w-300 mx-auto">
-
         <div class="border-b border-zinc-800/60 pb-6 reveal">
-          <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">Tech stack</span>
+          <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600"
+            >Tech stack</span
+          >
         </div>
 
         <div class="flex flex-col lg:flex-row gap-16 py-16 border-b border-zinc-800/60">
           <div class="w-full lg:w-3/5 space-y-8 reveal">
             <div>
-              <h2 class="text-fake-white font-bold text-[clamp(2rem,3.5vw,4rem)] leading-none tracking-tight">
+              <h2
+                class="text-fake-white font-bold text-[clamp(2rem,3.5vw,4rem)] leading-none tracking-tight"
+              >
                 De tools die ik gebruik<span class="text-primary">.</span>
               </h2>
               <p class="text-zinc-500 leading-relaxed mt-4">
@@ -28,7 +31,9 @@ import { SkillsService } from '../../shared/skills.service';
                 @if (category.skills.length > 0) {
                   <div class="space-y-4">
                     <div class="border-b border-zinc-800/60 pb-3">
-                      <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">{{ category.title }}</span>
+                      <span class="text-xs font-semibold uppercase tracking-widest text-zinc-600">{{
+                        category.title
+                      }}</span>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                       @for (skill of category.skills; track skill.name; let i = $index) {
@@ -66,7 +71,6 @@ import { SkillsService } from '../../shared/skills.service';
             </div>
           </div>
         </div>
-
       </div>
     </section>
   `,
@@ -86,6 +90,10 @@ export class OverTechstack {
     { key: 'codingStyle', value: '"Clean & Scalable"' },
     { key: 'sociaal', value: 'true' },
     { key: 'coffee', value: '"Black"' },
-    { key: 'currentFocus', value: 'Becoming a FullStack Developer' },
+    { key: 'role', value: '"FullStack Developer"' },
+    { key: 'currentFocus', value: '"Automation-first development"' },
+    { key: 'deploysOnFriday', value: 'false' },
+    { key: 'sleepSchedule', value: 'null' },
+    { key: 'location', value: '"Hasselt, België"' },
   ];
 }
